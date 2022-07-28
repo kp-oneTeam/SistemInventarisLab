@@ -1537,7 +1537,7 @@ h6 .badge {
   left: 0;
   width: 100%;
   height: 115px;
-  background-color: #6777ef;
+  background-color: #ffa426;
   z-index: -1; }
 
 .navbar {
@@ -2814,7 +2814,7 @@ body.layout-3 .main-footer {
       .main-sidebar .sidebar-menu li a:hover {
         background-color: #f8fafb; }
     .main-sidebar .sidebar-menu li.active a {
-      color: #6777ef;
+      color: #ffa426;
       font-weight: 600;
       background-color: #f8fafb; }
       .main-sidebar .sidebar-menu li.active a.has-dropdown:after {
@@ -2908,7 +2908,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu > li.active > a {
     transform: translateY(-50%);
     height: 25px;
     width: 4px;
-    background-color: #6777ef; }
+    background-color: #ffa426; }
 
 body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-menu li a {
   padding-left: 61px;

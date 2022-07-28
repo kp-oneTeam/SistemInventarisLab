@@ -18,3 +18,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::get('/barang',[BarangController::class,'index']);
+Route::post('tambah/barang', [BarangController::class, 'tambah_barang']);
+Route::delete('hapus/barang/{id}', [BarangController::class, 'hapus_barang']);
+Route::get('detail/barang/{id}', [BarangController::class, 'detail_barang']);

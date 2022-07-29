@@ -56,7 +56,7 @@
                                     <th>No</th>
                                     <th>Kode Barang</th>
                                     <th>Nama Barang</th>
-                                    <th>Action</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

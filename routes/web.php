@@ -20,9 +20,12 @@ Route::get('/', function () {
 });
 Route::get('/barang',[BarangController::class,'index']);
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::post('tambah/barang', [BarangController::class, 'tambah_barang']);
 Route::delete('hapus/barang/{id}', [BarangController::class, 'hapus_barang']);
 Route::get('detail/barang/{id}', [BarangController::class, 'detail_barang']);
 Route::get('/ruangan',[RuanganController::class,'index']);
+=======
+>>>>>>> parent of be54e24 (Front End Manajemen Data Barang)
 =======
 >>>>>>> parent of be54e24 (Front End Manajemen Data Barang)

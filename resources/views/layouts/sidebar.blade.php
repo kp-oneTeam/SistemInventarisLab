@@ -18,7 +18,7 @@
             <li class="@yield('barang')"><a class="nav-link" href="{{ url('barang') }}"><i
                         class="fas fa-archive"></i> <span>Barang</span></a></li>
             <li class="menu-header">Manajemen Ruangan</li>
-            <li class="@yield('inventaris')"><a class="nav-link" href="{{ url('admin/vendor') }}"><i
+            <li class="@yield('inventaris')"><a class="nav-link" href="{{ url('ruangan') }}"><i
                         class="fas fa-door-open"></i> <span>Ruangan</span></a></li>
             <li class="menu-header">Manajemen Inventaris</li>
              <li class="@yield('vendor')"><a class="nav-link" href="{{ url('admin/vendor') }}"><i

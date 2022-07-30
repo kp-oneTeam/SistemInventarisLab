@@ -62,7 +62,6 @@
                                                 <form method="POST" action="{{ url('hapus/barang/1') }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{ url('detail/barang/1') }}" class="btn btn-sm btn-icon icon-left btn-info"><i class="far fa-eye"></i> Detail</a>
                                                 <a href="{{ url('edit/barang/1') }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Edit</a>
                                                 <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title='Delete'><i class="fas fa-trash"></i>Delete</button>
                                                 </form>
@@ -77,4 +76,26 @@
             </div>
         </section>
 @include('layouts.sweatalert')
+<script>
+    $(document).ready(function(){
+    $('#myTable').DataTable();
+    });
+</script>
+<script type="text/javascript">
+     $('.show_confirm').click(function(event) {
+          var form =  $(this).closest("form");
+          var name = $(this).data("name");
+          event.preventDefault();
+          Swal.fire({
+            title: 'Apakah Anda Yakin Akan Menghapus Data?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        })
+      });
+</script>
 @endsection

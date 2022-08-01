@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\RuanganController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,4 @@ Route::post('tambah/barang', [BarangController::class, 'tambah_barang']);
 Route::delete('hapus/barang/{id}', [BarangController::class, 'hapus_barang']);
 Route::get('detail/barang/{id}', [BarangController::class, 'detail_barang']);
 Route::get('/ruangan',[RuanganController::class,'index']);
+Route::get('/peminjaman',[PeminjamanController::class,'index']);

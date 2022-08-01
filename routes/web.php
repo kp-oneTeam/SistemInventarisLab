@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\RuanganController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,4 @@ Route::post('tambah/inventaris', [InventarisController::class, 'tambah_inventari
 Route::get('edit/inventaris/{id}', [InventarisController::class, 'form_ubah_inventaris']);
 Route::delete('hapus/inventaris/{id}', [InventarisController::class, 'hapus_inventaris']);
 Route::get('laporan',[LaporanController::class,'index']);
+Route::get('peminjaman',[PeminjamanController::class,'index']);

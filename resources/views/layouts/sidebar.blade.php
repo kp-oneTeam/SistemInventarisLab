@@ -24,7 +24,7 @@
                     class="fas fa-tags"></i> <span>Vendor</span></a></li>
             <li class="@yield('inventaris')"><a class="nav-link" href="{{ url('inventaris') }}"><i
                         class="fas fa-boxes"></i> <span>Inventaris</span></a></li>
-            <li class="@yield('peminjaman')"><a class="nav-link" href="{{ url('admin/barang') }}"><i
+            <li class="@yield('peminjaman')"><a class="nav-link" href="{{ url('peminjaman') }}"><i
                         class="fas fa-people-carry"></i> <span>Peminjaman</span></a></li>
             <li class="menu-header">Laporan</li>
             <li class="@yield('laporan')"><a class="nav-link" href="{{ url('laporan') }}"><i

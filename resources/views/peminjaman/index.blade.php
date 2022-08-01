@@ -1,12 +1,12 @@
 @extends('layouts.master')
-@section('ruangan','active')
+@section('peminjaman', 'active')
 @section('content')
 <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
         <div class="modal-header bg-warning text-white">
-            <h5 class="modal-title" id="exampleModalLabel">Form Data Ruangan</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Form Data Peminjaman</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -15,11 +15,11 @@
             <form action="{{ url('tambah/barang') }}" method="post">
                 @csrf
                 <div class="form-group">
-                    <label for="">Nama Ruangan</label>
+                    <label for="">Nama/Alat & Acc</label>
                     <input type="text" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="">Gedung</label>
+                    <label for="">Tujuan dan Kepentingan</label>
                     <input type="text" class="form-control">
                 </div>
         </div>
@@ -33,13 +33,13 @@
     </div>
         <section class="section">
             <div class="section-header">
-                <h1>Data Ruangan</h1>
+                <h1>Data Peminjaman</h1>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="text-warning">Table Ruangan</h4>
+                            <h4 class="text-warning">Table Peminjaman</h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
@@ -54,8 +54,10 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Ruangan</th>
-                                            <th>Gedung</th>
+                                            <th>Nama/Alata & Acc</th>
+                                            <th>Tujuan dan Kepentingan</th>
+                                            <th>Tgl Pinjam</th>
+                                            <th>Tgl Kembali</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -65,8 +67,10 @@
                                         @endphp
                                         <tr>
                                             <td>1</td>
-                                            <td>3.1</td>
-                                            <td>FSI</td>
+                                            <td>Camera</td>
+                                            <td>Acara Fakultas</td>
+                                            <td>12 Agustus 2022</td>
+                                            <td>17 Agustus 2022</td>
                                             <td>
                                                 <form method="POST" action="{{ url('hapus/barang/1') }}">
                                                 @csrf

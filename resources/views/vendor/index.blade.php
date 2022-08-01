@@ -1,25 +1,21 @@
 @extends('layouts.master')
-@section('ruangan','active')
+@section('vendor','active')
 @section('content')
 <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
         <div class="modal-header bg-warning text-white">
-            <h5 class="modal-title" id="exampleModalLabel">Form Data Ruangan</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Form Data Vendor</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <form action="{{ url('tambah/ruangan') }}" method="post">
+            <form action="{{ url('tambah/vendor') }}" method="post">
                 @csrf
                 <div class="form-group">
-                    <label for="">Nama Ruangan</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">Gedung</label>
+                    <label for="">Nama Vendor</label>
                     <input type="text" class="form-control">
                 </div>
         </div>
@@ -33,17 +29,17 @@
     </div>
         <section class="section">
             <div class="section-header">
-                <h1>Data Ruangan</h1>
+                <h1>Data Vendor</h1>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="text-warning">Table Ruangan</h4>
+                            <h4 class="text-warning">Table Vendor</h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ url('tambah/ruangan') }}" class="btn btn-warning mr-2" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Data</a>
+                                        <a href="{{ url('tambah/vendor') }}" class="btn btn-warning mr-2" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Data</a>
                                     </div>
                                 </form>
                             </div>
@@ -54,8 +50,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Ruangan</th>
-                                            <th>Gedung</th>
+                                            <th>Nama Vendor</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -65,8 +60,7 @@
                                         @endphp
                                         <tr>
                                             <td>1</td>
-                                            <td>3.1</td>
-                                            <td>FSI</td>
+                                            <td>Logitech</td>
                                             <td>
                                                 <form method="POST" action="{{ url('hapus/barang/1') }}">
                                                 @csrf

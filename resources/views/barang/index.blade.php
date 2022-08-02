@@ -21,13 +21,16 @@
                     </div>
                     <div class="form-group">
                         <label for="">Nama Barang</label>
-                        <input type="text" name="nama_barang" class="form-control">
+                        <input type="text" id="nama_barang" name="nama_barang" class="form-control nama_barang">
+                        <div class="invalid-feedback" id="err_tambah_nama_barang">
+
+                        </div>
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-icon icon-left btn-primary" data-dismiss="modal"><i
+                <button type="button" class="btn btn-icon icon-left btn-primary" data-dismiss="modal"><i
                         class="fas fa-times"></i>Batal</button>
-                <button type="submit" class="btn btn-warning btn-icon icon-left btn-warning"><i
+                <button type="submit" id="tambah_barang" class="btn btn-warning btn-icon icon-left btn-warning"><i
                         class="far fa-save"></i>Simpan</button>
             </div>
             </form>
@@ -55,13 +58,16 @@
                     </div>
                     <div class="form-group">
                         <label for="">Nama Barang</label>
-                        <input type="text" name="nama_barang" id="input_edit_nama_barang"class="form-control">
+                        <input type="text" name="nama_barang" id="input_edit_nama_barang" class="form-control edit_nama_barang">
+                        <div class="invalid-feedback" id="err_edit_nama_barang">
+
+                        </div>
                     </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal"><i
                         class="fas fa-times"></i>Batal</button>
-                <button type="submit" class="btn btn-warning btn-icon icon-left btn-primary"><i
+                <button type="submit" id="btn_simpan_update" class="btn btn-warning btn-icon icon-left btn-primary"><i
                         class="far fa-save"></i>Simpan</button>
             </div>
             </form>
@@ -161,17 +167,72 @@
             var currentRow = $(this).closest("tr");
             var col1 = currentRow.find("td:eq(1)").html(); // get current row 1st table cell TD value
             var col2 = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
-            // var col3 = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
-            // html = "<tr class='baris'>";
-            // html += "<input type='hidden' name='fasilitas_id[]' value='"+ col2 +"'>";
-            // html += "<td class='numbers'>"+ count +"</td>";
-            // html += "<td>"+ col3 +"</td>";
-            // html += "<td><button type='button' class='btn btn-icon btn-sm icon-left btn-danger remove-row'><i class='fas fa-trash'></i>Hapus</button></td>"
-            // html += "</tr>";
-            // $(".mainbody").append(html);
             $("#input_edit_kode_barang").val(col1);
             $("#input_edit_nama_barang").val(col2);
             $("#editformBarang").attr('action','update/barang/'+col1);
+    });
+    //Validasi Tambah (Nama Barang)
+    $("#nama_barang").on('input',function(){
+        var delay = 0;
+        $('#msg_err_tambah_nama_barang').remove()
+        $.ajax({
+            url : 'validasi_barang/'+$(this).val(),
+            type : 'GET',
+            dataType : 'json',
+            success: function (data) {
+                setTimeout(function(){
+                    $('.nama_barang').removeClass("is-invalid")
+                    $('#msg_err_tambah_nama_barang').remove()
+                    if (data.status === true) {
+                        $('.nama_barang').addClass("is-invalid")
+                        html = "<div id='msg_err_tambah_nama_barang'>";
+                        html += data.message;
+                        html += "</div>";
+                        $('#err_tambah_nama_barang').append(html)
+                        $('#tambah_barang').prop('disabled',true); //button simpan agar tidak dapat diklik
+                    }else{
+                        $('.nama_barang').removeClass("is-invalid")
+                        $('#msg_err_tambah_nama_barang').remove()
+                        $('#tambah_barang').prop('disabled',false);  //button simpan agar dapat diklik
+                    }
+                },delay);
+            }
         });
+    });
+    //Validasi Edit
+    $("#input_edit_nama_barang").on('input',function() {
+        var delay = 0;
+        // $('#msg_err_update_nama_barang').remove()
+        $.ajax({
+            url : 'validasi_edit_barang/'+$("#input_edit_kode_barang").val()+'/'+$(this).val(),
+            type : 'GET',
+            dataType : 'json',
+            success : function (data) {
+                setTimeout(function(){
+                    $('#msg_err_update_nama_barang').remove()
+                    $('.edit_nama_barang').removeClass("is-invalid")
+                    if (data.status === true) {
+                        $('.edit_nama_barang').addClass("is-invalid")
+                        html = "<div id='msg_err_update_nama_barang'>";
+                        html += data.message;
+                        html += "</div>";
+                        $('#err_edit_nama_barang').append(html)
+                        $('#btn_simpan_update').prop('disabled',true);
+                    }else{
+                        $('.edit_nama_barang').removeClass("is-invalid")
+                        $('#msg_err_update_nama_barang').remove()
+                        $('#btn_simpan_update').prop('disabled',false);
+                    }
+                },delay)
+            }
+        });
+    });
+    //Modal Edit Close
+    $('#updateModal').on('hidden.bs.modal',function () {
+        $('.edit_nama_barang').removeClass("is-invalid")
+        $('#msg_err_update_nama_barang').remove()
+        $('#btn_simpan_update').prop('disabled',false);
+    });
+
 </script>
 @endsection

@@ -40,4 +40,30 @@ class BarangController extends Controller
         $title = "Detail Data Barang";
         return view('barang.detail',compact('title'));
     }
+    public function validasi_nama_barang_tambah($nama){
+        $data = Barang::where('namaBarang',$nama)->first();
+        if($data != null){
+            return response()->json([
+                'status' => true,
+                'message' => "Nama Barang Sudah Digunakan"
+            ]);
+        }else{
+            return response()->json([
+                'status' => false
+            ]);
+        }
+    }
+    public function validasi_edit_nama_barang($kode,$nama){
+        $data = Barang::where('namaBarang',$nama)->where('kodeBarang','!=',$kode)->first();
+        if ($data != null) {
+            return response()->json([
+                'status' => true,
+                'message' => "Nama Barang Sudah Digunakan"
+            ]);
+        } else {
+            return response()->json([
+                'status' => false
+            ]);
+        }
+    }
 }

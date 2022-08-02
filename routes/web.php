@@ -29,6 +29,8 @@ Route::delete('hapus/barang/{id}', [BarangController::class, 'hapus_barang']);
 Route::get('detail/barang/{id}', [BarangController::class, 'detail_barang']);
 Route::get('/ruangan',[RuanganController::class,'index']);
 Route::post('tambah/ruangan', [RuanganController::class, 'tambah_ruangan']);
+Route::put('update/ruangan/{id}',[RuanganController::class,'update_ruangan']);
+Route::delete('hapus/ruangan/{id}', [RuanganController::class, 'hapus_ruangan']);
 Route::get('/inventaris', [InventarisController::class, 'index']);
 Route::get('tambah/inventaris', [InventarisController::class, 'form_tambah_inventaris']);
 Route::post('tambah/inventaris', [InventarisController::class, 'tambah_inventaris']);

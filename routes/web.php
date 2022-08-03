@@ -47,3 +47,5 @@ Route::get('/vendor',[VendorController::class,'index']);
 Route::post('tambah/vendor', [VendorController::class, 'tambah_vendor']);
 Route::put('update/vendor/{id}',[VendorController::class,'update_vendor']);
 Route::delete('hapus/vendor/{id}', [VendorController::class, 'hapus_vendor']);
+Route::get('validasi_vendor/{nama}',[VendorController::class,'validasi_nama_vendor_tambah']);
+Route::get('validasi_edit_vendor/{kode}/{nama}', [VendorController::class, 'validasi_edit_nama_vendor']);

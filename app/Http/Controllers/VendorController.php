@@ -35,4 +35,30 @@ class VendorController extends Controller
         $data = Vendor::where('kodeVendor','=',$id)->delete();
         return redirect('/vendor')->with('message', 'Vendor Berhasil Dihapus');
     }
+    public function validasi_nama_vendor_tambah($nama){
+        $data = Vendor::where('namaVendor',$nama)->first();
+        if($data != null){
+            return response()->json([
+                'status' => true,
+                'message' => "Nama Vendor Sudah Digunakan"
+            ]);
+        }else{
+            return response()->json([
+                'status' => false
+            ]);
+        }
+    }
+    public function validasi_edit_nama_vendor($kode,$nama){
+        $data = Vendor::where('namaVendor',$nama)->where('kodeVendor','!=',$kode)->first();
+        if ($data != null) {
+            return response()->json([
+                'status' => true,
+                'message' => "Nama Vendor Sudah Digunakan"
+            ]);
+        } else {
+            return response()->json([
+                'status' => false
+            ]);
+        }
+    }
 }

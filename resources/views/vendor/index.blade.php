@@ -38,20 +38,25 @@
                         <label for="">Nama Vendor</label>
                         <input
                             type="text"
+                            id="nama_vendor"
                             name="nama_vendor"
-                            class="form-control"
+                            class="form-control nama_vendor"
                         />
+                        <div class="invalid-feedback" id="err_tambah_nama_vendor">
+
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button
                             type="button"
-                            class="btn btn-secondary btn-icon icon-left btn-primary"
+                            class="btn btn-icon icon-left btn-primary"
                             data-dismiss="modal"
                         >
                             <i class="fas fa-times"></i>Batal
                         </button>
                         <button
                             type="submit"
+                            id="tambah_vendor"
                             class="btn btn-warning btn-icon icon-left btn-warning"
                         >
                             <i class="far fa-save"></i>Simpan
@@ -83,12 +88,15 @@
                     </div>
                     <div class="form-group">
                         <label for="">Nama Vendor</label>
-                        <input type="text" name="nama_vendor" id="input_edit_nama_vendor"class="form-control">
+                        <input type="text" name="nama_vendor" id="input_edit_nama_vendor"class="form-control edit_nama_vendor">
+                        <div class="invalid-feedback" id="err_edit_nama_vendor">
+
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal"><i
                                 class="fas fa-times"></i>Batal</button>
-                        <button type="submit" class="btn btn-warning btn-icon icon-left btn-primary"><i
+                        <button type="submit" id="btn_simpan_update" class="btn btn-warning btn-icon icon-left btn-primary"><i
                                 class="far fa-save"></i>Simpan</button>
                     </div>
                 </form>
@@ -201,5 +209,68 @@
             $("#input_edit_nama_vendor").val(nama_vendor);
             $("#editformVendor").attr('action','update/vendor/'+kode_vendor);
         });
+    //Validasi Tambah (Nama Vendor)
+    $("#nama_vendor").on('input',function(){
+        var delay = 0;
+        $('#msg_err_tambah_nama_vendor').remove()
+        $.ajax({
+            url : 'validasi_vendor/'+$(this).val(),
+            type : 'GET',
+            dataType : 'json',
+            success: function (data) {
+                setTimeout(function(){
+                    $('.nama_vendor').removeClass("is-invalid")
+                    $('#msg_err_tambah_nama_vendor').remove()
+                    if (data.status === true) {
+                        $('.nama_vendor').addClass("is-invalid")
+                        html = "<div id='msg_err_tambah_nama_vendor'>";
+                        html += data.message;
+                        html += "</div>";
+                        $('#err_tambah_nama_vendor').append(html)
+                        $('#tambah_vendor').prop('disabled',true); //button simpan agar tidak dapat diklik
+                    }else{
+                        $('.nama_vendor').removeClass("is-invalid")
+                        $('#msg_err_tambah_nama_vendor').remove()
+                        $('#tambah_vendor').prop('disabled',false);  //button simpan agar dapat diklik
+                    }
+                },delay);
+            }
+        });
+    });
+    //Validasi Edit
+    $("#input_edit_nama_vendor").on('input',function() {
+        var delay = 0;
+        // $('#msg_err_update_nama_vendor').remove()
+        $.ajax({
+            url : 'validasi_edit_vendor/'+$("#input_edit_kode_vendor").val()+'/'+$(this).val(),
+            type : 'GET',
+            dataType : 'json',
+            success : function (data) {
+                setTimeout(function(){
+                    $('#msg_err_update_nama_vendor').remove()
+                    $('.edit_nama_vendor').removeClass("is-invalid")
+                    if (data.status === true) {
+                        $('.edit_nama_vendor').addClass("is-invalid")
+                        html = "<div id='msg_err_update_nama_vendor'>";
+                        html += data.message;
+                        html += "</div>";
+                        $('#err_edit_nama_vendor').append(html)
+                        $('#btn_simpan_update').prop('disabled',true);
+                    }else{
+                        $('.edit_nama_vendor').removeClass("is-invalid")
+                        $('#msg_err_update_nama_vendor').remove()
+                        $('#btn_simpan_update').prop('disabled',false);
+                    }
+                },delay)
+            }
+        });
+    });
+    //Modal Edit Close
+    $('#updateModal').on('hidden.bs.modal',function () {
+        $('.edit_nama_vendor').removeClass("is-invalid")
+        $('#msg_err_update_nama_vendor').remove()
+        $('#btn_simpan_update').prop('disabled',false);
+    });
 </script>
+
 @endsection

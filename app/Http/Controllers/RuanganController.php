@@ -37,4 +37,30 @@ class RuanganController extends Controller
         $data = Ruangan::where('kodeRuangan','=',$id)->delete();
         return redirect('/ruangan')->with('message', 'Ruangan Berhasil Dihapus');
     }
+    public function validasi_nama_ruangan_tambah($nama){
+        $data = Ruangan::where('namaRuangan',$nama)->first();
+        if($data != null){
+            return response()->json([
+                'status' => true,
+                'message' => "Nama Ruangan Sudah Digunakan"
+            ]);
+        }else{
+            return response()->json([
+                'status' => false
+            ]);
+        }
+    }
+    public function validasi_edit_nama_ruangan($kode,$nama){
+        $data = Ruangan::where('namaRuangan',$nama)->where('kodeRuangan','!=',$kode)->first();
+        if ($data != null) {
+            return response()->json([
+                'status' => true,
+                'message' => "Nama Ruangan Sudah Digunakan"
+            ]);
+        } else {
+            return response()->json([
+                'status' => false
+            ]);
+        }
+    }
 }

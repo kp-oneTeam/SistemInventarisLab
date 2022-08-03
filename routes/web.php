@@ -43,3 +43,5 @@ Route::get('tambah/peminjaman', [PeminjamanController::class, 'form_tambah_pemin
 Route::post('tambah/peminjaman', [PeminjamanController::class, 'tambah_peminjaman']);
 Route::get('/vendor',[VendorController::class,'index']);
 Route::post('tambah/vendor', [VendorController::class, 'tambah_vendor']);
+Route::put('update/vendor/{id}',[VendorController::class,'update_vendor']);
+Route::delete('hapus/vendor/{id}', [VendorController::class, 'hapus_vendor']);

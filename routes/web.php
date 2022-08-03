@@ -33,6 +33,8 @@ Route::get('/ruangan',[RuanganController::class,'index']);
 Route::post('tambah/ruangan', [RuanganController::class, 'tambah_ruangan']);
 Route::put('update/ruangan/{id}',[RuanganController::class,'update_ruangan']);
 Route::delete('hapus/ruangan/{id}', [RuanganController::class, 'hapus_ruangan']);
+Route::get('validasi_ruangan/{nama}',[RuanganController::class,'validasi_nama_ruangan_tambah']);
+Route::get('validasi_edit_ruangan/{kode}/{nama}', [RuanganController::class, 'validasi_edit_nama_ruangan']);
 Route::get('/inventaris', [InventarisController::class, 'index']);
 Route::get('tambah/inventaris', [InventarisController::class, 'form_tambah_inventaris']);
 Route::post('tambah/inventaris', [InventarisController::class, 'tambah_inventaris']);

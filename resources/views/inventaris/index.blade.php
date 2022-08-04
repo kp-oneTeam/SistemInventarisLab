@@ -20,17 +20,28 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="float-right">
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <form id="formCetak" action="{{ url('cetak/inventaris') }}" method="post">
+                            @csrf
+
+                            <button type="submit" class="btn btn-primary icon-left text-white"><i class="fas fa-print"></i> &nbsp; Cetak</button>
+                            </form>
+                          </div>
+                    </div>
                     <div class="table-responsive p-sm-1">
                         <table class="table table-striped" id="myTable">
                             <thead>
                                 <tr>
+                                    <th><input type="checkbox" class="check-all"></th>
                                     <th>No</th>
                                     <th>Kode Inventaris</th>
                                     <th>Nama Barang</th>
                                     <th>Spesifikasi</th>
                                     <th>Lokasi</th>
-                                    <th>Harga</th>
-                                    <th>Tahun</th>
+                                    <th>Tahun Pembelian</th>
+                                    <th>Status</th>
+                                    <th>Keterangan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -38,21 +49,24 @@
                                 @php
                                 $no = 1;
                                 @endphp
+                                @foreach ($data as $item)
                                 <tr>
-                                    <td>1</td>
-                                    <td>20220701</td>
-                                    <td>CPU/KOMPUTER</td>
-                                    <td>INTEL I3-12000F - 8GB -NVIDIA 3090</td>
-                                    <td>R.35</td>
-                                    <td>9.000.000</td>
-                                    <td>2002</td>
+                                    <td width="1%"><input type="checkbox" class="checked"> </td>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $item->kodeInventaris }}</td>
+                                    <td>{{ $item->namaBarang }}</td>
+                                    <td>{{ $item->spesifikasi }}</td>
+                                    <td>{{ $item->namaRuangan }}</td>
+                                    <td>{{ $item->kondisi }}</td>
+                                    <td>{{ $item->keterangan }}</td>
+                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                     <td>
                                         <form method="POST" action="{{ url('hapus/inventaris/1') }}">
                                             @csrf
                                             @method('DELETE')
-                                            <a href="{{ url('detail/inventaris/1') }}"
+                                            <a href="{{ url('cetak/inventaris/'.$item->kodeInventaris) }}"
                                                 class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                    class="far fa-eye"></i> Detail</a>
+                                                    class="far fa-eye"></i> Cetak</a>
                                             <a href="{{ url('edit/inventaris/1') }}"
                                                 class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
                                                     class="far fa-edit"></i> Edit</a>
@@ -63,6 +77,7 @@
                                         </form>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -87,11 +102,54 @@
             showCancelButton: true,
             confirmButtonText: 'Yes',
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 form.submit();
             }
         })
+    });
+</script>
+{{-- checkbox --}}
+<script>
+    $(document).ready(function () {
+        $("#formCetak").hide();
+    })
+    $(".check-all").on('change',function(){
+        var html = "<div id='hapus_semua'>";
+        var col1,col2;
+        $(".checked").prop('checked',this.checked);
+        $(".checked").each(function(){
+            var row = $(this).closest("tr")[0];
+                col1 = row.cells[1].innerHTML; //nomor
+                col2 = row.cells[2].innerHTML; //ambil kode inventaris
+                html += '<input type="hidden" name="kode_inventaris[]" value="'+col2+'" id="input'+col1+'"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $("#formCetak").show();
+            $("#formCetak").append(html);
+        }else{
+            $("#formCetak").hide();
+            $("#hapus_semua").remove();
+        }
+    });
+    $("#myTable .checked").on('change',function(){
+        var message = "";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
+        if ($(this).prop('checked')) {
+             $("#formCetak").show();
+             var html = '<input type="hidden" name="kode_inventaris[]" value="'+col2+'" id="input'+col1+'"></input>';
+             $("#formCetak").append(html);
+        }else{
+            var checked_count = $('.checked').filter(':checked').length;
+            if(checked_count != 0){
+                $("#input"+col1).remove();
+            }else{
+                $("#formCetak").hide();
+                $("#input"+col1).remove();
+            }
+        }
     });
 </script>
 @endsection

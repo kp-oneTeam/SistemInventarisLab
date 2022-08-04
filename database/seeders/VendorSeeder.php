@@ -20,7 +20,9 @@ class VendorSeeder extends Seeder
         for ($i=0; $i < 100 ; $i++) {
             Vendor::create([
                 'kodeVendor' => $faker->numberBetween(1,100)."VFSI",
-                'namaVendor' => $faker->name
+                'namaVendor' => $faker->name,
+                'teleponVendor' => $faker->phoneNumber,
+                'alamatVendor' => $faker->address
             ]);
         }
     }

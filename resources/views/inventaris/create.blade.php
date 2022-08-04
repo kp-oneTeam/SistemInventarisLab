@@ -20,23 +20,25 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="row">
-                                <div class="col-12 col-md-6  col-sm-12">
+                                <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris') }}" method="post">
                                     @csrf
                                         <div class="form-group">
                                             <label>Nama Barang</label>
                                             <select name="nama_barang" class="form-control select2">
-                                                <option>Monitor</option>
-                                                <option>RAM</option>
-                                                <option>Storage</option>
+                                                <option value="-">-- Pilih Jenis Barang --</option>
+                                                @foreach ($barang as $item)
+                                                <option value="{{ $item->kodeBarang }}">{{ $item->namaBarang }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Lokasi</label>
                                             <select name="lokasi" class="form-control select2">
-                                                <option>R.TU</option>
-                                                <option>R.35</option>
-                                                <option>R.34</option>
+                                                <option value="-">-- Pilih Ruang --</option>
+                                                @foreach ($lokasi as $item)
+                                                <option value="{{ $item->kodeRuangan }}">{{ $item->namaRuangan }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -45,15 +47,16 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Vendor</label>
-                                            <select name="lokasi" class="form-control select2">
-                                                <option>PT KARYA CITRA</option>
-                                                <option>PT CITRA KARYA</option>
-                                                <option>PT MAKMUR JAYA</option>
+                                            <select name="vendor" class="form-control select2">
+                                                <option value="-">-- Pilih Vendor --</option>
+                                                @foreach ($vendor as $item)
+                                                <option value="{{ $item->kodeVendor }}">{{ $item->namaVendor }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Harga</label>
-                                            <input name="harga" type="text" class="form-control">
+                                            <input name="harga" id="rupiah" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Pembelian</label>
@@ -86,7 +89,7 @@
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="row">
-                                <div class="col-12 col-md-6=12  col-sm-12">
+                                <div class="col-12 col-md-6 col-sm-12">
                                     <form action="{{ url('tambah/inventaris') }}" method="post">
                                     @csrf
                                     <div class="form-group">
@@ -196,4 +199,27 @@
         </div>
     </div>
 </section>
+<script>
+    var rupiah = document.getElementById("rupiah");
+    rupiah.addEventListener("keyup", function(e) {
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    rupiah.value = formatRupiah(this.value, "Rp. ");
+    });
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, "").toString(),
+        split = number_string.split(","),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+    }
+    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+    }
+</script>
 @endsection

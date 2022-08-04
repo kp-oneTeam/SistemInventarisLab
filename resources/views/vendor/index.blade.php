@@ -1,25 +1,13 @@
 @extends('layouts.master') @section('vendor','active') @section('content')
 <!-- Modal Tambah Data -->
-<div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-warning text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
                     Form Data Vendor
                 </h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                >
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -28,37 +16,26 @@
                     @csrf
                     <div class="form-group">
                         <label for="">Kode Vendor</label>
-                        <input
-                            type="text"
-                            name="kode_vendor"
-                            class="form-control"
-                        />
+                        <input type="text" name="kode_vendor" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="">Nama Vendor</label>
-                        <input
-                            type="text"
-                            id="nama_vendor"
-                            name="nama_vendor"
-                            class="form-control nama_vendor"
-                        />
-                        <div class="invalid-feedback" id="err_tambah_nama_vendor">
-
-                        </div>
+                        <input type="text" id="nama_vendor" name="nama_vendor" class="form-control nama_vendor"/>
+                        <div class="invalid-feedback" id="err_tambah_nama_vendor"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nomor Telepon</label>
+                        <input type="number" name="telepon_vendor" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Alamat Vendor</label>
+                        <input type="text" name="alamat_vendor" class="form-control"/>
                     </div>
                     <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-icon icon-left btn-primary"
-                            data-dismiss="modal"
-                        >
+                        <button type="button" class="btn btn-icon icon-left btn-primary" data-dismiss="modal">
                             <i class="fas fa-times"></i>Batal
                         </button>
-                        <button
-                            type="submit"
-                            id="tambah_vendor"
-                            class="btn btn-warning btn-icon icon-left btn-warning"
-                        >
+                        <button  type="submit" id="tambah_vendor" class="btn btn-warning btn-icon icon-left btn-warning">
                             <i class="far fa-save"></i>Simpan
                         </button>
                     </div>
@@ -88,16 +65,24 @@
                     </div>
                     <div class="form-group">
                         <label for="">Nama Vendor</label>
-                        <input type="text" name="nama_vendor" id="input_edit_nama_vendor"class="form-control edit_nama_vendor">
-                        <div class="invalid-feedback" id="err_edit_nama_vendor">
-
-                        </div>
+                        <input type="text" name="nama_vendor" id="input_edit_nama_vendor" class="form-control edit_nama_vendor">
+                        <div class="invalid-feedback" id="err_edit_nama_vendor"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nomor Telepon</label>
+                        <input type="text" name="telepon_vendor" id="input_edit_telp_vendor" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Alamat Vendor</label>
+                        <textarea name="alamat_vendor"id="input_edit_alamat_vendor" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal"><i
-                                class="fas fa-times"></i>Batal</button>
-                        <button type="submit" id="btn_simpan_update" class="btn btn-warning btn-icon icon-left btn-primary"><i
-                                class="far fa-save"></i>Simpan</button>
+                        <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal">
+                            <i class="fas fa-times"></i>Batal
+                        </button>
+                        <button type="submit" id="btn_simpan_update" class="btn btn-warning btn-icon icon-left btn-primary">
+                            <i class="far fa-save"></i>Simpan
+                        </button>
                     </div>
                 </form>
             </div>
@@ -117,14 +102,7 @@
                     <div class="card-header-form">
                         <form>
                             <div class="input-group">
-                                <a
-                                    href="{{ url('tambah/vendor') }}"
-                                    class="btn btn-warning mr-2"
-                                    class="btn btn-primary"
-                                    data-toggle="modal"
-                                    data-target="#exampleModal"
-                                    >Tambah Data</a
-                                >
+                                <a href="{{ url('tambah/vendor') }}" class="btn btn-warning mr-2" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Data</a>
                             </div>
                         </form>
                     </div>
@@ -137,6 +115,8 @@
                                     <th>No</th>
                                     <th>Kode Vendor</th>
                                     <th>Nama Vendor</th>
+                                    <th>Nomor Telepon</th>
+                                    <th>Alamat Vendor</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -149,6 +129,8 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->kodeVendor }}</td>
                                         <td>{{ $item->namaVendor }}</td>
+                                        <td>{{ $item->teleponVendor }}</td>
+                                        <td>{{ $item->alamatVendor }}</td>
                                         <td>
                                             <form method="POST" action="{{ url('hapus/vendor/'.$item->kodeVendor) }}">
                                                 @csrf 
@@ -205,8 +187,12 @@
             var currentRow = $(this).closest("tr");
             var kode_vendor = currentRow.find("td:eq(1)").html(); // get current row 1st table cell TD value
             var nama_vendor = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
+            var telepon_vendor = currentRow.find("td:eq(3)").html(); // get current row 1st table cell TD value
+            var alamat_vendor = currentRow.find("td:eq(4)").html(); // get current row 2nd table cell TD value
             $("#input_edit_kode_vendor").val(kode_vendor);
             $("#input_edit_nama_vendor").val(nama_vendor);
+            $("#input_edit_telp_vendor").val(telepon_vendor);
+            $("#input_edit_alamat_vendor").val(alamat_vendor);
             $("#editformVendor").attr('action','update/vendor/'+kode_vendor);
         });
     //Validasi Tambah (Nama Vendor)

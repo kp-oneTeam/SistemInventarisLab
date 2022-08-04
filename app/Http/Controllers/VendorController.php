@@ -16,7 +16,9 @@ class VendorController extends Controller
     public function tambah_vendor(request $request){
         $saved = Vendor::create([
             'kodeVendor' => $request->kode_vendor,
-            'namaVendor' => $request->nama_vendor
+            'namaVendor' => $request->nama_vendor,
+            'teleponVendor' => $request->telepon_vendor,
+            'alamatVendor' => $request->alamat_vendor
         ]);
         if ($saved) {
             return redirect('/vendor')->with('message','Vendor Berhasil Ditambahkan');

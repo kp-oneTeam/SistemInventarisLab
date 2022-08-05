@@ -20,61 +20,82 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="row">
-                                <div class="col-12 col-md-6=12  col-sm-12">
-                                    <form action="{{ url('tambah/inventaris') }}" method="post">
+                                <div class="col-12 col-md-12  col-sm-12">
+                                    <form action="{{ url('ubah/inventaris/'.$data->kodeInventaris) }}" method="post">
                                     @csrf
+                                    @method('PUT')
                                         <div class="form-group">
                                             <label>Nama Barang</label>
-                                            <select name="nama_barang" class="form-control select2">
-                                                <option>Monitor</option>
-                                                <option>RAM</option>
-                                                <option>Storage</option>
+                                            <select name="nama_barang" class="form-control select2" required>
+
+                                                <option value="{{ $data->kodeBarang }}">{{ $data->barang->namaBarang }}</option>
+                                                @foreach ($barang as $item)
+                                                @if ($item->kodeBarang != $data->kodeBarang)
+                                                <option value="{{ $item->kodeBarang }}">{{ $item->namaBarang }}</option>
+                                                @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Lokasi</label>
-                                            <select name="lokasi" class="form-control select2">
-                                                <option>R.TU</option>
-                                                <option>R.35</option>
-                                                <option>R.34</option>
+                                            <select name="lokasi" class="form-control select2" required>
+                                                <option value="{{ $data->kodeRuangan }}">{{$data->ruangan->namaRuangan}}</option>
+                                                @foreach ($lokasi as $item)
+                                                @if ($item->kodeRuangan != $data->kodeRuangan)
+                                                <option value="{{ $item->kodeRuangan }}">{{ $item->namaRuangan }}</option>
+                                                @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Spesifikasi</label>
-                                            <textarea name="spek" id="" class="form-control"></textarea>
+                                            <textarea name="spek" id="" class="form-control" required>{{ $data->spesifikasi }}
+                                            </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Vendor</label>
-                                            <select name="lokasi" class="form-control select2">
-                                                <option>PT KARYA CITRA</option>
-                                                <option>PT CITRA KARYA</option>
-                                                <option>PT MAKMUR JAYA</option>
+                                            <select name="vendor" class="form-control select2" required>
+                                                <option value="{{ $data->kodeVendor }}">{{$data->vendor->namaVendor}}</option>
+                                                @foreach ($vendor as $item)
+                                                <option value="{{ $item->kodeVendor }}">{{ $item->namaVendor }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Harga</label>
-                                            <input name="harga" type="text" class="form-control">
+                                            <input name="harga" id="rupiah" type="text" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Pembelian</label>
-                                            <input type="date" name="tanggal" class="form-control">
+                                            <input type="date" name="tanggal" class="form-control" value="{{ $data->tgl_pembelian }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Kondisi</label>
                                             <div class="selectgroup w-100">
+                                                @if ($data->kondisi == "Baik")
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Baik" class="selectgroup-input">
+                                                    <input type="radio" name="kondisi" value="Baik" class="selectgroup-input" checked required>
                                                     <span class="selectgroup-button">Baik</span>
                                                 </label>
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Rusak" class="selectgroup-input">
+                                                    <input type="radio" name="kondisi" value="Rusak" class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Rusak</span>
                                                 </label>
+                                                @else
+                                                <label class="selectgroup-item">
+                                                    <input type="radio" name="kondisi" value="Baik" class="selectgroup-input" required>
+                                                    <span class="selectgroup-button">Baik</span>
+                                                </label>
+                                                <label class="selectgroup-item">
+                                                    <input type="radio" name="kondisi" value="Rusak" class="selectgroup-input" checked required>
+                                                    <span class="selectgroup-button">Rusak</span>
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Keterangan</label>
-                                            <textarea name="keterangan" class="form-control"></textarea>
+                                            <textarea name="keterangan" class="form-control" required>{{ $data->keterangan }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-warning btn-icon icon-left btn-warning float-right m-2"><i class="fas fa-save"></i>Simpan</button>
@@ -86,7 +107,7 @@
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="row">
-                                <div class="col-12 col-md-6=12  col-sm-12">
+                                <div class="col-12 col-md-6 col-sm-12">
                                     <form action="{{ url('tambah/inventaris') }}" method="post">
                                     @csrf
                                     <div class="form-group">
@@ -196,4 +217,30 @@
         </div>
     </div>
 </section>
+<script>
+    var rupiah = document.getElementById("rupiah");
+    rupiah.addEventListener("keyup", function(e) {
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    rupiah.value = formatRupiah(this.value, "Rp. ");
+    });
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, "").toString(),
+        split = number_string.split(","),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+    }
+    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+    }
+    $(document).ready(function () {
+        $("#rupiah").val(formatRupiah("{{ $data->harga }}","Rp ."));
+    })
+</script>
 @endsection

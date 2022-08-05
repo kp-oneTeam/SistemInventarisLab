@@ -36,10 +36,11 @@ Route::delete('hapus/ruangan/{id}', [RuanganController::class, 'hapus_ruangan'])
 Route::get('validasi_ruangan/{nama}',[RuanganController::class,'validasi_nama_ruangan_tambah']);
 Route::get('validasi_edit_ruangan/{kode}/{nama}', [RuanganController::class, 'validasi_edit_nama_ruangan']);
 Route::get('/inventaris', [InventarisController::class, 'index']);
-Route::post('cetak/inventaris', [InventarisController::class, 'cetak']);
+Route::post('checked/inventaris', [InventarisController::class, 'checked']);
 Route::get('tambah/inventaris', [InventarisController::class, 'form_tambah_inventaris']);
 Route::post('tambah/inventaris', [InventarisController::class, 'tambah_inventaris']);
 Route::get('edit/inventaris/{id}', [InventarisController::class, 'form_ubah_inventaris']);
+Route::put('ubah/inventaris/{kodeInventaris}', [InventarisController::class, 'ubah']);
 Route::delete('hapus/inventaris/{id}', [InventarisController::class, 'hapus_inventaris']);
 Route::get('laporan',[LaporanController::class,'index']);
 Route::get('peminjaman',[PeminjamanController::class,'index']);

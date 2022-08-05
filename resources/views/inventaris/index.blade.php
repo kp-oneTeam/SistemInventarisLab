@@ -20,12 +20,13 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="float-right">
+                    <div class="float-right mb-2">
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <form id="formCetak" action="{{ url('cetak/inventaris') }}" method="post">
+                            <form id="formCetak" action="{{ url('checked/inventaris') }}" method="post">
                             @csrf
 
-                            <button type="submit" class="btn btn-primary icon-left text-white"><i class="fas fa-print"></i> &nbsp; Cetak</button>
+                            <button name="button" value="cetak" type="submit" class="btn btn-primary icon-left text-white"><i class="fas fa-print"></i> &nbsp; Cetak</button>
+                            <button name="button" value="hapus" type="submit" class="btn btn-danger icon-left text-white"><i class="fas fa-trash"></i> &nbsp; Hapus</button>
                             </form>
                           </div>
                     </div>
@@ -61,13 +62,13 @@
                                     <td>{{ $item->keterangan }}</td>
                                     <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                     <td>
-                                        <form method="POST" action="{{ url('hapus/inventaris/1') }}">
+                                        <form method="POST" action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <a href="{{ url('cetak/inventaris/'.$item->kodeInventaris) }}"
+                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
                                                 class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                    class="far fa-eye"></i> Cetak</a>
-                                            <a href="{{ url('edit/inventaris/1') }}"
+                                                    class="far fa-eye"></i> Detail</a>
+                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
                                                 class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
                                                     class="far fa-edit"></i> Edit</a>
                                             <button type="submit"

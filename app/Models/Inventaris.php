@@ -27,4 +27,14 @@ class Inventaris extends Model
             return $selectmax;
         }
     }
+    public function barang(){
+        return $this->belongsTo(Barang::class,'kodeBarang','kodeBarang');
+    }
+    public function ruangan(){
+        return $this->belongsTo(Ruangan::class,'kodeRuangan','kodeRuangan');
+    }
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class, 'kodeVendor', 'kodeVendor');
+    }
 }

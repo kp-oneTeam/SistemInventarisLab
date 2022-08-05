@@ -45,8 +45,8 @@
                                             <form method="POST" action="{{ url('hapus/barang/1') }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a href="{{ url('pengembalian/1') }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i>Pengembalian</a>
-                                                <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title='Delete'><i class="fas fa-trash"></i>Delete</button>
+                                                <a href="{{ url('pengembalian/1') }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="fas fa-undo"></i>Pengembalian</a>
+                                                <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title='Hapus'><i class="fas fa-trash"></i>Hapus</button>
                                             </form>
                                         </td>
                                     </tr>

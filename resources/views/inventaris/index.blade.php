@@ -73,8 +73,8 @@
                                                     class="far fa-edit"></i> Edit</a>
                                             <button type="submit"
                                                 class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                data-toggle="tooltip" title='Delete'><i
-                                                    class="fas fa-trash"></i>Delete</button>
+                                                data-toggle="tooltip" title='Hapus'><i
+                                                    class="fas fa-trash"></i>Hapus</button>
                                         </form>
                                     </td>
                                 </tr>

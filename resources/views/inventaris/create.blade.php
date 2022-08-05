@@ -25,8 +25,8 @@
                                     @csrf
                                         <div class="form-group">
                                             <label>Nama Barang</label>
-                                            <select name="nama_barang" class="form-control select2">
-                                                <option value="-">-- Pilih Jenis Barang --</option>
+                                            <select name="nama_barang" class="form-control select2" required>
+                                                <option value="">-- Pilih Jenis Barang --</option>
                                                 @foreach ($barang as $item)
                                                 <option value="{{ $item->kodeBarang }}">{{ $item->namaBarang }}</option>
                                                 @endforeach
@@ -34,8 +34,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Lokasi</label>
-                                            <select name="lokasi" class="form-control select2">
-                                                <option value="-">-- Pilih Ruang --</option>
+                                            <select name="lokasi" class="form-control select2" required>
+                                                <option value="">-- Pilih Ruang --</option>
                                                 @foreach ($lokasi as $item)
                                                 <option value="{{ $item->kodeRuangan }}">{{ $item->namaRuangan }}</option>
                                                 @endforeach
@@ -43,12 +43,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Spesifikasi</label>
-                                            <textarea name="spek" id="" class="form-control"></textarea>
+                                            <textarea name="spek" id="" class="form-control" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Vendor</label>
-                                            <select name="vendor" class="form-control select2">
-                                                <option value="-">-- Pilih Vendor --</option>
+                                            <select name="vendor" class="form-control select2" required>
+                                                <option value="">-- Pilih Vendor --</option>
                                                 @foreach ($vendor as $item)
                                                 <option value="{{ $item->kodeVendor }}">{{ $item->namaVendor }}</option>
                                                 @endforeach
@@ -56,28 +56,28 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Harga</label>
-                                            <input name="harga" id="rupiah" type="text" class="form-control">
+                                            <input name="harga" id="rupiah" type="text" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Pembelian</label>
-                                            <input type="date" name="tanggal" class="form-control">
+                                            <input type="date" name="tanggal" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Kondisi</label>
                                             <div class="selectgroup w-100">
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Baik" class="selectgroup-input">
+                                                    <input type="radio" name="kondisi" value="Baik" class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Baik</span>
                                                 </label>
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Rusak" class="selectgroup-input">
+                                                    <input type="radio" name="kondisi" value="Rusak" class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Rusak</span>
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Keterangan</label>
-                                            <textarea name="keterangan" class="form-control"></textarea>
+                                            <textarea name="keterangan" class="form-control" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-warning btn-icon icon-left btn-warning float-right m-2"><i class="fas fa-save"></i>Simpan</button>

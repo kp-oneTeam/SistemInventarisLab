@@ -46,23 +46,49 @@ class InventarisController extends Controller
     }
     public function form_ubah_inventaris($id){
         $title = "Ubah Inventaris";
-        return view('inventaris.edit', compact('title'));
+        $barang = Barang::get();
+        $lokasi = Ruangan::get();
+        $vendor = Vendor::get();
+        $data = Inventaris::where('kodeInventaris',$id)->first();
+        return view('inventaris.edit', compact('title', 'barang', 'lokasi', 'vendor','data'));
+    }
+    public function ubah($kodeInventaris,request $request){
+        $harga = $request->harga;
+        $harga = preg_replace('/[^0-9]/', '', $harga);
+        $data = Inventaris::where('kodeInventaris', $kodeInventaris)->update([
+            'kodeBarang' => $request->nama_barang,
+            'kodeRuangan' => $request->lokasi,
+            'kodeVendor' => $request->vendor,
+            'spesifikasi' => $request->spek,
+            'harga' => $harga,
+            'tgl_pembelian' => $request->tanggal,
+            'kondisi' => $request->kondisi,
+            'keterangan' => $request->keterangan
+        ]);
+        return redirect('/inventaris')->with('message', 'Data Berhasil Diubah');
     }
     public function hapus_inventaris($id){
+        $data = Inventaris::where('kodeInventaris', $id)->delete();
         return redirect('/inventaris')->with('message', 'Data Berhasil Dihapus');
     }
-    public function cetak(request $request){
+    //berfungsi untuk mencetak atau menghapus data yang di ceklis
+    public function checked(request $request){
         $kode_inventaris = [];
         for ($i=0; $i < count($request->kode_inventaris) ; $i++) {
             $kode_inventaris[] = $request->kode_inventaris[$i];
         }
-
-        $data = Inventaris::join('barang', 'barang.kodeBarang', '=', 'inventaris.kodeBarang')
-        ->join('vendor', 'vendor.kodeVendor', '=', 'inventaris.kodeVendor')
-        ->join('ruangan', 'ruangan.kodeRuangan', '=', 'inventaris.kodeRuangan')
-        ->select('kodeInventaris', 'namaBarang', 'tgl_pembelian')
-        ->whereIn('kodeInventaris',$kode_inventaris)
-        ->get();
-        return view('inventaris.cetak',compact('data'));
+        if ($request->button == "hapus") {
+            $data = Inventaris::whereIn('kodeInventaris', $kode_inventaris)
+                ->delete();
+            return redirect('inventaris')->with('message','Data Berhasil Dihapus!');
+        }else{
+            $data = Inventaris::join('barang', 'barang.kodeBarang', '=', 'inventaris.kodeBarang')
+            ->join('vendor', 'vendor.kodeVendor', '=', 'inventaris.kodeVendor')
+            ->join('ruangan', 'ruangan.kodeRuangan', '=', 'inventaris.kodeRuangan')
+            ->select('kodeInventaris', 'namaBarang', 'tgl_pembelian')
+            ->whereIn('kodeInventaris',$kode_inventaris)
+            ->get();
+            return view('inventaris.cetak',compact('data'));
+        }
     }
 }

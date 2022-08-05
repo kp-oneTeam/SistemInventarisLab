@@ -138,13 +138,8 @@
                                                 <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editVendor" data-toggle="modal", data-target="#updateModal" >
                                                     <i class="far fa-edit" data-id="{{ $item->kodeVendor }}"></i>Edit
                                                     </button>
-                                                <button
-                                                    type="submit"
-                                                    class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                    data-toggle="tooltip"
-                                                    title="Delete">
-                                                    <i class="fas fa-trash"></i
-                                                    >Delete
+                                                <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>Hapus
                                                 </button>
                                             </form>
                                         </td>

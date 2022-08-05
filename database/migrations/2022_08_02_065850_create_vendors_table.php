@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('vendor', function (Blueprint $table) {
             $table->string('kodeVendor')->primary();
             $table->string('namaVendor');
+            $table->string('teleponVendor');
+            $table->string('alamatVendor');
             $table->timestamps();
         });
     }

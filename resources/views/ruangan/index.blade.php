@@ -20,7 +20,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Nama Ruangan</label>
-                        <input type="text" name="nama_ruangan" class="form-control">
+                        <input type="text" id="nama_ruangan" name="nama_ruangan" class="form-control nama_ruangan">
+                        <div class="invalid-feedback" id="err_tambah_nama_ruangan">
+
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="">Gedung</label>
@@ -28,7 +31,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-icon icon-left btn-primary" data-dismiss="modal"><i class="fas fa-times"></i>Batal</button>
-                        <button type="submit" class="btn btn-warning btn-icon icon-left btn-warning"><i class="far fa-save"></i>Simpan</button>
+                        <button type="submit" id="tambah_ruangan" class="btn btn-warning btn-icon icon-left btn-warning"><i class="far fa-save"></i>Simpan</button>
                     </div>
                 </form>
             </div>      
@@ -56,7 +59,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Nama Ruangan</label>
-                        <input type="text" name="nama_ruangan" id="input_edit_nama_ruangan"class="form-control">
+                        <input type="text" name="nama_ruangan" id="input_edit_nama_ruangan"class="form-control edit_nama_ruangan">
+                        <div class="invalid-feedback" id="err_edit_nama_ruangan">
+
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="">Nama Gedung</label>
@@ -65,7 +71,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal"><i
                                 class="fas fa-times"></i>Batal</button>
-                        <button type="submit" class="btn btn-warning btn-icon icon-left btn-primary"><i
+                        <button type="submit" id="btn_simpan_update" class="btn btn-warning btn-icon icon-left btn-primary"><i
                                 class="far fa-save"></i>Simpan</button>
                     </div>
                 </form>
@@ -168,5 +174,67 @@
             $("#input_edit_nama_gedung").val(nama_gedung);
             $("#editformRuangan").attr('action','update/ruangan/'+kode_ruangan);
         });
+    //Validasi Tambah (Nama Ruangan)
+    $("#nama_ruangan").on('input',function(){
+        var delay = 0;
+        $('#msg_err_tambah_nama_ruangan').remove()
+        $.ajax({
+            url : 'validasi_ruangan/'+$(this).val(),
+            type : 'GET',
+            dataType : 'json',
+            success: function (data) {
+                setTimeout(function(){
+                    $('.nama_ruangan').removeClass("is-invalid")
+                    $('#msg_err_tambah_nama_ruangan').remove()
+                    if (data.status === true) {
+                        $('.nama_ruangan').addClass("is-invalid")
+                        html = "<div id='msg_err_tambah_nama_ruangan'>";
+                        html += data.message;
+                        html += "</div>";
+                        $('#err_tambah_nama_ruangan').append(html)
+                        $('#tambah_ruangan').prop('disabled',true); //button simpan agar tidak dapat diklik
+                    }else{
+                        $('.nama_ruangan').removeClass("is-invalid")
+                        $('#msg_err_tambah_nama_ruangan').remove()
+                        $('#tambah_ruangan').prop('disabled',false);  //button simpan agar dapat diklik
+                    }
+                },delay);
+            }
+        });
+    });
+    //Validasi Edit
+    $("#input_edit_nama_ruangan").on('input',function() {
+        var delay = 0;
+        // $('#msg_err_update_nama_vendor').remove()
+        $.ajax({
+            url : 'validasi_edit_ruangan/'+$("#input_edit_kode_ruangan").val()+'/'+$(this).val(),
+            type : 'GET',
+            dataType : 'json',
+            success : function (data) {
+                setTimeout(function(){
+                    $('#msg_err_update_nama_ruangan').remove()
+                    $('.edit_nama_ruangan').removeClass("is-invalid")
+                    if (data.status === true) {
+                        $('.edit_nama_ruangan').addClass("is-invalid")
+                        html = "<div id='msg_err_update_nama_ruangan'>";
+                        html += data.message;
+                        html += "</div>";
+                        $('#err_edit_nama_ruangan').append(html)
+                        $('#btn_simpan_update').prop('disabled',true);
+                    }else{
+                        $('.edit_nama_ruangan').removeClass("is-invalid")
+                        $('#msg_err_update_nama_ruangan').remove()
+                        $('#btn_simpan_update').prop('disabled',false);
+                    }
+                },delay)
+            }
+        });
+    });
+    //Modal Edit Close
+    $('#updateModal').on('hidden.bs.modal',function () {
+        $('.edit_nama_ruangan').removeClass("is-invalid")
+        $('#msg_err_update_nama_ruangan').remove()
+        $('#btn_simpan_update').prop('disabled',false);
+    });
 </script>
 @endsection

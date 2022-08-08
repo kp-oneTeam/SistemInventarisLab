@@ -108,10 +108,21 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="float-right mb-2">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <form id="formHapus" action="{{ url('checked/vendor') }}" method="post">
+                                @csrf
+                                <button name="button" value="hapus" type="submit" class="btn btn-danger icon-left text-white">
+                                    <i class="fas fa-trash"></i> &nbsp; Hapus
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                     <div class="table-responsive p-sm-1">
                         <table class="table table-striped" id="myTable">
                             <thead>
                                 <tr>
+                                    <th><input type="checkbox" class="check-all"></th>
                                     <th>No</th>
                                     <th>Kode Vendor</th>
                                     <th>Nama Vendor</th>
@@ -126,6 +137,7 @@
                                 @endphp
                                 @foreach ($data as $item)
                                     <tr>
+                                        <td width="1%"><input type="checkbox" class="checked"> </td>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->kodeVendor }}</td>
                                         <td>{{ $item->namaVendor }}</td>
@@ -253,5 +265,51 @@
         $('#btn_simpan_update').prop('disabled',false);
     });
 </script>
-
+{{-- checkbox --}}
+<script>
+    $(document).ready(function () {
+        $("#formHapus").hide();
+    })
+    $(".check-all").on('change',function(){
+        var html = "<div id='hapus_semua'>";
+        var col1,col2;
+        $(".checked").prop('checked',this.checked);
+        $(".checked").each(function(){
+            var row = $(this).closest("tr")[0];
+                col1 = row.cells[1].innerHTML; //nomor
+                col2 = row.cells[2].innerHTML; //ambil kode Vendor
+                html += '<input type="hidden" name="kode_vendor[]" value="'+col2+'" id="input'+col1+'"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $(".hapus_semua").remove();
+            $("#formHapus").show();
+            $("#formHapus").append(html);
+        }else{
+            $("#formHapus").hide();
+            $("#hapus_semua").remove();
+            $(".hapus_semua").remove();
+        }
+    });
+    $("#myTable .checked").on('change',function(){
+        var message = "";
+        var html = "<div class='hapus_semua'>";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode vendor
+        if ($(this).prop('checked')) {
+             $("#formHapus").show();
+             html += '<input type="hidden" name="kode_vendor[]" value="'+col2+'" id="input'+col1+'"></input></div>';
+             $("#formHapus").append(html);
+        }else{
+            var checked_count = $('.checked').filter(':checked').length;
+            if(checked_count != 0){
+                $("#input"+col1).remove();
+            }else{
+                $("#formHapus").hide();
+                $("#input"+col1).remove();
+            }
+        }
+    });
+</script>
 @endsection

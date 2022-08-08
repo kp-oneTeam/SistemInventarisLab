@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('vendor', function (Blueprint $table) {
-            $table->string('kodeVendor')->primary();
+            $table->id();
+            $table->string('kodeVendor');
             $table->string('namaVendor');
             $table->string('teleponVendor');
             $table->string('alamatVendor');

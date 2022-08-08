@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('inventaris', function (Blueprint $table) {
             $table->id();
-            $table->string('kodeInventaris');
-            $table->string('kodeBarang');
-            $table->string('kodeRuangan');
-            $table->string('kodeVendor');
+            $table->unsignedBigInteger('kodeInventaris');
+            $table->unsignedBigInteger('idBarang');
+            $table->unsignedBigInteger('idRuangan');
+            $table->unsignedBigInteger('idVendor');
             $table->string('spesifikasi');
             $table->integer('harga');
             $table->date('tgl_pembelian');
@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->timestamps();
 
-            $table->foreign('kodeBarang')->references('kodeBarang')->on('barang');
-            $table->foreign('kodeRuangan')->references('kodeRuangan')->on('ruangan');
-            $table->foreign('kodeVendor')->references('kodeVendor')->on('vendor');
+            $table->foreign('idBarang')->references('id')->on('barang');
+            $table->foreign('idRuangan')->references('id')->on('ruangan');
+            $table->foreign('idVendor')->references('id')->on('vendor');
         });
     }
 

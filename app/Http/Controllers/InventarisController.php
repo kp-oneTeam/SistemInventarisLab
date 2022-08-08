@@ -13,9 +13,9 @@ class InventarisController extends Controller
     //
     public function index(){
         $title = "Inventaris";
-        $data = Inventaris::join('barang','barang.kodeBarang','=','inventaris.kodeBarang')
-            ->join('vendor', 'vendor.kodeVendor', '=', 'inventaris.kodeVendor')
-            ->join('ruangan', 'ruangan.kodeRuangan', '=', 'inventaris.kodeRuangan')
+        $data = Inventaris::join('barang','barang.id','=','inventaris.idBarang')
+            ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
+            ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
             ->select('kodeInventaris','namaBarang','spesifikasi','namaRuangan','kondisi','keterangan','tgl_pembelian')
             ->get();
         return view('inventaris.index',compact('title','data'));
@@ -33,9 +33,9 @@ class InventarisController extends Controller
         $harga = preg_replace('/[^0-9]/', '', $harga);
         $saved = Inventaris::create([
             'kodeInventaris' =>Inventaris::kode_inventaris(),
-            'kodeBarang' => $request->nama_barang,
-            'kodeRuangan' => $request->lokasi,
-            'kodeVendor' => $request->vendor,
+            'idBarang' => $request->nama_barang,
+            'idRuangan' => $request->lokasi,
+            'idVendor' => $request->vendor,
             'spesifikasi' => $request->spek,
             'harga' => $harga,
             'tgl_pembelian' => $request->tanggal,
@@ -56,9 +56,9 @@ class InventarisController extends Controller
         $harga = $request->harga;
         $harga = preg_replace('/[^0-9]/', '', $harga);
         $data = Inventaris::where('kodeInventaris', $kodeInventaris)->update([
-            'kodeBarang' => $request->nama_barang,
-            'kodeRuangan' => $request->lokasi,
-            'kodeVendor' => $request->vendor,
+            'idBarang' => $request->nama_barang,
+            'idRuangan' => $request->lokasi,
+            'idVendor' => $request->vendor,
             'spesifikasi' => $request->spek,
             'harga' => $harga,
             'tgl_pembelian' => $request->tanggal,

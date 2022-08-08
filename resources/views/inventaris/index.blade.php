@@ -126,21 +126,24 @@
         });
         html += "<div>"
         if ($(this).prop('checked')) {
+            $(".hapus_semua").remove();
             $("#formCetak").show();
             $("#formCetak").append(html);
         }else{
             $("#formCetak").hide();
             $("#hapus_semua").remove();
+            $(".hapus_semua").remove();
         }
     });
     $("#myTable .checked").on('change',function(){
         var message = "";
+        var html = "<div class='hapus_semua'>";
         var currentRow = $(this).closest("tr");
         var col1 = currentRow.find("td:eq(1)").html(); //nomor
         var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
         if ($(this).prop('checked')) {
              $("#formCetak").show();
-             var html = '<input type="hidden" name="kode_inventaris[]" value="'+col2+'" id="input'+col1+'"></input>';
+             html += '<input type="hidden" name="kode_inventaris[]" value="'+col2+'" id="input'+col1+'"></input></div>';
              $("#formCetak").append(html);
         }else{
             var checked_count = $('.checked').filter(':checked').length;

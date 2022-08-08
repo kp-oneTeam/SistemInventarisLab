@@ -64,9 +64,9 @@
 </head>
 
 <body>
-    <div style="display: grid;grid-template-columns: auto auto">
+    <div style="display: grid;grid-template-columns: auto auto;">
         @foreach ($data as $item)
-        <div style="width: 458px; margin:5px;">
+        <div style="width: 458px;margin: 5px;">
             <div class="header" style="padding: 5px;">
                 <img src="{{ asset('admin/img/header.svg') }}" alt="">
             </div>

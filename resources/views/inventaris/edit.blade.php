@@ -28,7 +28,7 @@
                                             <label>Nama Barang</label>
                                             <select name="nama_barang" class="form-control select2" required>
 
-                                                <option value="{{ $data->kodeBarang }}">{{ $data->barang->namaBarang }}</option>
+                                                <option value="{{ $data->kodeBarang }}">{{ $data->barang->namaBarang}}</option>
                                                 @foreach ($barang as $item)
                                                 @if ($item->kodeBarang != $data->kodeBarang)
                                                 <option value="{{ $item->kodeBarang }}">{{ $item->namaBarang }}</option>

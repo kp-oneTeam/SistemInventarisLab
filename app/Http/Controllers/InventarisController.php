@@ -91,4 +91,10 @@ class InventarisController extends Controller
             return view('inventaris.cetak',compact('data'));
         }
     }
+
+    //Detail Inventaris
+    public function detail($kode_inventaris){
+        $data = Inventaris::where('kodeInventaris',$kode_inventaris)->first();
+        return view('inventaris.detail',compact('data'));
+    }
 }

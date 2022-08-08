@@ -28,13 +28,13 @@ class Inventaris extends Model
         }
     }
     public function barang(){
-        return $this->belongsTo(Barang::class,'kodeBarang','kodeBarang');
+        return $this->belongsTo(Barang::class,'idBarang','id');
     }
     public function ruangan(){
-        return $this->belongsTo(Ruangan::class,'kodeRuangan','kodeRuangan');
+        return $this->belongsTo(Ruangan::class,'idRuangan','id');
     }
     public function vendor()
     {
-        return $this->belongsTo(Vendor::class, 'kodeVendor', 'kodeVendor');
+        return $this->belongsTo(Vendor::class, 'idVendor', 'id');
     }
 }

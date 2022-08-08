@@ -92,9 +92,7 @@
                     </table>
                 </div>
                 <div class="column" style="text-align: right;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png"
-                        width="100px" height="100px" style="margin-top: -5px;"
-                    alt="">
+                    {!! QrCode::size(100)->generate('https://28e8-180-244-139-129.ap.ngrok.io/detail/inventaris/'.$item->kodeInventaris); !!}
                 </div>
             </div>
         </div>

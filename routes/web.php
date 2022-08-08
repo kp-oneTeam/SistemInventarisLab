@@ -6,6 +6,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\VendorController;
+use App\Models\Inventaris;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,7 @@ Route::post('tambah/inventaris', [InventarisController::class, 'tambah_inventari
 Route::get('edit/inventaris/{id}', [InventarisController::class, 'form_ubah_inventaris']);
 Route::put('ubah/inventaris/{kodeInventaris}', [InventarisController::class, 'ubah']);
 Route::delete('hapus/inventaris/{id}', [InventarisController::class, 'hapus_inventaris']);
+Route::get('detail/inventaris/{kode_inventaris}',[InventarisController::class,'detail']);
 Route::get('laporan',[LaporanController::class,'index']);
 Route::get('peminjaman',[PeminjamanController::class,'index']);
 Route::get('pengembalian/{id}', [PeminjamanController::class, 'form_pengembalian']);

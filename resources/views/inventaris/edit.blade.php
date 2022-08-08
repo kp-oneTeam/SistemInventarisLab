@@ -28,10 +28,10 @@
                                             <label>Nama Barang</label>
                                             <select name="nama_barang" class="form-control select2" required>
 
-                                                <option value="{{ $data->kodeBarang }}">{{ $data->barang->namaBarang}}</option>
+                                                <option value="{{ $data->idBarang }}">{{ $data->barang->namaBarang}}</option>
                                                 @foreach ($barang as $item)
-                                                @if ($item->kodeBarang != $data->kodeBarang)
-                                                <option value="{{ $item->kodeBarang }}">{{ $item->namaBarang }}</option>
+                                                @if ($item->id != $data->idBarang)
+                                                <option value="{{ $item->id }}">{{ $item->namaBarang }}</option>
                                                 @endif
                                                 @endforeach
                                             </select>
@@ -39,10 +39,10 @@
                                         <div class="form-group">
                                             <label>Lokasi</label>
                                             <select name="lokasi" class="form-control select2" required>
-                                                <option value="{{ $data->kodeRuangan }}">{{$data->ruangan->namaRuangan}}</option>
+                                                <option value="{{ $data->idRuangan }}">{{$data->ruangan->namaRuangan}}</option>
                                                 @foreach ($lokasi as $item)
-                                                @if ($item->kodeRuangan != $data->kodeRuangan)
-                                                <option value="{{ $item->kodeRuangan }}">{{ $item->namaRuangan }}</option>
+                                                @if ($item->id != $data->idRuangan)
+                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
                                                 @endif
                                                 @endforeach
                                             </select>
@@ -55,9 +55,11 @@
                                         <div class="form-group">
                                             <label>Vendor</label>
                                             <select name="vendor" class="form-control select2" required>
-                                                <option value="{{ $data->kodeVendor }}">{{$data->vendor->namaVendor}}</option>
+                                                <option value="{{ $data->idVendor }}">{{$data->vendor->namaVendor}}</option>
                                                 @foreach ($vendor as $item)
-                                                <option value="{{ $item->kodeVendor }}">{{ $item->namaVendor }}</option>
+                                                @if ($item->id != $data->idVendor)
+                                                <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                         </div>

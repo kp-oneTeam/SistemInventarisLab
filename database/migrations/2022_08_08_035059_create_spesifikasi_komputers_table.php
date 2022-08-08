@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vendor', function (Blueprint $table) {
+        Schema::create('spesifikasi_komputer', function (Blueprint $table) {
             $table->id();
-            $table->string('kodeVendor');
-            $table->string('namaVendor');
-            $table->string('teleponVendor');
-            $table->string('alamatVendor');
+            $table->unsignedBigInteger("idInventaris");
+            $table->unsignedBigInteger("idInventarisKomputer");
             $table->timestamps();
+
+            $table->foreign('idInventaris')->references('id')->on('inventaris');
+            $table->foreign('idInventarisKomputer')->references('id')->on('inventaris_komputer');
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('spesifikasi_komputers');
     }
 };

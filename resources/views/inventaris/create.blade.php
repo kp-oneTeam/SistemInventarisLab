@@ -28,7 +28,7 @@
                                             <select name="nama_barang" class="form-control select2" required>
                                                 <option value="">-- Pilih Jenis Barang --</option>
                                                 @foreach ($barang as $item)
-                                                <option value="{{ $item->kodeBarang }}">{{ $item->namaBarang }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->namaBarang }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -37,7 +37,7 @@
                                             <select name="lokasi" class="form-control select2" required>
                                                 <option value="">-- Pilih Ruang --</option>
                                                 @foreach ($lokasi as $item)
-                                                <option value="{{ $item->kodeRuangan }}">{{ $item->namaRuangan }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -50,7 +50,7 @@
                                             <select name="vendor" class="form-control select2" required>
                                                 <option value="">-- Pilih Vendor --</option>
                                                 @foreach ($vendor as $item)
-                                                <option value="{{ $item->kodeVendor }}">{{ $item->namaVendor }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

@@ -68,7 +68,9 @@
                             </p>
                         </div>
                         <div class="col-4">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" alt="" width="50%">
+                            <div class="mt-lg-6">
+                                {!! QrCode::size(200)->generate('https://28e8-180-244-139-129.ap.ngrok.io/detail/inventaris/'.$data->kodeInventaris); !!}
+                            </div>
                         </div>
                     </div>
 

@@ -14,18 +14,46 @@
                 <div class="card-body">
                     <form action="{{ url('tambah/peminjaman') }}" method="POST">
                         @csrf
-                        <div class="form-group">
-                            <label>Nama Peminjam</label>
-                            <input type="text" class="form-control">
+                        <h6>Kamis, 20 Agustus 2022</h6><br>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Kode Peminjaman</label>
+                                    <input type="text" disabled class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Tanggal Pinjam</label>
+                                    <input type="date" disabled class="form-control">
+                                </div>
+                            </div>
                         </div>
-                        <div class="table-responsive p-sm-1">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>NIP/NID/NIM/NIK</label>
+                                    <input type="text" disabled class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Nama Peminjam</label>
+                                    <input type="text" disabled class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        
+                       <div class="form-group">
+                        <label >Daftar Barang yang dipinjam:</label>
+                       </div>
+                        <div class="table-responsive p-sm-1 text-center">
                             <table class="table table-striped" id="myTable">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama/Alata & Acc</th>
-                                        <th>Kode Barang</th>
-                                        <th>Status</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Kode Inventaris</th>
+                                        <th class="text-center">Nama/Alata & Acc</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,23 +62,18 @@
                                     @endphp
                                     <tr>
                                         <td>1</td>
-                                        <td>Camera</td>
                                         <td>321324343</td>
-                                        <td>Ok</td>
+                                        <td>Camera</td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>RAM 8 GB</td>
                                         <td>343243242</td>
-                                        <td>Ok</td>
+                                        <td>RAM 8 GB</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="form-group">
-                            <label>Tanggal Pengembalian</label>
-                            <input type="date" name="tanggal" class="form-control">
-                        </div>
+                        <br>
                         <div class="form-group">
                             <label >Keterangan</label>
                             <textarea name="ket" id="" class="form-control"></textarea>
@@ -67,7 +90,12 @@
 </section>
 <script>
     $(document).ready(function(){
-    $('#myTable').DataTable();
+    $('#myTable').DataTable({
+        paging:false,
+        ordering:false,
+        info:false,
+        searching:false
+    });
     });
 </script>
 @endsection

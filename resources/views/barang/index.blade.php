@@ -117,8 +117,7 @@
                                         <form method="POST" action="{{ url('hapus/barang/'.$item->kodeBarang) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <a href="{{ url('detail/barang/'.$item->kodeBarang) }}"
-                                                class="btn btn-sm btn-icon icon-left btn-info"><i
+                                            <a href="{{ url('detail/barang/'.$item->kodeBarang) }}" class="btn btn-icon icon-left btn-info"><i
                                                     class="far fa-eye"></i> Detail</a>
                                             <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editBarang" data-toggle="modal" data-target="#updateModal">
                                                 <i class="far fa-edit" data-id="{{ $item->kodeBarang }}"></i> Edit</button>

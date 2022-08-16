@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
+// Barang
 Route::get('/barang',[BarangController::class,'index']);
 Route::post('tambah/barang', [BarangController::class, 'tambah_barang']);
 Route::put('update/barang/{id}',[BarangController::class,'update_barang']);
@@ -30,6 +31,8 @@ Route::delete('hapus/barang/{id}', [BarangController::class, 'hapus_barang']);
 Route::get('validasi_barang/{nama}',[BarangController::class,'validasi_nama_barang_tambah']);
 Route::get('validasi_edit_barang/{kode}/{nama}', [BarangController::class, 'validasi_edit_nama_barang']);
 Route::get('detail/barang/{id}', [BarangController::class, 'detail_barang']);
+
+// Ruangan
 Route::get('/ruangan',[RuanganController::class,'index']);
 Route::post('tambah/ruangan', [RuanganController::class, 'tambah_ruangan']);
 Route::put('update/ruangan/{id}',[RuanganController::class,'update_ruangan']);
@@ -37,6 +40,8 @@ Route::delete('hapus/ruangan/{id}', [RuanganController::class, 'hapus_ruangan'])
 Route::post('checked/ruangan', [RuanganController::class, 'checked']);
 Route::get('validasi_ruangan/{nama}',[RuanganController::class,'validasi_nama_ruangan_tambah']);
 Route::get('validasi_edit_ruangan/{kode}/{nama}', [RuanganController::class, 'validasi_edit_nama_ruangan']);
+
+// Inventaris
 Route::get('/inventaris', [InventarisController::class, 'index']);
 Route::post('checked/inventaris', [InventarisController::class, 'checked']);
 Route::get('tambah/inventaris', [InventarisController::class, 'form_tambah_inventaris']);
@@ -45,11 +50,17 @@ Route::get('edit/inventaris/{id}', [InventarisController::class, 'form_ubah_inve
 Route::put('ubah/inventaris/{kodeInventaris}', [InventarisController::class, 'ubah']);
 Route::delete('hapus/inventaris/{id}', [InventarisController::class, 'hapus_inventaris']);
 Route::get('detail/inventaris/{kode_inventaris}',[InventarisController::class,'detail']);
+
+// Laporan
 Route::get('laporan',[LaporanController::class,'index']);
+
+//Peminjaman
 Route::get('peminjaman',[PeminjamanController::class,'index']);
 Route::get('pengembalian/{id}', [PeminjamanController::class, 'form_pengembalian']);
 Route::get('tambah/peminjaman', [PeminjamanController::class, 'form_tambah_peminjaman']);
 Route::post('tambah/peminjaman', [PeminjamanController::class, 'tambah_peminjaman']);
+
+// Vendor
 Route::get('/vendor',[VendorController::class,'index']);
 Route::post('tambah/vendor', [VendorController::class, 'tambah_vendor']);
 Route::put('update/vendor/{id}',[VendorController::class,'update_vendor']);

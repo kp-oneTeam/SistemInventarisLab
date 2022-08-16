@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('peminjaman', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('kodePeminjaman');
             $table->string('noIdentitas');
             $table->string('namaPeminjam');
             $table->string('tujuanPeminjaman');
             $table->date('tglPeminjaman');
-            $table->date('tglKembali');
+            $table->date('tglKembali')->nullable();
             $table->string('status');
             $table->timestamps();
         });

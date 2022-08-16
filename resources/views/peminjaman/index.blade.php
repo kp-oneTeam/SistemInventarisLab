@@ -1,6 +1,111 @@
 @extends('layouts.master')
 @section('peminjaman', 'active')
 @section('content')
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-height: 80%">
+        <div class="modal-content ">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Peminjaman Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 80vh; overflow-y: auto;">
+                <form action="" method="get" id="detailPeminjaman">
+                    @csrf
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Kode Peminjaman</label>
+                                <input type="text" disabled name="kode_barang" id="kode_peminjaman"class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nama Peminjam</label>
+                                <input type="text" disabled name="kode_barang" id="nama_peminjam"class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">NIP/NID/NIM/NIK</label>
+                                <input type="text" disabled name="kode_barang" id="no_identitas"class="form-control">
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">Tanggal Pinjam</label>
+                                        <input type="text" disabled name="kode_barang" id="no_identitas"class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">Tanggal Kembali</label>
+                                        <input type="text" disabled name="kode_barang" id="no_identitas"class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label >Tujuan Peminjaman</label>
+                        <textarea name="spek" disabled id="" class="form-control"></textarea>
+                    </div>
+                    <div class="table-responsive p-sm-1">
+                        <table class="table table-striped" id="tableDetail">
+                            <thead>
+                                <tr>
+                                    <th >No</th>
+                                    <th >Kode Inventaris</th>
+                                    <th >Nama Alat/Barang</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>31434312413434</td>
+                                    <td>Camera</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>31434312413434</td>
+                                    <td>HDMI</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>31434312413434</td>
+                                    <td>Camera</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>31434312413434</td>
+                                    <td>HDMI</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>31434312413434</td>
+                                    <td>Camera</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>31434312413434</td>
+                                    <td>HDMI</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-icon icon-left btn-danger" data-dismiss="modal"><i
+                        class="fas fa-times"></i>Batal</button>
+                <a href="{{ url('pengembalian/1') }}" class="btn btn-sm btn-icon icon-left btn-primary" data-toggle="tooltip" title="Pengembalian Barang">
+                     <i class="fas fa-undo"></i>Pengembalian
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
     <section class="section">
         <div class="section-header">
             <h1>Data Peminjaman</h1>
@@ -13,7 +118,7 @@
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
-                                    <a href="{{ url('tambah/peminjaman') }}" class="btn btn-warning mr-2" class="btn btn-primary">Tambah Data</a>
+                                    <a href="{{ url('tambah/peminjaman') }}" class="btn btn-warning mr-2">Tambah Data</a>
                                 </div>
                             </form>
                         </div>
@@ -24,10 +129,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama/Alata & Acc</th>
+                                        <th>Kode Peminjaman</th>
+                                        <th>Nama Peminjam</th>
                                         <th>Tujuan dan Kepentingan</th>
                                         <th>Tgl Pinjam</th>
                                         <th>Tgl Kembali</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -35,21 +142,33 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Camera</td>
-                                        <td>Acara Fakultas</td>
-                                        <td>12 Agustus 2022</td>
-                                        <td>17 Agustus 2022</td>
-                                        <td>
-                                            <form method="POST" action="{{ url('hapus/barang/1') }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <a href="{{ url('pengembalian/1') }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="fas fa-undo"></i>Pengembalian</a>
-                                                <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title='Hapus'><i class="fas fa-trash"></i>Hapus</button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                    @foreach($dataPeminjaman as $item)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $item->kodePeminjaman }}</td>
+                                            <td>{{ $item->namaPeminjam }}</td>
+                                            <td>{{ $item->tujuanPeminjaman }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($item->tglPeminjaman)); }}</td>
+                                            @if ($item->tglKembali == null)
+                                                <td>-</td>
+                                            @else
+                                                <td>{{ date('d-m-Y', strtotime($item->tglKembali)); }}</td>
+                                            @endif
+                                            <td>{{ $item->status }}</td>
+                                            <td>
+                                                <form method="POST" action="{{ url('hapus/barang/1') }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-sm btn-icon icon-left btn-info btn-detail-peminjaman mb-2" data-toggle="modal" data-target="#detailModal">
+                                                        <i class="far fa-eye" ></i> Detail</button>
+                                                    <a href="{{ url('pengembalian/1') }}" class="btn btn-sm btn-icon icon-left btn-primary mb-2" data-toggle="tooltip" title="Pengembalian Barang">
+                                                        <i class="fas fa-undo"></i>Pengembalian
+                                                    </a>
+                                                    <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm  mb-2" data-toggle="tooltip" title='Hapus Data'><i class="fas fa-trash"></i>Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -61,7 +180,13 @@
 @include('layouts.sweatalert')
 <script>
     $(document).ready(function(){
-    $('#myTable').DataTable();
+        $('#myTable').DataTable();
+        $('#tableDetail').DataTable({
+        paging:false,
+        ordering:false,
+        info:false,
+        searching:false
+    });
     });
 </script>
 <script type="text/javascript">
@@ -80,5 +205,9 @@
             }
         })
       });
+</script>
+<script>
+    $("#myTable .btn-detail-peminjaman").on("click", function() {
+    });
 </script>
 @endsection

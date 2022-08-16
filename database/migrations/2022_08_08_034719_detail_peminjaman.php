@@ -14,9 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('detail_peminjaman', function (Blueprint $table) {
-            $table->id('idDetailPeminjaman');
-            $table->string('kodePeminjaman');
-            $table->string('kodeInventaris');
+            $table->string('idPeminjaman');
+            $table->string('idInventaris');
             $table->timestamps();
         });
     }

@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\InventarisController;
+use App\Http\Controllers\InventarisKomputerController;
+use App\Http\Controllers\InventarisPeralatanKomputer;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\VendorController;
 use App\Models\Inventaris;
+use App\Models\InventarisKomputer;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +39,7 @@ Route::put('update/ruangan/{id}',[RuanganController::class,'update_ruangan']);
 Route::delete('hapus/ruangan/{id}', [RuanganController::class, 'hapus_ruangan']);
 Route::get('validasi_ruangan/{nama}',[RuanganController::class,'validasi_nama_ruangan_tambah']);
 Route::get('validasi_edit_ruangan/{kode}/{nama}', [RuanganController::class, 'validasi_edit_nama_ruangan']);
+//Inventaris
 Route::get('/inventaris', [InventarisController::class, 'index']);
 Route::post('checked/inventaris', [InventarisController::class, 'checked']);
 Route::get('tambah/inventaris', [InventarisController::class, 'form_tambah_inventaris']);
@@ -44,6 +48,10 @@ Route::get('edit/inventaris/{id}', [InventarisController::class, 'form_ubah_inve
 Route::put('ubah/inventaris/{kodeInventaris}', [InventarisController::class, 'ubah']);
 Route::delete('hapus/inventaris/{id}', [InventarisController::class, 'hapus_inventaris']);
 Route::get('detail/inventaris/{kode_inventaris}',[InventarisController::class,'detail']);
+Route::get('tambah/inventaris_komputer',[InventarisKomputerController::class,'create']);
+Route::post('tambah/inventaris_komputer', [InventarisKomputerController::class, 'store']);
+//Inventaris Peralatan Komputer
+Route::get('tambah/inventaris_peralatan_komputer',[InventarisPeralatanKomputer::class,'index']);
 Route::get('laporan',[LaporanController::class,'index']);
 Route::get('peminjaman',[PeminjamanController::class,'index']);
 Route::get('pengembalian/{id}', [PeminjamanController::class, 'form_pengembalian']);

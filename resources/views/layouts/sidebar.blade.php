@@ -14,6 +14,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+
             <li class="menu-header">Master Data</li>
                 <li class="@yield('barang')"><a class="nav-link" href="{{ url('barang') }}"><i class="fas fa-archive"></i> <span>Barang</span></a></li>
             <li class="@yield('ruangan')"><a class="nav-link" href="{{ url('ruangan') }}"><i

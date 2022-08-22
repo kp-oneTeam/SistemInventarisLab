@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Inventaris;
+use App\Models\InventarisKomputer;
 use App\Models\Ruangan;
+use App\Models\SpesifikasiKomputer;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,14 @@ class InventarisController extends Controller
             ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
             ->select('kodeInventaris','namaBarang','spesifikasi','namaRuangan','kondisi','keterangan','tgl_pembelian')
             ->get();
-        return view('inventaris.index',compact('title','data'));
+        $data2 = SpesifikasiKomputer::join('inventaris','inventaris.id','=', 'spesifikasi_komputer.idInventaris')
+            ->join('inventaris_komputer', 'inventaris_komputer.id', '=', 'spesifikasi_komputer.idInventarisKomputer')
+                ->join('barang', 'barang.id', '=', 'inventaris.idBarang')
+                ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
+                ->select('kodeInventarisKomputer','kodeInventaris', 'namaBarang', 'spesifikasi', 'namaRuangan', 'inventaris_komputer.kondisi', 'inventaris_komputer.keterangan', 'tgl_pembelian')
+                ->get();
+        return view('inventaris.index',compact('title','data','data2'));
     }
     public function form_tambah_inventaris()
     {
@@ -82,9 +91,9 @@ class InventarisController extends Controller
                 ->delete();
             return redirect('inventaris')->with('message','Data Berhasil Dihapus!');
         }else{
-            $data = Inventaris::join('barang', 'barang.kodeBarang', '=', 'inventaris.kodeBarang')
-            ->join('vendor', 'vendor.kodeVendor', '=', 'inventaris.kodeVendor')
-            ->join('ruangan', 'ruangan.kodeRuangan', '=', 'inventaris.kodeRuangan')
+            $data = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
+            ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
+            ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
             ->select('kodeInventaris', 'namaBarang', 'tgl_pembelian')
             ->whereIn('kodeInventaris',$kode_inventaris)
             ->get();

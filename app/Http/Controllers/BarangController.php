@@ -26,7 +26,6 @@ class BarangController extends Controller
     }
     public function update_barang($id,request $request){
         $data = Barang::where('kodeBarang', '=', $id)->update([
-            'kodeBarang' => $request->kode_barang,
             'namaBarang' => $request->nama_barang
         ]);
         return redirect('/barang')->with('message', 'Barang Berhasil Diubah');

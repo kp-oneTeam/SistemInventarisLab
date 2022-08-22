@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('inventaris_komputer', function (Blueprint $table) {
             $table->id();
             $table->string('kodeInventarisKomputer');
-            $table->unsignedBigInteger('idInventaris');
             $table->unsignedBigInteger('idBarang');
             $table->unsignedBigInteger('idRuangan');
             $table->string('tanggal_perakitan');
@@ -24,7 +23,6 @@ return new class extends Migration
             $table->text('keterangan');
 
             $table->timestamps();
-            $table->foreign('idInventaris')->references('id')->on('inventaris');
             $table->foreign('idBarang')->references('id')->on('barang');
             $table->foreign('idRuangan')->references('id')->on('ruangan');
         });

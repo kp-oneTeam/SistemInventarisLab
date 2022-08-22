@@ -63,4 +63,15 @@ class VendorController extends Controller
             ]);
         }
     }
+    public function checked(request $request){
+        $kode_vendor = [];
+        for ($i=0; $i < count($request->kode_vendor) ; $i++) {
+            $kode_vendor[] = $request->kode_vendor[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = Vendor::whereIn('kodeVendor', $kode_vendor)
+                ->delete();
+            return redirect('/vendor')->with('message','Vendor Berhasil Dihapus!');
+        }
+    }
 }

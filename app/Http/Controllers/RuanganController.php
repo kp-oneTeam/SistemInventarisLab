@@ -63,4 +63,15 @@ class RuanganController extends Controller
             ]);
         }
     }
+    public function checked(request $request){
+        $kode_ruangan = [];
+        for ($i=0; $i < count($request->kode_ruangan) ; $i++) {
+            $kode_ruangan[] = $request->kode_ruangan[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = Ruangan::whereIn('kodeRuangan', $kode_ruangan)
+                ->delete();
+            return redirect('/ruangan')->with('message','Ruangan Berhasil Dihapus!');
+        }
+    }
 }

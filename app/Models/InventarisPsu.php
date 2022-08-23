@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Motherboard extends Model
+class InventarisPsu extends Model
 {
     use HasFactory;
-    protected $table = 'inventaris_motherboard';
+    protected $table = 'inventaris_psu';
     protected $guarded = [];
 }

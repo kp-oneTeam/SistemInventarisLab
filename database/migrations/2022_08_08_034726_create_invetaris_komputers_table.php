@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('inventaris_komputer', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('kodeInventarisKomputer');
-            $table->unsignedBigInteger('idBarang');
-            $table->unsignedBigInteger('idRuangan');
+            $table->unsignedInteger('idBarang');
+            $table->unsignedInteger('idRuangan');
             $table->string('tanggal_perakitan');
             $table->string('kondisi');
             $table->text('keterangan');

@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('inventaris_ram', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('kodeInventaris')->unique();
-            $table->unsignedBigInteger('idRuangan');
-            $table->unsignedBigInteger('idVendor');
-            $table->string('nama');
+            $table->unsignedInteger('kodeInventaris')->unique();
+            $table->unsignedInteger('idRuangan');
+            $table->unsignedInteger('idVendor');
+            $table->string('nama_memory');
             $table->string('jenis_memory');
             $table->string('tipe_memory');
             $table->string('kapasitas_memory');

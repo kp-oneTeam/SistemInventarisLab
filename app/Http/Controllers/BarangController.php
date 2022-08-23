@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Barang;
+use App\Models\Inventaris;
 
 class BarangController extends Controller
 {
@@ -37,7 +38,14 @@ class BarangController extends Controller
     }
     public function detail_barang($id){
         $title = "Detail Data Barang";
-        return view('barang.detail',compact('title'));
+        $barang = Barang::where('kodeBarang',$id)->first();
+        $data = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
+        ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
+        ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
+        ->select('kodeInventaris', 'namaBarang', 'spesifikasi', 'namaRuangan', 'kondisi', 'keterangan', 'tgl_pembelian')
+        ->where('barang.id',$barang->id)
+        ->get();
+        return view('barang.detail',compact('title','data','barang'));
     }
     public function validasi_nama_barang_tambah($nama){
         $data = Barang::where('namaBarang',$nama)->first();

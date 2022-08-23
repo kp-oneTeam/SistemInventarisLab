@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\GedungController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\InventarisKomputerController;
 use App\Http\Controllers\InventarisPeralatanKomputer;
@@ -34,7 +35,13 @@ Route::delete('hapus/barang/{id}', [BarangController::class, 'hapus_barang']);
 Route::get('validasi_barang/{nama}',[BarangController::class,'validasi_nama_barang_tambah']);
 Route::get('validasi_edit_barang/{kode}/{nama}', [BarangController::class, 'validasi_edit_nama_barang']);
 Route::get('detail/barang/{id}', [BarangController::class, 'detail_barang']);
-
+//Gedung
+Route::get('/gedung',[GedungController::class,'index']);
+Route::post('tambah/gedung', [GedungController::class, 'tambah_gedung']);
+Route::put('update/gedung/{id}', [GedungController::class, 'update_gedung']);
+Route::delete('hapus/gedung/{id}',[GedungController::class,'hapus_gedung']);
+Route::get('validasi_gedung/{nama}', [GedungController::class, 'validasi_nama_gedung_tambah']);
+Route::get('validasi_edit_gedung/{kode}/{nama}', [GedungController::class, 'validasi_edit_nama_gedung']);
 // Ruangan
 Route::get('/ruangan',[RuanganController::class,'index']);
 Route::post('tambah/ruangan', [RuanganController::class, 'tambah_ruangan']);

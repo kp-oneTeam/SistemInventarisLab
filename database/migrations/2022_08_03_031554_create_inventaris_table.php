@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('inventaris', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('kodeInventaris');
-            $table->unsignedBigInteger('idBarang');
-            $table->unsignedBigInteger('idRuangan');
-            $table->unsignedBigInteger('idVendor');
+            $table->increments('id');
+            $table->unsignedInteger('kodeInventaris');
+            $table->unsignedInteger('idBarang');
+            $table->unsignedInteger('idRuangan');
+            $table->unsignedInteger('idVendor');
             $table->string('spesifikasi');
             $table->integer('harga');
             $table->date('tgl_pembelian');

@@ -16,9 +16,11 @@
             </li>
 
             <li class="menu-header">Master Data</li>
-                <li class="@yield('barang')"><a class="nav-link" href="{{ url('barang') }}"><i class="fas fa-archive"></i> <span>Barang</span></a></li>
+            <li class="@yield('gedung')"><a class="nav-link" href="{{ url('gedung') }}">
+                <i class="fas fa-building"></i><span>Gedung</span></a></li>
             <li class="@yield('ruangan')"><a class="nav-link" href="{{ url('ruangan') }}"><i
                         class="fas fa-door-open"></i> <span>Ruangan</span></a></li>
+                <li class="@yield('barang')"><a class="nav-link" href="{{ url('barang') }}"><i class="fas fa-archive"></i> <span>Barang</span></a></li>
             <li class="@yield('vendor')"><a class="nav-link" href="{{ url('vendor') }}"><i
                             class="fas fa-tags"></i> <span>Vendor</span></a></li>
             <li class="menu-header">Manajemen Inventaris</li>

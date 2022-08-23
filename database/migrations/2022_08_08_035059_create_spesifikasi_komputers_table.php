@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('spesifikasi_komputer', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("idInventaris");
-            $table->unsignedBigInteger("idInventarisKomputer");
+            $table->increments('id');
+            $table->unsignedInteger("idInventaris");
+            $table->unsignedInteger("idInventarisKomputer");
             $table->timestamps();
 
             $table->foreign('idInventaris')->references('id')->on('inventaris');

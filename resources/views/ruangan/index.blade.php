@@ -2,7 +2,8 @@
 @section('ruangan','active')
 @section('content')
 <!-- Modal Tambah data -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header bg-warning text-white">
@@ -26,21 +27,29 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="">Gedung</label>
-                        <input type="text" name="nama_gedung" class="form-control">
+                        <select name="gedung" class="form-control select2" required>
+                            <option value="">-- Pilih Gedung --</option>
+                            @foreach ($gedung as $item)
+                            <option value="{{ $item->id }}">{{ $item->namaGedung }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-icon icon-left btn-primary" data-dismiss="modal"><i class="fas fa-times"></i>Batal</button>
-                        <button type="submit" id="tambah_ruangan" class="btn btn-warning btn-icon icon-left btn-warning"><i class="far fa-save"></i>Simpan</button>
+                        <button type="button" class="btn btn-icon icon-left btn-primary" data-dismiss="modal"><i
+                                class="fas fa-times"></i>Batal</button>
+                        <button type="submit" id="tambah_ruangan"
+                            class="btn btn-warning btn-icon icon-left btn-warning"><i
+                                class="far fa-save"></i>Simpan</button>
                     </div>
                 </form>
-            </div>      
+            </div>
         </div>
     </div>
 </div>
 <!-- End Modal Tambah Data -->
 <!-- Modal Update Data -->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
@@ -55,23 +64,29 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="">Kode Ruangan</label>
-                        <input type="text" disabled name="kode_ruangan" id="input_edit_kode_ruangan"class="form-control">
+                        <input type="text" disabled name="kode_ruangan" id="input_edit_kode_ruangan"
+                            class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Nama Ruangan</label>
-                        <input type="text" name="nama_ruangan" id="input_edit_nama_ruangan"class="form-control edit_nama_ruangan">
+                        <input type="text" name="nama_ruangan" id="input_edit_nama_ruangan"
+                            class="form-control edit_nama_ruangan">
                         <div class="invalid-feedback" id="err_edit_nama_ruangan">
 
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="">Nama Gedung</label>
-                        <input type="text" name="nama_gedung" id="input_edit_nama_gedung"class="form-control">
+                        <label>Gedung</label>
+                        <select name="gedung" class="form-control select2" required id="editGedung">
+
+                        </select>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal"><i
                                 class="fas fa-times"></i>Batal</button>
-                        <button type="submit" id="btn_simpan_update" class="btn btn-warning btn-icon icon-left btn-primary"><i
+                        <button type="submit" id="btn_simpan_update"
+                            class="btn btn-warning btn-icon icon-left btn-primary"><i
                                 class="far fa-save"></i>Simpan</button>
                     </div>
                 </form>
@@ -79,123 +94,124 @@
         </div>
     </div>
 </div>
-        <section class="section">
-            <div class="section-header">
-                <h1>Data Ruangan</h1>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="text-warning">Table Ruangan</h4>
-                            <div class="card-header-form">
-                                <form>
-                                    <div class="input-group">
-                                        <a href="{{ url('tambah/ruangan') }}" class="btn btn-warning mr-2" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Data</a>
-                                    </div>
-                                </form>
+<section class="section">
+    <div class="section-header">
+        <h1>Data Ruangan</h1>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-warning">&nbsp;</h4>
+                    <div class="card-header-form">
+                        <form>
+                            <div class="input-group">
+                                <a href="{{ url('tambah/ruangan') }}" class="btn btn-warning mr-2"
+                                    class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah
+                                    Data</a>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="float-right mb-2">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <form id="formHapus" action="{{ url('checked/ruangan') }}" method="post">
-                                        @csrf
-                                        <button name="button" value="hapus" type="submit" class="btn btn-danger icon-left text-white">
-                                            <i class="fas fa-trash"></i> &nbsp; Hapus
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="table-responsive p-sm-1">
-                                <table class="table table-striped" id="myTable">
-                                    <thead>
-                                        <tr>
-                                            <th><input type="checkbox" class="check-all"></th>
-                                            <th>No</th>
-                                            <th>Kode Ruangan</th>
-                                            <th>Nama Ruangan</th>
-                                            <th>Gedung</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                        $no = 1;
-                                        @endphp
-                                        @foreach ($data as $item)
-                                        <tr>
-                                            <td width="1%"><input type="checkbox" class="checked"> </td>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $item->kodeRuangan }}</td>
-                                            <td>{{ $item->namaRuangan }}</td>
-                                            <td>{{ $item->namaGedung }}</td>
-                                            <td>
-                                                <form method="POST" action="{{ url('hapus/ruangan/'.$item->kodeRuangan) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editRuangan" data-toggle="modal", data-target="#updateModal">
-                                                    <i class="far fa-edit" data-id="{{ $item->kodeRuangan }}"></i> Edit
-                                                </button>
-                                                <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title='Hapus'><i class="fas fa-trash"></i>Hapus</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive p-sm-1">
+                        <table class="table table-striped" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode Ruangan</th>
+                                    <th>Nama Ruangan</th>
+                                    <th>Gedung</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                $no = 1;
+                                @endphp
+                                @foreach ($data as $item)
+                                <tr>
+                                    <td>{{ $no++ }}<input type="hidden" name="" value="{{ $item->idGedung }}"></td>
+                                    <td>{{ $item->kodeRuangan }}</td>
+                                    <td>{{ $item->namaRuangan }}</td>
+                                    <td>{{ $item->gedung->namaGedung }} </td>
+                                    <td>
+                                        <form method="POST" action="{{ url('hapus/ruangan/'.$item->kodeRuangan) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button"
+                                                class="btn btn-sm btn-icon icon-left btn-primary btn_editRuangan"
+                                                data-toggle="modal" , data-target="#updateModal">
+                                                <i class="far fa-edit" data-id="{{ $item->kodeRuangan }}"></i> Edit
+                                            </button>
+                                            <button type="submit"
+                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                data-toggle="tooltip" title='Hapus'><i
+                                                    class="fas fa-trash"></i>Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 @include('layouts.sweatalert')
 <script>
-    $(document).ready(function(){
-    $('#myTable').DataTable();
+    $(document).ready(function () {
+        $('#myTable').DataTable();
     });
 </script>
 <script type="text/javascript">
-     $('.show_confirm').click(function(event) {
-          var form =  $(this).closest("form");
-          var name = $(this).data("name");
-          event.preventDefault();
-          Swal.fire({
+    $('.show_confirm').click(function (event) {
+        var form = $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        Swal.fire({
             title: 'Apakah Anda Yakin Akan Menghapus Data?',
             showCancelButton: true,
             confirmButtonText: 'Yes',
-            }).then((result) => {
+        }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 form.submit();
             }
         })
-      });
+    });
 </script>
 <script>
-    $("#myTable .btn_editRuangan").on("click", function() {
-            var count = $('.mainbody > tr').length+1;
-            var currentRow = $(this).closest("tr");
-            var kode_ruangan = currentRow.find("td:eq(1)").html(); // get current row 1st table cell TD value
-            console.log(kode_ruangan)
-            var nama_ruangan = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
-            var nama_gedung = currentRow.find("td:eq(3)").html(); // get current row 2nd table cell TD value
-            $("#input_edit_kode_ruangan").val(kode_ruangan);
-            $("#input_edit_nama_ruangan").val(nama_ruangan);
-            $("#input_edit_nama_gedung").val(nama_gedung);
-            $("#editformRuangan").attr('action','update/ruangan/'+kode_ruangan);
-        });
+    $("#myTable .btn_editRuangan").click(function () {
+        var count = $('.mainbody > tr').length + 1;
+        var currentRow = $(this).closest("tr");
+        var kode_ruangan = currentRow.find("td:eq(1)").html(); // get current row 1st table cell TD value
+        var nama_ruangan = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
+        var nama_gedung = currentRow.find("td:eq(3)").html();
+        var idgedung = currentRow.find("td:eq(0) input[type='hidden']").val(); // get current row 2nd table cell TD value
+        $("#input_edit_kode_ruangan").val(kode_ruangan);
+        $("#input_edit_nama_ruangan").val(nama_ruangan);
+        var html = "<option value="+idgedung+">"+ nama_gedung +"</option>";
+        html += "@foreach($gedung as $item)";
+        html += "@if("+idgedung+" != $item->id)";
+        html += "<option value='{{ $item->id }}'>{{ $item->namaGedung }}</option>"
+        html += "@endif"
+        html += "@endforeach";
+        $("#editGedung").append(html);
+        $("#editformRuangan").attr('action', 'update/ruangan/' + kode_ruangan);
+    });
     //Validasi Tambah (Nama Ruangan)
-    $("#nama_ruangan").on('input',function(){
+    $("#nama_ruangan").on('input', function () {
         var delay = 0;
         $('#msg_err_tambah_nama_ruangan').remove()
         $.ajax({
-            url : 'validasi_ruangan/'+$(this).val(),
-            type : 'GET',
-            dataType : 'json',
+            url: 'validasi_ruangan/' + $(this).val(),
+            type: 'GET',
+            dataType: 'json',
             success: function (data) {
-                setTimeout(function(){
+                setTimeout(function () {
                     $('.nama_ruangan').removeClass("is-invalid")
                     $('#msg_err_tambah_nama_ruangan').remove()
                     if (data.status === true) {
@@ -204,26 +220,26 @@
                         html += data.message;
                         html += "</div>";
                         $('#err_tambah_nama_ruangan').append(html)
-                        $('#tambah_ruangan').prop('disabled',true); //button simpan agar tidak dapat diklik
-                    }else{
+                        $('#tambah_ruangan').prop('disabled', true); //button simpan agar tidak dapat diklik
+                    } else {
                         $('.nama_ruangan').removeClass("is-invalid")
                         $('#msg_err_tambah_nama_ruangan').remove()
-                        $('#tambah_ruangan').prop('disabled',false);  //button simpan agar dapat diklik
+                        $('#tambah_ruangan').prop('disabled', false);  //button simpan agar dapat diklik
                     }
-                },delay);
+                }, delay);
             }
         });
     });
     //Validasi Edit
-    $("#input_edit_nama_ruangan").on('input',function() {
+    $("#input_edit_nama_ruangan").on('input', function () {
         var delay = 0;
         // $('#msg_err_update_nama_vendor').remove()
         $.ajax({
-            url : 'validasi_edit_ruangan/'+$("#input_edit_kode_ruangan").val()+'/'+$(this).val(),
-            type : 'GET',
-            dataType : 'json',
-            success : function (data) {
-                setTimeout(function(){
+            url: 'validasi_edit_ruangan/' + $("#input_edit_kode_ruangan").val() + '/' + $(this).val(),
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                setTimeout(function () {
                     $('#msg_err_update_nama_ruangan').remove()
                     $('.edit_nama_ruangan').removeClass("is-invalid")
                     if (data.status === true) {
@@ -232,68 +248,22 @@
                         html += data.message;
                         html += "</div>";
                         $('#err_edit_nama_ruangan').append(html)
-                        $('#btn_simpan_update').prop('disabled',true);
-                    }else{
+                        $('#btn_simpan_update').prop('disabled', true);
+                    } else {
                         $('.edit_nama_ruangan').removeClass("is-invalid")
                         $('#msg_err_update_nama_ruangan').remove()
-                        $('#btn_simpan_update').prop('disabled',false);
+                        $('#btn_simpan_update').prop('disabled', false);
                     }
-                },delay)
+                }, delay)
             }
         });
     });
     //Modal Edit Close
-    $('#updateModal').on('hidden.bs.modal',function () {
+    $('#updateModal').on('hidden.bs.modal', function () {
         $('.edit_nama_ruangan').removeClass("is-invalid")
-        $('#msg_err_update_nama_ruangan').remove()
-        $('#btn_simpan_update').prop('disabled',false);
-    });
-</script>
-{{-- checkbox --}}
-<script>
-    $(document).ready(function () {
-        $("#formHapus").hide();
-    })
-    $(".check-all").on('change',function(){
-        var html = "<div id='hapus_semua'>";
-        var col1,col2;
-        $(".checked").prop('checked',this.checked);
-        $(".checked").each(function(){
-            var row = $(this).closest("tr")[0];
-                col1 = row.cells[1].innerHTML; //nomor
-                col2 = row.cells[2].innerHTML; //ambil kode Ruangan
-                html += '<input type="hidden" name="kode_ruangan[]" value="'+col2+'" id="input'+col1+'"></input>';
-        });
-        html += "<div>"
-        if ($(this).prop('checked')) {
-            $(".hapus_semua").remove();
-            $("#formHapus").show();
-            $("#formHapus").append(html);
-        }else{
-            $("#formHapus").hide();
-            $("#hapus_semua").remove();
-            $(".hapus_semua").remove();
-        }
-    });
-    $("#myTable .checked").on('change',function(){
-        var message = "";
-        var html = "<div class='hapus_semua'>";
-        var currentRow = $(this).closest("tr");
-        var col1 = currentRow.find("td:eq(1)").html(); //nomor
-        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode ruangan
-        if ($(this).prop('checked')) {
-             $("#formHapus").show();
-             html += '<input type="hidden" name="kode_ruangan[]" value="'+col2+'" id="input'+col1+'"></input></div>';
-             $("#formHapus").append(html);
-        }else{
-            var checked_count = $('.checked').filter(':checked').length;
-            if(checked_count != 0){
-                $("#input"+col1).remove();
-            }else{
-                $("#formHapus").hide();
-                $("#input"+col1).remove();
-            }
-        }
+        $('#msg_err_update_nama_ruangan').remove();
+        $('#editGedung').empty();
+        $('#btn_simpan_update').prop('disabled', false);
     });
 </script>
 @endsection

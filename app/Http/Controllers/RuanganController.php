@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gedung;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
 
@@ -11,13 +12,14 @@ class RuanganController extends Controller
     public function index(){
         $title = "Manajemen Ruangan";
         $data = Ruangan::get();
-        return view('ruangan.index',compact('title', 'data'));
+        $gedung = Gedung::get();
+        return view('ruangan.index',compact('title', 'data','gedung'));
     }
     public function tambah_ruangan(request $request){
         $saved = Ruangan::create([
             'kodeRuangan' => $request->kode_ruangan,
             'namaRuangan' => $request->nama_ruangan,
-            'namaGedung' => $request->nama_gedung
+            'idGedung' => $request->gedung
         ]);
         if ($saved) {
             return redirect('/ruangan')->with('message','Ruangan Berhasil Ditambahkan');

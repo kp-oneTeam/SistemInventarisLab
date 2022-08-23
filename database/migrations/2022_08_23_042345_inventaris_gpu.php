@@ -13,23 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inventaris_motherboard', function (Blueprint $table) {
+        Schema::create('inventaris_gpu', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('kodeInventaris')->unique();
             $table->unsignedBigInteger('idRuangan');
             $table->unsignedBigInteger('idVendor');
-            $table->string('namaMotherboard');
-            $table->string('chipsetMotherboard');
-            $table->string('socketMotherboard');
-            $table->string('formFactor');
-            $table->integer('memoriSlot');
-            $table->string('memoriSupport');
-            $table->integer('harga');
-            $table->date('tglPembelian');
-            $table->string('kondisi');
-            $table->string('keterangan')->nullable();
+            $table->string('namaGpu');
+            $table->string('ukuranMemori');
+            $table->string('memoriInterface');
+            $table->string('kecepatanMemori');
+            $table->string('tipeMemori');
+            $table->integer('hargaGpu');
+            $table->date('tglPembelianGpu');
+            $table->string('kondisiGpu');
+            $table->string('keteranganGpu')->nullable();
             $table->timestamps();
-            
+
             $table->foreign('idRuangan')->references('id')->on('ruangan');
             $table->foreign('idVendor')->references('id')->on('vendor');
         });
@@ -42,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('motherboard');
+        Schema::dropIfExists('inventaris_gpu');
     }
 };

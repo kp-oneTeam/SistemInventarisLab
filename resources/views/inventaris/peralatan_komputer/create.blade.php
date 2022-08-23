@@ -48,32 +48,43 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="">Nama Motheboard</label>
-                                            <input type="text" name="nama_motherboard" class="form-control" >
+                                            <input type="text" name="nama_motherboard" class="form-control" required >
                                             <small>Contoh: B450 Steel Legend</small>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Chipset</label>
-                                            <input type="text" name="chipset_mb" class="form-control">
+                                            <input type="text" name="chipset_mb" class="form-control" required>
                                             <small>Contoh: B450, K450</small>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Socket Processor</label>
-                                            <input type="text" name="socket_mb" class="form-control">
-                                            <small>Contoh: AM4, LGA1155</small>
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label for="">Socket Processor</label>
+                                                <input type="text" name="socket_mb" class="form-control" required>
+                                                <small>Contoh: AM4, LGA1155</small>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="">Form Factor</label>
+                                                <select name="form_factor" class="form-control select2" required>
+                                                    <option selected>-- Pilih Form Factor --</option>
+                                                    <option value="ATX">ATX</option>
+                                                    <option value="Micro-ATX">Micro-ATX</option>
+                                                    <option value="Mini-ATX">Mini-ATX</option>
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-6">
                                                 <label for="">Slot Memori</label>
-                                                <select name="memori_slot" class="form-control select2">
-                                                    <option value="">-- Pilih Slot --</option>
+                                                <select name="memori_slot" class="form-control select2" required>
+                                                    <option selected>-- Pilih Slot --</option>
                                                     <option value="2">Dual Channel</option>
                                                     <option value="4">Quad Channel</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-6">
                                                 <label for="">Support Memori</label>
-                                                <select name="memori_support" class="form-control select2">
-                                                    <option value="">-- Pilih Memori Support --</option>
+                                                <select name="memori_support" class="form-control select2" required>
+                                                    <option selected>-- Pilih Memori Support --</option>
                                                     <option value="DDR3">DDR3</option>
                                                     <option value="DDR4">DDR4</option>
                                                     <option value="DDR5">DDR5</option>
@@ -83,7 +94,7 @@
                                         <div class="form-group">
                                             <label>Vendor</label>
                                             <select name="vendor_mb" class="form-control select2" required>
-                                                <option value="">-- Pilih Vendor --</option>
+                                                <option selected>-- Pilih Vendor --</option>
                                                 @foreach ($vendor as $item)
                                                 <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
                                                 @endforeach
@@ -92,7 +103,7 @@
                                         <div class="form-group">
                                             <label>Lokasi</label>
                                             <select name="lokasi_mb" class="form-control select2" required>
-                                                <option value="">-- Pilih Ruang --</option>
+                                                <option selected>-- Pilih Ruang --</option>
                                                 @foreach ($lokasi as $item)
                                                 <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
                                                 @endforeach
@@ -438,28 +449,51 @@
                         <div class="tab-pane fade" id="contact5" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
-                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
+                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/gpu') }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label for="">Nama GPU</label>
-                                            <input type="text" name="nama_motherboard" class="form-control">
+                                            <input type="text" name="nama_gpu" class="form-control" required>
+                                            <small>Contoh : MSI GeForce® GTX 1050</small>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Jenis GPU</label><small>(Nvidia/AMD)</small>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Jenis Memory GPU</label>(GDDR3/GDDR4/GDDR5/dll)
-                                            <input type="text" name="jenis_motherboard" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Kapasistas Memory GPU</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                        <div class="row">
+                                            <div class="form-group col-3">
+                                                <label for="">Ukuran Memori</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="ukuran_memori_gpu" class="form-control" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">GB</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-3">
+                                                <label for="">Memori Interface</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="memori_interface_gpu" class="form-control" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">bit</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-3">
+                                                <label for="">Kecepatan Memori</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="kecepatan_memori_gpu" class="form-control" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">MHz</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-3">
+                                                <label for="">Tipe Memori</label>
+                                                <input type="text" name="tipe_memori_gpu" class="form-control" required>
+                                                <small>Contoh : GDDR3, GDDR5</small>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Lokasi</label>
-                                            <select name="lokasi" class="form-control select2" required>
-                                                <option value="">-- Pilih Ruang --</option>
+                                            <select name="lokasi_gpu" class="form-control select2" required>
+                                                <option selected>-- Pilih Ruang --</option>
                                                 @foreach ($lokasi as $item)
                                                 <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
                                                 @endforeach
@@ -467,8 +501,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Vendor</label>
-                                            <select name="vendor" class="form-control select2" required>
-                                                <option value="">-- Pilih Vendor --</option>
+                                            <select name="vendor_gpu" class="form-control select2" required>
+                                                <option selected>-- Pilih Vendor --</option>
                                                 @foreach ($vendor as $item)
                                                 <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
                                                 @endforeach
@@ -476,22 +510,22 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Harga</label>
-                                            <input name="harga" id="rupiah" type="text" class="form-control rupiah" required>
+                                            <input name="harga_gpu" id="rupiah" type="text" class="form-control rupiah" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Pembelian</label>
-                                            <input type="date" name="tanggal" class="form-control" required>
+                                            <input type="date" name="tgl_pembelian_gpu" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Kondisi</label>
                                             <div class="selectgroup w-100">
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Baik"
+                                                    <input type="radio" name="kondisi_gpu" value="Baik"
                                                         class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Baik</span>
                                                 </label>
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Rusak"
+                                                    <input type="radio" name="kondisi_gpu" value="Rusak"
                                                         class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Rusak</span>
                                                 </label>
@@ -499,7 +533,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Keterangan</label>
-                                            <textarea name="keterangan" class="form-control" required></textarea>
+                                            <textarea name="keterangan_gpu" class="form-control"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit"
@@ -517,60 +551,95 @@
                         <div class="tab-pane fade" id="contact6" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
-                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
+                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/psu') }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label for="">Nama PSU</label>
-                                            <input type="text" name="nama_motherboard" class="form-control">
+                                            <input type="text" name="nama_psu" class="form-control">
+                                            <small>Contoh : be quiet! SYSTEM POWER 9</small>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Jenis PSU</label><small>(ATX/MINI ATX/dll)</small>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label for="">Form Factor PSU</label><small>(ATX/MINI ATX/dll)</small>
+                                                <select name="form_factor_psu" class="form-control select2" required>
+                                                    <option selected>-- Pilih Form Factor --</option>
+                                                    <option value="ATX">ATX</option>
+                                                    <option value="Micro-ATX">Micro-ATX</option>
+                                                    <option value="Mini-ATX">Mini-ATX</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="">Jenis Kabel PSU</label><small>(Modular/Non Modular)</small>
+                                                <select name="jenis_kabel_psu" class="form-control select2" required>
+                                                    <option selected>-- Pilih Jenis Kabel --</option>
+                                                    <option value="Modular">Modular</option>
+                                                    <option value="Non-Modular">Non-Modular</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Jenis Kabel PSU</label><small>(Modular/Non Modular)</small>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label for="">Besar Daya</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="besar_daya_psu" class="form-control" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">Watt</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="">Sertifikasi PSU</label>
+                                                <select name="sertifikasi_psu" class="form-control select2" required>
+                                                    <option selected>-- Pilih Sertifikasi --</option>
+                                                    <option value="Non-Sertifikasi">Non-Sertifikasi</option>
+                                                    <option value="80+">80+</option>
+                                                    <option value="80+ Bronze">80+ Bronze</option>
+                                                    <option value="80+ Silver">80+ Silver</option>
+                                                    <option value="80+ Gold">80+ Gold</option>
+                                                    <option value="80+ Platinum">80+ Platinum</option>
+                                                    <option value="80+ Titanium">80+ Titanium</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Besar Daya</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label>Lokasi</label>
+                                                <select name="lokasi_psu" class="form-control select2" required>
+                                                    <option value="">-- Pilih Ruang --</option>
+                                                    @foreach ($lokasi as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label>Vendor</label>
+                                                <select name="vendor_psu" class="form-control select2" required>
+                                                    <option value="">-- Pilih Vendor --</option>
+                                                    @foreach ($vendor as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Lokasi</label>
-                                            <select name="lokasi" class="form-control select2" required>
-                                                <option value="">-- Pilih Ruang --</option>
-                                                @foreach ($lokasi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Vendor</label>
-                                            <select name="vendor" class="form-control select2" required>
-                                                <option value="">-- Pilih Vendor --</option>
-                                                @foreach ($vendor as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label>Harga</label>
-                                            <input name="harga" id="rupiah" type="text" class="form-control rupiah" required>
+                                            <input name="harga_psu" id="rupiah" type="text" class="form-control rupiah" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Pembelian</label>
-                                            <input type="date" name="tanggal" class="form-control" required>
+                                            <input type="date" name="tgl_pembelian_psu" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Kondisi</label>
                                             <div class="selectgroup w-100">
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Baik"
+                                                    <input type="radio" name="kondisi_psu" value="Baik"
                                                         class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Baik</span>
                                                 </label>
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Rusak"
+                                                    <input type="radio" name="kondisi_psu" value="Rusak"
                                                         class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Rusak</span>
                                                 </label>
@@ -578,7 +647,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Keterangan</label>
-                                            <textarea name="keterangan" class="form-control" required></textarea>
+                                            <textarea name="keterangan_psu" class="form-control"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit"
@@ -596,52 +665,60 @@
                         <div class="tab-pane fade" id="contact7" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
-                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
+                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/casing') }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label for="">Nama Casing</label>
-                                            <input type="text" name="nama_motherboard" class="form-control">
+                                            <input type="text" name="nama_casing" class="form-control">
+                                            <small>Contoh: Powerlogic Armaggeddon Tessaraxx Apex 7</small>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Jenis Casing</label><small>(ATX/MINI ATX/dll)</small>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Lokasi</label>
-                                            <select name="lokasi" class="form-control select2" required>
-                                                <option value="">-- Pilih Ruang --</option>
-                                                @foreach ($lokasi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
-                                                @endforeach
+                                            <label for="">Form Factor Casing</label><small>(ATX/MINI ATX/dll)</small>
+                                            <select name="form_factor_casing" class="form-control select2" required>
+                                                <option selected>-- Pilih Form Factor --</option>
+                                                <option value="ATX">ATX</option>
+                                                <option value="Micro-ATX">Micro-ATX</option>
+                                                <option value="Mini-ATX">Mini-ATX</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Vendor</label>
-                                            <select name="vendor" class="form-control select2" required>
-                                                <option value="">-- Pilih Vendor --</option>
-                                                @foreach ($vendor as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label>Lokasi</label>
+                                                <select name="lokasi_casing" class="form-control select2" required>
+                                                    <option value="">-- Pilih Ruang --</option>
+                                                    @foreach ($lokasi as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label>Vendor</label>
+                                                <select name="vendor_casing" class="form-control select2" required>
+                                                    <option value="">-- Pilih Vendor --</option>
+                                                    @foreach ($vendor as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Harga</label>
-                                            <input name="harga" id="rupiah" type="text" class="form-control rupiah" required>
+                                            <input name="harga_casing" id="rupiah" type="text" class="form-control rupiah" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Pembelian</label>
-                                            <input type="date" name="tanggal" class="form-control" required>
+                                            <input type="date" name="tgl_pembelian_casing" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Kondisi</label>
                                             <div class="selectgroup w-100">
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Baik"
+                                                    <input type="radio" name="kondisi_casing" value="Baik"
                                                         class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Baik</span>
                                                 </label>
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Rusak"
+                                                    <input type="radio" name="kondisi_casing" value="Rusak"
                                                         class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Rusak</span>
                                                 </label>
@@ -649,7 +726,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Keterangan</label>
-                                            <textarea name="keterangan" class="form-control" required></textarea>
+                                            <textarea name="keterangan_casing" class="form-control" ></textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit"

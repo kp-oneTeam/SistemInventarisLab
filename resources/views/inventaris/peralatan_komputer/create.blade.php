@@ -6,7 +6,6 @@
         <h1>Tambah Data Inventaris Peralatan Komputer</h1>
     </div>
     <div class="row">
-
         <div class="col-12">
             <div class="card">
                 <div class="card-body m-2">
@@ -41,6 +40,7 @@
                         </li>
                     </ul>
                     <div class="tab-content m-5" id="myTabContent2">
+                        {{-- motherboard --}}
                         <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
@@ -48,33 +48,41 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="">Nama Motheboard</label>
-                                            <input type="text" name="nama_motherboard" class="form-control">
+                                            <input type="text" name="nama_motherboard" class="form-control" >
+                                            <small>Contoh: B450 Steel Legend</small>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Jenis Motherboard</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                            <label for="">Chipset</label>
+                                            <input type="text" name="chipset_mb" class="form-control">
+                                            <small>Contoh: B450, K450</small>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Socket</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                            <label for="">Socket Processor</label>
+                                            <input type="text" name="socket_mb" class="form-control">
+                                            <small>Contoh: AM4, LGA1155</small>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Jenis Processor</label>
-                                            <small>(Intel/AMD)</small>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Lokasi</label>
-                                            <select name="lokasi" class="form-control select2" required>
-                                                <option value="">-- Pilih Ruang --</option>
-                                                @foreach ($lokasi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label for="">Slot Memori</label>
+                                                <select name="memori_slot" class="form-control select2">
+                                                    <option value="">-- Pilih Slot --</option>
+                                                    <option value="2">Dual Channel</option>
+                                                    <option value="4">Quad Channel</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="">Support Memori</label>
+                                                <select name="memori_support" class="form-control select2">
+                                                    <option value="">-- Pilih Memori Support --</option>
+                                                    <option value="DDR3">DDR3</option>
+                                                    <option value="DDR4">DDR4</option>
+                                                    <option value="DDR5">DDR5</option>
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Vendor</label>
-                                            <select name="vendor" class="form-control select2" required>
+                                            <select name="vendor_mb" class="form-control select2" required>
                                                 <option value="">-- Pilih Vendor --</option>
                                                 @foreach ($vendor as $item)
                                                 <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
@@ -82,23 +90,32 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label>Lokasi</label>
+                                            <select name="lokasi_mb" class="form-control select2" required>
+                                                <option value="">-- Pilih Ruang --</option>
+                                                @foreach ($lokasi as $item)
+                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Harga</label>
-                                            <input name="harga" id="rupiah" type="text" class="form-control rupiah" required>
+                                            <input name="harga_mb" id="rupiah" type="text" class="form-control rupiah" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Pembelian</label>
-                                            <input type="date" name="tanggal" class="form-control" required>
+                                            <input type="date" name="tanggal_pembelian_mb" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Kondisi</label>
                                             <div class="selectgroup w-100">
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Baik"
+                                                    <input type="radio" name="kondisi_mb" value="Baik"
                                                         class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Baik</span>
                                                 </label>
                                                 <label class="selectgroup-item">
-                                                    <input type="radio" name="kondisi" value="Rusak"
+                                                    <input type="radio" name="kondisi_mb" value="Rusak"
                                                         class="selectgroup-input" required>
                                                     <span class="selectgroup-button">Rusak</span>
                                                 </label>
@@ -106,13 +123,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Keterangan</label>
-                                            <textarea name="keterangan" class="form-control" required></textarea>
+                                            <textarea name="keterangan_mb" class="form-control"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit"
                                                 class="btn btn-warning btn-icon icon-left btn-warning float-right m-2"><i
                                                     class="fas fa-save"></i>Simpan</button>
-                                            <a href="{{ url('inventaris') }}"
+                                            <a href="{{ url('tambah/inventaris_peralatan_komputer') }}"
                                                 class="btn btn-secondary btn-icon icon-left btn-primary float-right m-2"><i
                                                     class="fas fa-times"></i>Batal</a>
                                         </div>
@@ -120,6 +137,7 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- processor --}}
                         <div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
@@ -216,8 +234,9 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- Memory --}}
                         <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">
-                                                        <div class="row">
+                            <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
                                         @csrf
@@ -302,8 +321,9 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- storage --}}
                         <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab3">
-                                                        <div class="row">
+                            <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
                                         @csrf
@@ -376,8 +396,9 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- GPU --}}
                         <div class="tab-pane fade" id="contact5" role="tabpanel" aria-labelledby="contact-tab3">
-                                                        <div class="row">
+                            <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
                                         @csrf
@@ -454,8 +475,9 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- PSU --}}
                         <div class="tab-pane fade" id="contact6" role="tabpanel" aria-labelledby="contact-tab3">
-                                                        <div class="row">
+                            <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
                                         @csrf
@@ -532,8 +554,9 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- Casing --}}
                         <div class="tab-pane fade" id="contact7" role="tabpanel" aria-labelledby="contact-tab3">
-                                                        <div class="row">
+                            <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
                                         @csrf
@@ -603,7 +626,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

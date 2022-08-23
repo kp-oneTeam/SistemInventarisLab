@@ -58,7 +58,9 @@ Route::post('tambah/inventaris_komputer', [InventarisKomputerController::class, 
 //Inventaris Peralatan Komputer
 Route::get('tambah/inventaris_peralatan_komputer',[InventarisPeralatanKomputer::class,'index']);
 Route::post('tambah/inventaris_peralatan_komputer/motherboard',[InventarisPeralatanKomputer::class,'tambah_inventaris_motherboard']);
-
+Route::post('tambah/inventaris_peralatan_komputer/cpu',[InventarisPeralatanKomputer::class,'cpu']);
+Route::post('tambah/inventaris_peralatan_komputer/ram', [InventarisPeralatanKomputer::class, 'ram']);
+Route::post('tambah/inventaris_peralatan_komputer/storage', [InventarisPeralatanKomputer::class, 'storage']);
 // Laporan
 Route::get('laporan',[LaporanController::class,'index']);
 

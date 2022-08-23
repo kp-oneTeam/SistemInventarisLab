@@ -145,35 +145,56 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="">Nama Processor</label><small>(Intel/AMD)</small>
-                                            <input type="text" name="nama_motherboard" class="form-control">
+                                            <input type="text" name="nama_processor" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Nomor Processor</label>
+                                            <input type="text" name="nomor_processor" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Socket</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                            <input type="text" name="socket" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Generasi</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                            <input type="text" name="generasi" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Series</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Kecepatan Processor</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                            <input type="text" name="series" class="form-control">
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Jumlah Core</label>
-                                                    <input type="text" name="jenis_motherboard" class="form-control">
+                                                    <label for="">Kecepatan Processor</label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="kecepatan_processor" class="form-control">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">GHz</span>
+                                                    </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="">Jumlah Threat</label>
-                                                    <input type="text" name="jenis_motherboard" class="form-control">
+                                                    <label for="">Jumlah Core</label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="jumlah_core" class="form-control">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">Core</span>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="">Jumlah Thread</label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="jumlah_thread" class="form-control">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">Thread</span>
+                                                    </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,31 +259,48 @@
                         <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
-                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
+                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/ram') }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label for="">Nama Memory</label>
-                                            <input type="text" name="nama_motherboard" class="form-control">
+                                            <input type="text" name="nama_memory" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Jenis Memory</label><small>(DDR3/DDR4/DDR5)</small>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                            <input type="text" name="jenis_memory" class="form-control">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Tipe Memory</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Kecepatan / Frekuensi Memory</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Kapasistas Memory</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Kecepatan Processor</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Tipe Memory</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">PC</span>
+                                                        </div>
+                                                        <input type="text" name="tipe_memory" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Kapasitas Memory</label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="kapasitas_memory" class="form-control">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">GB</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="">Kecepatan / Frekuensi Memory</label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="frekuensi_memory" class="form-control">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Hz</span>
+                                                        </div>
+                                                    </div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Lokasi</label>
@@ -325,19 +363,19 @@
                         <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
-                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
+                                    <form action="{{ url('tambah/inventaris_peralatan_komputer/storage') }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label for="">Nama Storage</label>
-                                            <input type="text" name="nama_motherboard" class="form-control">
+                                            <input type="text" name="nama_storage" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Jenis Storage</label><small>(HDD/NVME/SSD)</small>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                            <input type="text" name="jenis_storage" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Kapasistas</label>
-                                            <input type="text" name="jenis_motherboard" class="form-control">
+                                            <input type="text" name="kapasitas_storage" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label>Lokasi</label>
@@ -632,11 +670,10 @@
     </div>
 </section>
 <script>
-    var rupiah = document.getElementById("rupiah");
-    rupiah.addEventListener("keyup", function (e) {
-        // tambahkan 'Rp.' pada saat form di ketik
-        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-        rupiah.value = formatRupiah(this.value, "Rp. ");
+    $('.rupiah').keypress(function () {
+        var val = this.value;
+        var rp = formatRupiah(val,"Rp. ");
+        $(this).val(rp);
     });
     /* Fungsi formatRupiah */
     function formatRupiah(angka, prefix) {

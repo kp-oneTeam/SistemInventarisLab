@@ -13,19 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inventaris_processor', function (Blueprint $table) {
+        Schema::create('inventaris_ram', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('kodeInventaris')->unique();
             $table->unsignedBigInteger('idRuangan');
             $table->unsignedBigInteger('idVendor');
             $table->string('nama');
-            $table->string('nomor_processor');
-            $table->string('generasi');
-            $table->string('series');
-            $table->string('kecepatan');
-            $table->string('jumlah_core');
-            $table->string('jumlah_thread');
-            $table->string('socket');
+            $table->string('jenis_memory');
+            $table->string('tipe_memory');
+            $table->string('kapasitas_memory');
+            $table->string('frekuensi_memory');
             $table->integer('harga');
             $table->date('tgl_pembelian');
             $table->string('kondisi');
@@ -44,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('processors');
+        Schema::dropIfExists('inventaris_rams');
     }
 };

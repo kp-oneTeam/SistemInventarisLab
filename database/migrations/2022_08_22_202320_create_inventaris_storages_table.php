@@ -13,19 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inventaris_processor', function (Blueprint $table) {
+        Schema::create('inventaris_storage', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('kodeInventaris')->unique();
             $table->unsignedBigInteger('idRuangan');
             $table->unsignedBigInteger('idVendor');
-            $table->string('nama');
-            $table->string('nomor_processor');
-            $table->string('generasi');
-            $table->string('series');
-            $table->string('kecepatan');
-            $table->string('jumlah_core');
-            $table->string('jumlah_thread');
-            $table->string('socket');
+            $table->string('nama_storage');
+            $table->string('jenis_storage');
+            $table->string('kapasitas_storage');
             $table->integer('harga');
             $table->date('tgl_pembelian');
             $table->string('kondisi');
@@ -44,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('processors');
+        Schema::dropIfExists('inventaris_storages');
     }
 };

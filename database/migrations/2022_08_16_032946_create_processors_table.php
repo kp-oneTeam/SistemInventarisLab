@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('inventaris_processor', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('kodeInventaris')->unique();
+            $table->string('kodeInventaris')->unique();
             $table->unsignedInteger('idRuangan');
             $table->unsignedInteger('idVendor');
             $table->string('nama_processor');
@@ -44,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('processors');
+        Schema::dropIfExists('inventaris_processors');
     }
 };

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('inventaris_psu', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('kodeInventaris')->unique();
-            $table->unsignedBigInteger('idRuangan');
-            $table->unsignedBigInteger('idVendor');
+            $table->string('kodeInventaris')->unique();
+            $table->unsignedInteger('idRuangan');
+            $table->unsignedInteger('idVendor');
             $table->string('namaPsu');
             $table->string('formFactor');
             $table->string('jenisKabel');
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventaris_psus');
+        Schema::dropIfExists('inventaris_psu');
     }
 };

@@ -191,15 +191,20 @@
         var nama_ruangan = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
         var nama_gedung = currentRow.find("td:eq(3)").html();
         var idgedung = currentRow.find("td:eq(0) input[type='hidden']").val(); // get current row 2nd table cell TD value
+
+        $("#editGedung").append('<option value="'+idgedung+'">'+nama_gedung+'</option>');
+        $.ajax({
+            url: 'get_gedung/' + idgedung,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $.each(data,function(key,value){
+                    $("#editGedung").append('<option value="'+key+'">'+value+'</option>');
+                });
+            }
+        })
         $("#input_edit_kode_ruangan").val(kode_ruangan);
         $("#input_edit_nama_ruangan").val(nama_ruangan);
-        var html = "<option value="+idgedung+">"+ nama_gedung +"</option>";
-        html += "@foreach($gedung as $item)";
-        html += "@if("+idgedung+" != $item->id)";
-        html += "<option value='{{ $item->id }}'>{{ $item->namaGedung }}</option>"
-        html += "@endif"
-        html += "@endforeach";
-        $("#editGedung").append(html);
         $("#editformRuangan").attr('action', 'update/ruangan/' + kode_ruangan);
     });
     //Validasi Tambah (Nama Ruangan)

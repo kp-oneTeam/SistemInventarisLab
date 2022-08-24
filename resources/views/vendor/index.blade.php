@@ -98,7 +98,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-warning">Table Vendor</h4>
+                    <h4 class="text-warning"></h4>
                     <div class="card-header-form">
                         <form>
                             <div class="input-group">
@@ -108,16 +108,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="float-right mb-2">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <form id="formHapus" action="{{ url('checked/vendor') }}" method="post">
-                                @csrf
-                                <button name="button" value="hapus" type="submit" class="btn btn-danger icon-left text-white">
-                                    <i class="fas fa-trash"></i> &nbsp; Hapus
-                                </button>
-                            </form>
-                        </div>
-                    </div>
                     <div class="table-responsive p-sm-1">
                         <table class="table table-striped" id="myTable">
                             <thead>
@@ -132,8 +122,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php 
-                                    $no = 1; 
+                                @php
+                                    $no = 1;
                                 @endphp
                                 @foreach ($data as $item)
                                     <tr>
@@ -145,7 +135,7 @@
                                         <td>{{ $item->alamatVendor }}</td>
                                         <td>
                                             <form method="POST" action="{{ url('hapus/vendor/'.$item->kodeVendor) }}">
-                                                @csrf 
+                                                @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editVendor" data-toggle="modal", data-target="#updateModal" >
                                                     <i class="far fa-edit" data-id="{{ $item->kodeVendor }}"></i>Edit

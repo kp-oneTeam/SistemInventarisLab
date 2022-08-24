@@ -20,7 +20,7 @@ class InventarisPeralatanKomputer extends Controller
     public function index(){
         $lokasi = Ruangan::get();
         $vendor = Vendor::get();
-        return view('inventaris.peralatan_komputer.create',compact('lokasi','vendor'));
+        return view('inventaris.peralatan_komputer.create', compact('lokasi','vendor'));
     }
     public function tambah_inventaris_motherboard(request $request){
         $harga = $request->harga_mb;

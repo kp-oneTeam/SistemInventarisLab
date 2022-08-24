@@ -128,7 +128,6 @@
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <form id="formCetak" action="{{ url('checked/inventaris') }}" method="post">
                                         @csrf
-
                                         <button name="button" value="cetak" type="submit"
                                             class="btn btn-primary icon-left text-white"><i class="fas fa-print"></i>
                                             &nbsp; Cetak</button>
@@ -138,58 +137,459 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="table-responsive p-sm-1">
-                                <table class="table table-striped" id="myTable3">
-                                    <thead>
-                                        <tr>
-                                            <th><input type="checkbox" class="check-all"></th>
-                                            <th>No</th>
-                                            <th>Kode Inventaris</th>
-                                            <th>Nama Barang</th>
-                                            <th>Spesifikasi</th>
-                                            <th>Lokasi</th>
-                                            <th>Tahun Pembelian</th>
-                                            <th>Status</th>
-                                            <th>Keterangan</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                        $no = 1;
-                                        @endphp
-                                        @foreach ($data as $item)
-                                        <tr>
-                                            <td width="1%"><input type="checkbox" class="checked"> </td>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $item->kodeInventaris }}</td>
-                                            <td>{{ $item->namaBarang }}</td>
-                                            <td>{{ $item->spesifikasi }}</td>
-                                            <td>{{ $item->namaRuangan }}</td>
-                                            <td>{{ $item->kondisi }}</td>
-                                            <td>{{ $item->keterangan }}</td>
-                                            <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
-                                            <td>
-                                                <form method="POST"
-                                                    action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
-                                                        class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                            class="far fa-eye"></i> Detail</a>
-                                                    <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
-                                                        class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
-                                                            class="far fa-edit"></i> Edit</a>
-                                                    <button type="submit"
-                                                        class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                        data-toggle="tooltip" title='Hapus'><i
-                                                            class="fas fa-trash"></i>Hapus</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                            <br><br>
+                            {{-- tab --}}
+                            <ul class="nav nav-pills" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3" role="tab"
+                                        aria-controls="home" aria-selected="true">Motherboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#profile3" role="tab"
+                                        aria-controls="profile" aria-selected="false">Processor</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact3" role="tab"
+                                        aria-controls="contact" aria-selected="false">Ram</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#contact4" role="tab"
+                                        aria-controls="contact" aria-selected="false">Storage</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab5" data-toggle="tab" href="#contact5" role="tab"
+                                        aria-controls="contact" aria-selected="false">Graphics Processor Unit (GPU)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab6" data-toggle="tab" href="#contact6" role="tab"
+                                        aria-controls="contact" aria-selected="false">Power Supply(PSU)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab7" data-toggle="tab" href="#contact7" role="tab"
+                                        aria-controls="contact" aria-selected="false">Casing</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content m-2" id="myTabContent2">
+                                {{-- motherboard --}}
+                                <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
+                                    <div class="table-responsive p-sm-1 mt-3">
+                                        <table class="table table-striped" id="myTable1">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" class="check-all"></th>
+                                                    <th>No</th>
+                                                    <th>Kode Inventaris</th>
+                                                    <th>Nama Motherboard</th>
+                                                    <th>Chipset</th>
+                                                    <th>Socket</th>
+                                                    <th>Form Factor</th>
+                                                    <th>Memori Slot</th>
+                                                    <th>Memori Support</th>
+                                                    <th>Ruangan</th>
+                                                    <th>Vendor</th>
+                                                    <th>Harga</th>
+                                                    <th>Tanggal Pembelian</th>
+                                                    <th>Kondisi</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $no = 1;
+                                                @endphp
+                                                @foreach ($motherboard as $item)
+                                                <tr>
+                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $item->kodeInventaris }}</td>
+                                                    <td>{{ $item->namaMotherboard }}</td>
+                                                    <td>{{ $item->chipsetMotherboard }}</td>
+                                                    <td>{{ $item->socketMotherboard }}</td>
+                                                    <td>{{ $item->formFactor }}</td>
+                                                    <td>{{ $item->memoriSlot }}</td>
+                                                    <td>{{ $item->memoriSupport }}</td>
+                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaVendor }}</td>
+                                                    <td>{{ $item->harga }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($item->tglPembelian)); }}</td>
+                                                    <td>{{ $item->kondisi }}</td>
+                                                    <td>{{ $item->keterangan }}</td>
+                                                    <td>
+                                                        <form method="POST"
+                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
+                                                                    class="far fa-eye"></i> Detail</a>
+                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
+                                                                    class="far fa-edit"></i> Edit</a>
+                                                            <button type="submit"
+                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                                data-toggle="tooltip" title='Hapus'><i
+                                                                    class="fas fa-trash"></i>Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- processor --}}
+                                <div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">
+                                    <div class="table-responsive p-sm-1 mt-3">
+                                        <table class="table table-striped" id="myTable2">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" class="check-all"></th>
+                                                    <th>No</th>
+                                                    <th>Kode Inventaris</th>
+                                                    <th>Nama Processor</th>
+                                                    <th>Nomor</th>
+                                                    <th>Generasi</th>
+                                                    <th>Series</th>
+                                                    <th>Kecepatan</th>
+                                                    <th>Jumlah Core</th>
+                                                    <th>Jumlah Thread</th>
+                                                    <th>Socket</th>
+                                                    <th>Ruangan</th>
+                                                    <th>Vendor</th>
+                                                    <th>Harga</th>
+                                                    <th>Tanggal Pembelian</th>
+                                                    <th>Kondisi</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $no = 1;
+                                                @endphp
+                                                @foreach ($processor as $item)
+                                                <tr>
+                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $item->kodeInventaris }}</td>
+                                                    <td>{{ $item->nama }}</td>
+                                                    <td>{{ $item->nomor_processor }}</td>
+                                                    <td>{{ $item->generasi }}</td>
+                                                    <td>{{ $item->series }}</td>
+                                                    <td>{{ $item->kecepatan }}</td>
+                                                    <td>{{ $item->jumlah_core }}</td>
+                                                    <td>{{ $item->jumlah_thread }}</td>
+                                                    <td>{{ $item->socket }}</td>
+                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaVendor }}</td>
+                                                    <td>{{ $item->harga }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($item->tgl_pembelian)); }}</td>
+                                                    <td>{{ $item->kondisi }}</td>
+                                                    <td>{{ $item->keterangan }}</td>
+                                                    <td>
+                                                        <form method="POST"
+                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
+                                                                    class="far fa-eye"></i> Detail</a>
+                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
+                                                                    class="far fa-edit"></i> Edit</a>
+                                                            <button type="submit"
+                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                                data-toggle="tooltip" title='Hapus'><i
+                                                                    class="fas fa-trash"></i>Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- Memory --}}
+                                <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">
+                                    <div class="table-responsive p-sm-1 mt-3">
+                                        <table class="table table-striped" id="myTable3">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" class="check-all"></th>
+                                                    <th>No</th>
+                                                    <th>Kode Inventaris</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>Spesifikasi</th>
+                                                    <th>Lokasi</th>
+                                                    <th>Tahun Pembelian</th>
+                                                    <th>Status</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $no = 1;
+                                                @endphp
+                                                @foreach ($data as $item)
+                                                <tr>
+                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $item->kodeInventaris }}</td>
+                                                    <td>{{ $item->namaBarang }}</td>
+                                                    <td>{{ $item->spesifikasi }}</td>
+                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->kondisi }}</td>
+                                                    <td>{{ $item->keterangan }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
+                                                    <td>
+                                                        <form method="POST"
+                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
+                                                                    class="far fa-eye"></i> Detail</a>
+                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
+                                                                    class="far fa-edit"></i> Edit</a>
+                                                            <button type="submit"
+                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                                data-toggle="tooltip" title='Hapus'><i
+                                                                    class="fas fa-trash"></i>Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- storage --}}
+                                <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab3">
+                                    <div class="table-responsive p-sm-1 mt-3">
+                                        <table class="table table-striped" id="myTable4">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" class="check-all"></th>
+                                                    <th>No</th>
+                                                    <th>Kode Inventaris</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>Spesifikasi</th>
+                                                    <th>Lokasi</th>
+                                                    <th>Tahun Pembelian</th>
+                                                    <th>Status</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $no = 1;
+                                                @endphp
+                                                @foreach ($data as $item)
+                                                <tr>
+                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $item->kodeInventaris }}</td>
+                                                    <td>{{ $item->namaBarang }}</td>
+                                                    <td>{{ $item->spesifikasi }}</td>
+                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->kondisi }}</td>
+                                                    <td>{{ $item->keterangan }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
+                                                    <td>
+                                                        <form method="POST"
+                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
+                                                                    class="far fa-eye"></i> Detail</a>
+                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
+                                                                    class="far fa-edit"></i> Edit</a>
+                                                            <button type="submit"
+                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                                data-toggle="tooltip" title='Hapus'><i
+                                                                    class="fas fa-trash"></i>Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- GPU --}}
+                                <div class="tab-pane fade" id="contact5" role="tabpanel" aria-labelledby="contact-tab3">
+                                    <div class="table-responsive p-sm-1 mt-3">
+                                        <table class="table table-striped" id="myTable5">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" class="check-all"></th>
+                                                    <th>No</th>
+                                                    <th>Kode Inventaris</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>Spesifikasi</th>
+                                                    <th>Lokasi</th>
+                                                    <th>Tahun Pembelian</th>
+                                                    <th>Status</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $no = 1;
+                                                @endphp
+                                                @foreach ($data as $item)
+                                                <tr>
+                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $item->kodeInventaris }}</td>
+                                                    <td>{{ $item->namaBarang }}</td>
+                                                    <td>{{ $item->spesifikasi }}</td>
+                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->kondisi }}</td>
+                                                    <td>{{ $item->keterangan }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
+                                                    <td>
+                                                        <form method="POST"
+                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
+                                                                    class="far fa-eye"></i> Detail</a>
+                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
+                                                                    class="far fa-edit"></i> Edit</a>
+                                                            <button type="submit"
+                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                                data-toggle="tooltip" title='Hapus'><i
+                                                                    class="fas fa-trash"></i>Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- PSU --}}
+                                <div class="tab-pane fade" id="contact6" role="tabpanel" aria-labelledby="contact-tab3">
+                                    <div class="table-responsive p-sm-1 mt-3">
+                                        <table class="table table-striped" id="myTable6">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" class="check-all"></th>
+                                                    <th>No</th>
+                                                    <th>Kode Inventaris</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>Spesifikasi</th>
+                                                    <th>Lokasi</th>
+                                                    <th>Tahun Pembelian</th>
+                                                    <th>Status</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $no = 1;
+                                                @endphp
+                                                @foreach ($data as $item)
+                                                <tr>
+                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $item->kodeInventaris }}</td>
+                                                    <td>{{ $item->namaBarang }}</td>
+                                                    <td>{{ $item->spesifikasi }}</td>
+                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->kondisi }}</td>
+                                                    <td>{{ $item->keterangan }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
+                                                    <td>
+                                                        <form method="POST"
+                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
+                                                                    class="far fa-eye"></i> Detail</a>
+                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
+                                                                    class="far fa-edit"></i> Edit</a>
+                                                            <button type="submit"
+                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                                data-toggle="tooltip" title='Hapus'><i
+                                                                    class="fas fa-trash"></i>Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- Casing --}}
+                                <div class="tab-pane fade" id="contact7" role="tabpanel" aria-labelledby="contact-tab3">
+                                    <div class="table-responsive p-sm-1 mt-3">
+                                        <table class="table table-striped" id="myTable7">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" class="check-all"></th>
+                                                    <th>No</th>
+                                                    <th>Kode Inventaris</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>Spesifikasi</th>
+                                                    <th>Lokasi</th>
+                                                    <th>Tahun Pembelian</th>
+                                                    <th>Status</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $no = 1;
+                                                @endphp
+                                                @foreach ($data as $item)
+                                                <tr>
+                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $item->kodeInventaris }}</td>
+                                                    <td>{{ $item->namaBarang }}</td>
+                                                    <td>{{ $item->spesifikasi }}</td>
+                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->kondisi }}</td>
+                                                    <td>{{ $item->keterangan }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
+                                                    <td>
+                                                        <form method="POST"
+                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
+                                                                    class="far fa-eye"></i> Detail</a>
+                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
+                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
+                                                                    class="far fa-edit"></i> Edit</a>
+                                                            <button type="submit"
+                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                                data-toggle="tooltip" title='Hapus'><i
+                                                                    class="fas fa-trash"></i>Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -290,8 +690,13 @@
 <script>
     $(document).ready(function () {
         $('#myTable').DataTable();
+        $('#myTable1').DataTable();
         $('#myTable2').DataTable();
         $('#myTable3').DataTable();
+        $('#myTable4').DataTable();
+        $('#myTable5').DataTable();
+        $('#myTable6').DataTable();
+        $('#myTable7').DataTable();
     });
 </script>
 <script type="text/javascript">

@@ -8,6 +8,13 @@ use App\Models\InventarisKomputer;
 use App\Models\Ruangan;
 use App\Models\SpesifikasiKomputer;
 use App\Models\Vendor;
+use App\Models\Motherboard;
+use App\Models\InventarisCasing;
+use App\Models\InventarisGPU;
+use App\Models\InventarisProcessor;
+use App\Models\InventarisPsu;
+use App\Models\InventarisRam;
+use App\Models\InventarisStorage;
 use Illuminate\Http\Request;
 
 class InventarisController extends Controller
@@ -27,7 +34,21 @@ class InventarisController extends Controller
                 ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
                 ->select('kodeInventarisKomputer','kodeInventaris', 'namaBarang', 'spesifikasi', 'namaRuangan', 'inventaris_komputer.kondisi', 'inventaris_komputer.keterangan', 'tgl_pembelian')
                 ->get();
-        return view('inventaris.index',compact('title','data','data2'));
+        //Peralatan Komputer
+        $motherboard = Motherboard::join('vendor', 'vendor.id', '=', 'inventaris_motherboard.idVendor')
+        ->join('ruangan', 'ruangan.id', '=', 'inventaris_motherboard.idRuangan')
+        ->select('kodeInventaris','namaMotherboard','chipsetMotherboard','socketMotherboard','formFactor','memoriSlot','memoriSupport','namaRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->get();
+        $processor = InventarisProcessor::join('vendor', 'vendor.id', '=', 'inventaris_processor.idVendor')
+        ->join('ruangan', 'ruangan.id', '=', 'inventaris_processor.idRuangan')
+        ->select('kodeInventaris','nama','nomor_processor','generasi','series','kecepatan','jumlah_core','jumlah_thread','socket','namaRuangan','namaVendor','harga','tgl_pembelian','kondisi','keterangan')
+        ->get();
+        $ram = InventarisRam::get();
+        $storage = InventarisStorage::get();
+        $gpu = InventarisGPU::get();
+        $psu = InventarisPsu::get();
+        $casing = InventarisCasing::get();
+        return view('inventaris.index',compact('title','data','data2','motherboard','processor','ram','storage','gpu','psu','casing'));
     }
     public function form_tambah_inventaris()
     {

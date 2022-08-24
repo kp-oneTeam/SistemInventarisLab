@@ -252,7 +252,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Keterangan</label>
-                                            <textarea name="keterangan" class="form-control" required></textarea>
+                                            <textarea name="keterangan" class="form-control"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit"

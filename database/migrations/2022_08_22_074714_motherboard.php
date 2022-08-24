@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('inventaris_motherboard', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('kodeInventaris')->unique();
-            $table->unsignedBigInteger('idRuangan');
-            $table->unsignedBigInteger('idVendor');
+            $table->string('kodeInventaris')->unique();
+            $table->unsignedInteger('idRuangan');
+            $table->unsignedInteger('idVendor');
             $table->string('namaMotherboard');
             $table->string('chipsetMotherboard');
             $table->string('socketMotherboard');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('kondisi');
             $table->string('keterangan')->nullable();
             $table->timestamps();
-            
+
             $table->foreign('idRuangan')->references('id')->on('ruangan');
             $table->foreign('idVendor')->references('id')->on('vendor');
         });
@@ -42,6 +42,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('motherboard');
+        Schema::dropIfExists('inventaris_motherboard');
     }
 };

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('inventaris_casing', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('kodeInventaris')->unique();
-            $table->unsignedBigInteger('idRuangan');
-            $table->unsignedBigInteger('idVendor');
+            $table->string('kodeInventaris')->unique();
+            $table->unsignedInteger('idRuangan');
+            $table->unsignedInteger('idVendor');
             $table->string('namaCasing');
             $table->string('formFactor');
             $table->integer('harga');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->timestamps();
 
-            
+
             $table->foreign('idRuangan')->references('id')->on('ruangan');
             $table->foreign('idVendor')->references('id')->on('vendor');
         });
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventaris_casings');
+        Schema::dropIfExists('inventaris_casing');
     }
 };

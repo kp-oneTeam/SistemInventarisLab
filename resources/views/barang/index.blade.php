@@ -82,7 +82,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-warning">Table Barang</h4>
+                    <h4 class="text-warning"></h4>
                     <div class="card-header-form">
                         <form>
                             <div class="input-group">

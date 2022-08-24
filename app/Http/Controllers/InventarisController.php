@@ -41,7 +41,7 @@ class InventarisController extends Controller
         ->get();
         $processor = InventarisProcessor::join('vendor', 'vendor.id', '=', 'inventaris_processor.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_processor.idRuangan')
-        ->select('kodeInventaris','nama','nomor_processor','generasi','series','kecepatan','jumlah_core','jumlah_thread','socket','namaRuangan','namaVendor','harga','tgl_pembelian','kondisi','keterangan')
+        ->select('kodeInventaris','nama_processor','nomor_processor','generasi','series','kecepatan','jumlah_core','jumlah_thread','socket','namaRuangan','namaVendor','harga','tgl_pembelian','kondisi','keterangan')
         ->get();
         $ram = InventarisRam::get();
         $storage = InventarisStorage::get();

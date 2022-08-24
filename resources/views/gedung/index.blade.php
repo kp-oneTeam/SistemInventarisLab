@@ -72,7 +72,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="text-warning">Table Gedung</h4>
+                            <h4 class="text-warning"></h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
@@ -82,16 +82,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="float-right mb-2">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <form id="formHapus" action="{{ url('checked/gedung') }}" method="post">
-                                        @csrf
-                                        <button name="button" value="hapus" type="submit" class="btn btn-danger icon-left text-white">
-                                            <i class="fas fa-trash"></i> &nbsp; Hapus
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
                             <div class="table-responsive p-sm-1">
                                 <table class="table table-striped" id="myTable">
                                     <thead>
@@ -228,9 +218,6 @@
 </script>
 {{-- checkbox --}}
 <script>
-    $(document).ready(function () {
-        $("#formHapus").hide();
-    })
     $(".check-all").on('change',function(){
         var html = "<div id='hapus_semua'>";
         var col1,col2;

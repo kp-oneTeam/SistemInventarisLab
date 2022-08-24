@@ -54,7 +54,7 @@ class InventarisPeralatanKomputer extends Controller
             'idRuangan' => $request->lokasi,
             'idVendor' => $request->vendor,
             'nomor_processor' => $request->nomor_processor,
-            'nama' => $request->nama_processor,
+            'nama_processor' => $request->nama_processor,
             'generasi' => $request->generasi,
             'series' => $request->series,
             'kecepatan' => $request->kecepatan_processor,

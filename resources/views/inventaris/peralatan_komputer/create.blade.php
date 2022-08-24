@@ -159,6 +159,10 @@
                                             <input type="text" name="nama_processor" class="form-control">
                                         </div>
                                         <div class="form-group">
+                                            <label for="">Series</label>
+                                            <input type="text" name="series" class="form-control">
+                                        </div>
+                                        <div class="form-group">
                                             <label for="">Nomor Processor</label>
                                             <input type="text" name="nomor_processor" class="form-control">
                                         </div>
@@ -169,10 +173,6 @@
                                         <div class="form-group">
                                             <label for="">Generasi</label>
                                             <input type="text" name="generasi" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Series</label>
-                                            <input type="text" name="series" class="form-control">
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
@@ -380,13 +380,29 @@
                                             <label for="">Nama Storage</label>
                                             <input type="text" name="nama_storage" class="form-control">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Jenis Storage</label><small>(HDD/NVME/SSD)</small>
-                                            <input type="text" name="jenis_storage" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Kapasistas</label>
-                                            <input type="text" name="kapasitas_storage" class="form-control">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="">Jenis Storage</label><small>(HDD/NVME/SSD)</small>
+                                                    <select name="jenis_storage" id="" class="form-control">
+                                                        <option value="">-- Pilih Jenis Storage --</option>
+                                                        <option value="HDD">HDD</option>
+                                                        <option value="NVME">NVME</option>
+                                                        <option value="SSD">SSD</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="">Kapasitas Storage</label>
+                                                    <div class="input-group">
+                                                        <input type="number" min="1" name="kapasitas_storage" class="form-control" required>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">GB</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Lokasi</label>
@@ -621,7 +637,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label>Harga</label>
                                             <input name="harga_psu" id="rupiah" type="text" class="form-control rupiah" required>

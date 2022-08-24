@@ -50,6 +50,7 @@ Route::delete('hapus/ruangan/{id}', [RuanganController::class, 'hapus_ruangan'])
 Route::post('checked/ruangan', [RuanganController::class, 'checked']);
 Route::get('validasi_ruangan/{nama}',[RuanganController::class,'validasi_nama_ruangan_tambah']);
 Route::get('validasi_edit_ruangan/{kode}/{nama}', [RuanganController::class, 'validasi_edit_nama_ruangan']);
+Route::get('get_gedung/{id}', [RuanganController::class, 'get_gedung']);
 // Inventaris
 Route::get('/inventaris', [InventarisController::class, 'index']);
 Route::post('checked/inventaris', [InventarisController::class, 'checked']);

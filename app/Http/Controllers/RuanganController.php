@@ -76,4 +76,8 @@ class RuanganController extends Controller
             return redirect('/ruangan')->with('message','Ruangan Berhasil Dihapus!');
         }
     }
+    public function get_gedung($id){
+        $data = Gedung::where('id','!=',$id)->pluck('namaGedung','id');
+        return $data;
+    }
 }

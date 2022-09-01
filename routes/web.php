@@ -60,11 +60,14 @@ Route::get('edit/inventaris/{id}', [InventarisController::class, 'form_ubah_inve
 Route::put('ubah/inventaris/{kodeInventaris}', [InventarisController::class, 'ubah']);
 Route::delete('hapus/inventaris/{id}', [InventarisController::class, 'hapus_inventaris']);
 Route::get('detail/inventaris/{kode_inventaris}',[InventarisController::class,'detail']);
-
 Route::get('tambah/inventaris_komputer',[InventarisKomputerController::class,'create']);
 Route::post('tambah/inventaris_komputer', [InventarisKomputerController::class, 'store']);
+//Inventaris Tab route
+Route::get('/inventaris/non-komputer', [InventarisController::class, 'index']);
+Route::get('/inventaris/peralatan-komputer', [InventarisController::class, 'index']);
+Route::get('/inventaris/komputer', [InventarisController::class, 'index']);
 //Inventaris Peralatan Komputer
-Route::get('tambah/inventaris_peralatan_komputer',[InventarisPeralatanKomputer::class,'index']);
+Route::get('inventaris/peralatan-komputer/tambah/motherboard',[InventarisPeralatanKomputer::class,'index']);
 Route::post('tambah/inventaris_peralatan_komputer/motherboard',[InventarisPeralatanKomputer::class,'tambah_inventaris_motherboard']);
 Route::post('tambah/inventaris_peralatan_komputer/cpu',[InventarisPeralatanKomputer::class,'cpu']);
 Route::post('tambah/inventaris_peralatan_komputer/ram', [InventarisPeralatanKomputer::class, 'ram']);
@@ -72,6 +75,22 @@ Route::post('tambah/inventaris_peralatan_komputer/storage', [InventarisPeralatan
 Route::post('tambah/inventaris_peralatan_komputer/gpu', [InventarisPeralatanKomputer::class, 'gpu']);
 Route::post('tambah/inventaris_peralatan_komputer/psu', [InventarisPeralatanKomputer::class, 'psu']);
 Route::post('tambah/inventaris_peralatan_komputer/casing', [InventarisPeralatanKomputer::class, 'casing']);
+// inventaris Peralatan komputer tambah route
+Route::get('inventaris/peralatan-komputer/tambah/motherboard',[InventarisPeralatanKomputer::class,'index']);
+Route::get('inventaris/peralatan-komputer/tambah/processor',[InventarisPeralatanKomputer::class,'index']);
+Route::get('inventaris/peralatan-komputer/tambah/ram',[InventarisPeralatanKomputer::class,'index']);
+Route::get('inventaris/peralatan-komputer/tambah/storage',[InventarisPeralatanKomputer::class,'index']);
+Route::get('inventaris/peralatan-komputer/tambah/gpu',[InventarisPeralatanKomputer::class,'index']);
+Route::get('inventaris/peralatan-komputer/tambah/psu',[InventarisPeralatanKomputer::class,'index']);
+Route::get('inventaris/peralatan-komputer/tambah/casing',[InventarisPeralatanKomputer::class,'index']);
+//inventaris Peralatan Komputer Tab Route
+Route::get('inventaris/inventaris-peralatan-komputer/motherboard',[InventarisController::class,'index']);
+Route::get('inventaris/inventaris-peralatan-komputer/processor',[InventarisController::class,'index']);
+Route::get('inventaris/inventaris-peralatan-komputer/ram',[InventarisController::class,'index']);
+Route::get('inventaris/inventaris-peralatan-komputer/storage',[InventarisController::class,'index']);
+Route::get('inventaris/inventaris-peralatan-komputer/gpu',[InventarisController::class,'index']);
+Route::get('inventaris/inventaris-peralatan-komputer/psu',[InventarisController::class,'index']);
+Route::get('inventaris/inventaris-peralatan-komputer/casing',[InventarisController::class,'index']);
 
 // Laporan
 Route::get('laporan',[LaporanController::class,'index']);

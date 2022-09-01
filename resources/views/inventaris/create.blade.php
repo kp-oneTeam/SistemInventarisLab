@@ -69,13 +69,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Keterangan</label>
-                                    <textarea name="keterangan" class="form-control" required></textarea>
+                                    <textarea name="keterangan" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit"
                                         class="btn btn-warning btn-icon icon-left btn-warning float-right m-2"><i
                                             class="fas fa-save"></i>Simpan</button>
-                                    <a href="{{ url('inventaris') }}"
+                                    <a href="{{ url('inventaris/non-komputer') }}"
                                         class="btn btn-secondary btn-icon icon-left btn-primary float-right m-2"><i
                                             class="fas fa-times"></i>Batal</a>
                                 </div>

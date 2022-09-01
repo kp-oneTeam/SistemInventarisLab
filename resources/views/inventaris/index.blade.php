@@ -5,22 +5,22 @@
     <div class="section-header">
         <ul class="nav nav-pills ml-4" id="pills-tab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="pills-non-tab" data-toggle="pill" href="#pills-non" role="tab"
+                <a class="nav-link {{ request()->is('inventaris/non-komputer') ? 'active' : null }}" id="pills-non-tab" href="{{ url('inventaris/non-komputer') }}" role="tab"
                     aria-controls="pills-non" aria-selected="true">Non Komputer</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-peralatan-komputer-tab" data-toggle="pill"
-                    href="#pills-peralatan-komputer" role="tab" aria-controls="pills-peralatan-komputer"
+                <a class="nav-link {{ request()->is('inventaris/peralatan-komputer') ? 'active' : null }}" id="pills-peralatan-komputer-tab"
+                    href="{{ url('inventaris/peralatan-komputer') }}" role="tab" aria-controls="pills-peralatan-komputer"
                     aria-selected="true">Peralatan Komputer</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+                <a class="nav-link {{ request()->is('inventaris/komputer') ? 'active' : null }}" id="pills-profile-tab" href="{{ url('inventaris/komputer') }}" role="tab"
                     aria-controls="pills-profile" aria-selected="false">Komputer</a>
             </li>
         </ul>
     </div>
     <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-non" role="tabpanel" aria-labelledby="pills-non-tab">
+        <div class="tab-pane fade show {{ request()->is('inventaris/non-komputer') ? 'active' : null }}" id="{{ url('inventaris/non-komputer') }}" role="tabpanel" aria-labelledby="pills-non-tab">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade show" id="pills-peralatan-komputer" role="tabpanel"
+        <div class="tab-pane fade show {{ request()->is('inventaris/peralatan-komputer') ? 'active' : null }}" id="{{ url('inventaris/peralatan-komputer') }}" role="tabpanel"
             aria-labelledby="pills-peralatan-komputer-tab">
             <div class="row">
                 <div class="col-12">
@@ -118,7 +118,7 @@
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ url('tambah/inventaris_peralatan_komputer') }}" class="btn btn-warning mr-2">Tambah Data</a>
+                                        <a href="{{ url('inventaris/peralatan-komputer/tambah/motherboard') }}" class="btn btn-warning mr-2">Tambah Data</a>
                                     </div>
                                 </form>
                             </div>
@@ -139,7 +139,7 @@
                             </div>
                             <br><br>
                             {{-- tab --}}
-                            <ul class="nav nav-pills" id="myTab" role="tablist">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3" role="tab"
                                         aria-controls="home" aria-selected="true">Motherboard</a>
@@ -209,7 +209,7 @@
                                                     <td>{{ $item->formFactor }}</td>
                                                     <td>{{ $item->memoriSlot }}</td>
                                                     <td>{{ $item->memoriSupport }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{$item->kodeRuangan ." ". $item->namaRuangan }}</td>
                                                     <td>{{ $item->namaVendor }}</td>
                                                     <td>{{ $item->harga }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($item->tglPembelian)); }}</td>
@@ -273,7 +273,7 @@
                                                     <td width="1%"><input type="checkbox" class="checked"> </td>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->nama }}</td>
+                                                    <td>{{ $item->nama_processor }}</td>
                                                     <td>{{ $item->nomor_processor }}</td>
                                                     <td>{{ $item->generasi }}</td>
                                                     <td>{{ $item->series }}</td>
@@ -281,7 +281,7 @@
                                                     <td>{{ $item->jumlah_core }}</td>
                                                     <td>{{ $item->jumlah_thread }}</td>
                                                     <td>{{ $item->socket }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
                                                     <td>{{ $item->namaVendor }}</td>
                                                     <td>{{ $item->harga }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($item->tgl_pembelian)); }}</td>
@@ -319,11 +319,14 @@
                                                     <th><input type="checkbox" class="check-all"></th>
                                                     <th>No</th>
                                                     <th>Kode Inventaris</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Spesifikasi</th>
+                                                    <th>Nama Memori</th>
+                                                    <th>Jenis Memori</th>
+                                                    <th>Tipe Memori</th>
+                                                    <th>Kecepatan Memori</th>
                                                     <th>Lokasi</th>
-                                                    <th>Tahun Pembelian</th>
-                                                    <th>Status</th>
+                                                    <th>Harga</th>
+                                                    <th>Tanggal Pembelian</th>
+                                                    <th>Kondisi</th>
                                                     <th>Keterangan</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -332,16 +335,19 @@
                                                 @php
                                                 $no = 1;
                                                 @endphp
-                                                @foreach ($data as $item)
+                                                @foreach ($ram as $item)
                                                 <tr>
                                                     <td width="1%"><input type="checkbox" class="checked"> </td>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaBarang }}</td>
-                                                    <td>{{ $item->spesifikasi }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
-                                                    <td>{{ $item->kondisi }}</td>
-                                                    <td>{{ $item->keterangan }}</td>
+                                                    <td>{{ $item->nama_memory }}</td>
+                                                    <td>{{ $item->jenis_memory }}</td>
+                                                    <td>{{ $item->tipe_memory }}</td>
+                                                    <td>{{ $item->kapasitas_memory }}</td>
+                                                    <td>{{ $item->frekuensi_memory }}</td>
+                                                    <td>{{ $item->idRuangan }}</td>
+                                                    <td>{{ $item->kapasitas_memory }}</td>
+                                                    <td>{{ $item->idVendor }}</td>
                                                     <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                                     <td>
                                                         <form method="POST"
@@ -596,7 +602,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="tab-pane fade show {{ request()->is('inventaris/komputer') ? 'active' : null }}" id="{{ url('inventaris/komputer') }}" role="tabpanel" aria-labelledby="pills-profile-tab">
             <div class="row">
                 <div class="col-12">
                     <div class="card">

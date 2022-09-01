@@ -12,6 +12,7 @@ use App\Models\InventarisRam;
 use App\Models\InventarisStorage;
 use App\Models\Ruangan;
 use App\Models\Vendor;
+use App\Models\KodeInv;
 use Illuminate\Http\Request;
 
 class InventarisPeralatanKomputer extends Controller
@@ -25,8 +26,9 @@ class InventarisPeralatanKomputer extends Controller
     public function tambah_inventaris_motherboard(request $request){
         $harga = $request->harga_mb;
         $harga = preg_replace('/[^0-9]/', '', $harga);
+        $kodeinv = KodeInv::create(['kodeInventaris' => KodeInv::kode_inventaris()]);
         $saved = Motherboard::create([
-            'kodeInventaris' => Inventaris::kode_inventaris(),
+            'kodeInventaris' =>$kodeinv->kodeInventaris,
             'namaMotherboard' => $request->nama_motherboard,
             'chipsetMotherboard' => $request->chipset_mb,
             'socketMotherboard' => $request->socket_mb,
@@ -41,16 +43,17 @@ class InventarisPeralatanKomputer extends Controller
             'keterangan' => $request->keterangan_mb
         ]);
         if ($saved) {
-            return redirect('/inventaris')->with('message','Inventaris Berhasil Ditambahkan');
+            return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Berhasil Ditambahkan');
         }else{
-            return redirect('/inventaris')->with('message','Inventaris Gagal Ditambahkan');
+            return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Gagal Ditambahkan');
         }
     }
     public function cpu(request $request){
         $harga = $request->harga;
         $harga = preg_replace('/[^0-9]/', '', $harga);
+        $kodeinv = KodeInv::create(['kodeInventaris' => KodeInv::kode_inventaris()]);
         $saved = InventarisProcessor::create([
-            'kodeInventaris' => Inventaris::kode_inventaris(),
+            'kodeInventaris' => $kodeinv->kodeInventaris,
             'idRuangan' => $request->lokasi,
             'idVendor' => $request->vendor,
             'nomor_processor' => $request->nomor_processor,
@@ -68,7 +71,7 @@ class InventarisPeralatanKomputer extends Controller
         ]);
 
         if ($saved) {
-            return redirect('inventaris')->with('message','data berhasil disimpan!');
+            return redirect('inventaris/peralatan-komputer')->with('message','data berhasil disimpan!');
         }
     }
     public function ram(request $request)
@@ -91,7 +94,7 @@ class InventarisPeralatanKomputer extends Controller
         ]);
 
         if ($saved) {
-            return redirect('inventaris')->with('message', 'data berhasil disimpan!');
+            return redirect('inventaris/peralatan-komputer')->with('message', 'data berhasil disimpan!');
         }
     }
     public function storage(request $request)
@@ -112,7 +115,7 @@ class InventarisPeralatanKomputer extends Controller
         ]);
 
         if ($saved) {
-            return redirect('inventaris')->with('message', 'data berhasil disimpan!');
+            return redirect('inventaris/peralatan-komputer')->with('message', 'data berhasil disimpan!');
         }
     }
 
@@ -134,9 +137,9 @@ class InventarisPeralatanKomputer extends Controller
             'keteranganGpu' => $request->keterangan_gpu
         ]);
         if ($saved) {
-            return redirect('/inventaris')->with('message','Inventaris Berhasil Ditambahkan');
+            return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Berhasil Ditambahkan');
         }else{
-            return redirect('/inventaris')->with('message','Inventaris Gagal Ditambahkan');
+            return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Gagal Ditambahkan');
         }
     }
 
@@ -158,9 +161,9 @@ class InventarisPeralatanKomputer extends Controller
             'keterangan' => $request->keterangan_psu
         ]);
         if ($saved) {
-            return redirect('/inventaris')->with('message','Inventaris Berhasil Ditambahkan');
+            return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Berhasil Ditambahkan');
         }else{
-            return redirect('/inventaris')->with('message','Inventaris Gagal Ditambahkan');
+            return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Gagal Ditambahkan');
         }
     }
 
@@ -179,9 +182,9 @@ class InventarisPeralatanKomputer extends Controller
             'keterangan' => $request->keterangan_casing
         ]);
         if ($saved) {
-            return redirect('/inventaris')->with('message','Inventaris Berhasil Ditambahkan');
+            return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Berhasil Ditambahkan');
         }else{
-            return redirect('/inventaris')->with('message','Inventaris Gagal Ditambahkan');
+            return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Gagal Ditambahkan');
         }
     }
 }

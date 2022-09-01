@@ -11,37 +11,37 @@
                 <div class="card-body m-2">
                     <ul class="nav nav-pills" id="myTab3" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3" role="tab"
+                            <a class="nav-link {{ request()->is('inventaris/peralatan-komputer/tambah/motherboard') ? 'active' : null }}" id="home-tab3" href="{{ url('inventaris/peralatan-komputer/tambah/motherboard') }}" role="tab"
                                 aria-controls="home" aria-selected="true">Motherboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#profile3" role="tab"
+                            <a class="nav-link {{ request()->is('inventaris/peralatan-komputer/tambah/processor') ? 'active' : null }}" id="profile-tab3" href="{{ url('inventaris/peralatan-komputer/tambah/processor') }}" role="tab"
                                 aria-controls="profile" aria-selected="false">Processor</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact3" role="tab"
+                            <a class="nav-link {{ request()->is('inventaris/peralatan-komputer/tambah/ram') ? 'active' : null }}" id="contact-tab3" href="{{ url('inventaris/peralatan-komputer/tambah/ram') }}" role="tab"
                                 aria-controls="contact" aria-selected="false">Ram</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#contact4" role="tab"
+                            <a class="nav-link {{ request()->is('inventaris/peralatan-komputer/tambah/storage') ? 'active' : null }}" id="contact-tab4" href="{{ url('inventaris/peralatan-komputer/tambah/storage') }}" role="tab"
                                 aria-controls="contact" aria-selected="false">Storage</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="contact-tab5" data-toggle="tab" href="#contact5" role="tab"
+                            <a class="nav-link {{ request()->is('inventaris/peralatan-komputer/tambah/gpu') ? 'active' : null }}" id="contact-tab5" href="{{ url('inventaris/peralatan-komputer/tambah/gpu') }}" role="tab"
                                 aria-controls="contact" aria-selected="false">Graphics Processor Unit (GPU)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="contact-tab6" data-toggle="tab" href="#contact6" role="tab"
+                            <a class="nav-link {{ request()->is('inventaris/peralatan-komputer/tambah/psu') ? 'active' : null }}" id="contact-tab6" href="{{ url('inventaris/peralatan-komputer/tambah/psu') }}" role="tab"
                                 aria-controls="contact" aria-selected="false">Power Supply(PSU)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="contact-tab7" data-toggle="tab" href="#contact7" role="tab"
+                            <a class="nav-link {{ request()->is('inventaris/peralatan-komputer/tambah/casing') ? 'active' : null }}" id="contact-tab7" href="{{ url('inventaris/peralatan-komputer/tambah/casing') }}" role="tab"
                                 aria-controls="contact" aria-selected="false">Casing</a>
                         </li>
                     </ul>
                     <div class="tab-content m-5" id="myTabContent2">
                         {{-- motherboard --}}
-                        <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
+                        <div class="tab-pane fade show {{ request()->is('inventaris/peralatan-komputer/tambah/motherboard') ? 'active' : null }}" id="{{ url('inventaris/peralatan-komputer/tambah/motherboard') }}" role="tabpanel" aria-labelledby="home-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/motherboard') }}" method="post">
@@ -149,7 +149,7 @@
                             </div>
                         </div>
                         {{-- processor --}}
-                        <div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">
+                        <div class="tab-pane fade show {{ request()->is('inventaris/peralatan-komputer/tambah/processor') ? 'active' : null }}" id="{{ url('inventaris/peralatan-komputer/tambah/processor') }}" role="tabpanel" aria-labelledby="profile-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
@@ -267,7 +267,7 @@
                             </div>
                         </div>
                         {{-- Memory --}}
-                        <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">
+                        <div class="tab-pane fade show {{ request()->is('inventaris/peralatan-komputer/tambah/ram') ? 'active' : null }}" id="{{ url('inventaris/peralatan-komputer/tambah/ram') }}" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/ram') }}" method="post">
@@ -371,7 +371,7 @@
                             </div>
                         </div>
                         {{-- storage --}}
-                        <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab3">
+                        <div class="tab-pane fade show {{ request()->is('inventaris/peralatan-komputer/tambah/storage') ? 'active' : null }}" id="{{ url('inventaris/peralatan-komputer/tambah/storage') }}" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/storage') }}" method="post">
@@ -462,7 +462,7 @@
                             </div>
                         </div>
                         {{-- GPU --}}
-                        <div class="tab-pane fade" id="contact5" role="tabpanel" aria-labelledby="contact-tab3">
+                        <div class="tab-pane fade show {{ request()->is('inventaris/peralatan-komputer/tambah/gpu') ? 'active' : null }}" id="{{ url('inventaris/peralatan-komputer/tambah/gpu') }}" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/gpu') }}" method="post">
@@ -564,7 +564,7 @@
                             </div>
                         </div>
                         {{-- PSU --}}
-                        <div class="tab-pane fade" id="contact6" role="tabpanel" aria-labelledby="contact-tab3">
+                        <div class="tab-pane fade show {{ request()->is('inventaris/peralatan-komputer/tambah/psu') ? 'active' : null }}" id="{{ url('inventaris/peralatan-komputer/tambah/psu') }}" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/psu') }}" method="post">
@@ -678,7 +678,7 @@
                             </div>
                         </div>
                         {{-- Casing --}}
-                        <div class="tab-pane fade" id="contact7" role="tabpanel" aria-labelledby="contact-tab3">
+                        <div class="tab-pane fade show {{ request()->is('inventaris/peralatan-komputer/tambah/casing') ? 'active' : null }}" id="{{ url('inventaris/peralatan-komputer/tambah/casing') }}" role="tabpanel" aria-labelledby="contact-tab3">
                             <div class="row">
                                 <div class="col-12 col-md-12  col-sm-12">
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/casing') }}" method="post">

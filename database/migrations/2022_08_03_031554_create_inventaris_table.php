@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('inventaris', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('kodeInventaris');
+            $table->string('kodeInventaris')->unique();
             $table->unsignedInteger('idBarang');
             $table->unsignedInteger('idRuangan');
             $table->unsignedInteger('idVendor');

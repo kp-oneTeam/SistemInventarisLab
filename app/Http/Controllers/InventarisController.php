@@ -15,6 +15,7 @@ use App\Models\InventarisProcessor;
 use App\Models\InventarisPsu;
 use App\Models\InventarisRam;
 use App\Models\InventarisStorage;
+use App\Models\KodeInv;
 use Illuminate\Http\Request;
 
 class InventarisController extends Controller
@@ -37,13 +38,16 @@ class InventarisController extends Controller
         //Peralatan Komputer
         $motherboard = Motherboard::join('vendor', 'vendor.id', '=', 'inventaris_motherboard.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_motherboard.idRuangan')
-        ->select('kodeInventaris','namaMotherboard','chipsetMotherboard','socketMotherboard','formFactor','memoriSlot','memoriSupport','namaRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->select('kodeInventaris','namaMotherboard','chipsetMotherboard','socketMotherboard','formFactor','memoriSlot','memoriSupport','kodeRuangan','namaRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
         $processor = InventarisProcessor::join('vendor', 'vendor.id', '=', 'inventaris_processor.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_processor.idRuangan')
-        ->select('kodeInventaris','nama_processor','nomor_processor','generasi','series','kecepatan','jumlah_core','jumlah_thread','socket','namaRuangan','namaVendor','harga','tgl_pembelian','kondisi','keterangan')
+        ->select('kodeInventaris','nama_processor','nomor_processor','generasi','series','kecepatan','jumlah_core','jumlah_thread','socket','kodeRuangan','namaRuangan','namaVendor','harga','tgl_pembelian','kondisi','keterangan')
         ->get();
-        $ram = InventarisRam::get();
+        $ram = InventarisRam::join('vendor', 'vendor.id', '=', 'inventaris_ram.idVendor')
+        ->join('ruangan', 'ruangan.id', '=', 'inventaris_ram.idRuangan')
+        ->select('kodeInventaris','nama_memory','jenis_memory','tipe_memory','kapasitas_memory','frekuensi_memory','namaRuangan','idRuangan','idVendor','harga','tgl_pembelian','kondisi','keterangan')
+        ->get();
         $storage = InventarisStorage::get();
         $gpu = InventarisGPU::get();
         $psu = InventarisPsu::get();
@@ -61,8 +65,9 @@ class InventarisController extends Controller
     public function tambah_inventaris(request $request){
         $harga = $request->harga;
         $harga = preg_replace('/[^0-9]/', '', $harga);
+        $kodeinv = KodeInv::create(['kodeInventaris' => KodeInv::kode_inventaris()]);
         $saved = Inventaris::create([
-            'kodeInventaris' =>Inventaris::kode_inventaris(),
+            'kodeInventaris' =>$kodeinv->kodeInventaris,
             'idBarang' => $request->nama_barang,
             'idRuangan' => $request->lokasi,
             'idVendor' => $request->vendor,
@@ -72,7 +77,7 @@ class InventarisController extends Controller
             'kondisi' => $request->kondisi,
             'keterangan' => $request->keterangan
         ]);
-        return redirect('/inventaris')->with('message', 'Data Berhasil Disimpan');
+        return redirect('/inventaris/non-komputer')->with('message', 'Data Berhasil Disimpan');
     }
     public function form_ubah_inventaris($id){
         $title = "Ubah Inventaris";
@@ -95,11 +100,11 @@ class InventarisController extends Controller
             'kondisi' => $request->kondisi,
             'keterangan' => $request->keterangan
         ]);
-        return redirect('/inventaris')->with('message', 'Data Berhasil Diubah');
+        return redirect('/inventaris/non-komputer')->with('message', 'Data Berhasil Diubah');
     }
     public function hapus_inventaris($id){
         $data = Inventaris::where('kodeInventaris', $id)->delete();
-        return redirect('/inventaris')->with('message', 'Data Berhasil Dihapus');
+        return redirect('/inventaris/non-komputer')->with('message', 'Data Berhasil Dihapus');
     }
     //berfungsi untuk mencetak atau menghapus data yang di ceklis
     public function checked(request $request){
@@ -110,7 +115,7 @@ class InventarisController extends Controller
         if ($request->button == "hapus") {
             $data = Inventaris::whereIn('kodeInventaris', $kode_inventaris)
                 ->delete();
-            return redirect('inventaris')->with('message','Data Berhasil Dihapus!');
+            return redirect('inventaris/non-komputer')->with('message','Data Berhasil Dihapus!');
         }else{
             $data = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
             ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')

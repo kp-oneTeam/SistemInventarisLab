@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('memoriInterface');
             $table->string('kecepatanMemori');
             $table->string('tipeMemori');
-            $table->integer('hargaGpu');
-            $table->date('tglPembelianGpu');
-            $table->string('kondisiGpu');
-            $table->string('keteranganGpu')->nullable();
+            $table->integer('harga');
+            $table->date('tglPembelian');
+            $table->string('kondisi');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
 
             $table->foreign('idRuangan')->references('id')->on('ruangan');

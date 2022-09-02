@@ -56,16 +56,16 @@ class InventarisPeralatanKomputer extends Controller
             'kodeInventaris' => $kodeinv->kodeInventaris,
             'idRuangan' => $request->lokasi,
             'idVendor' => $request->vendor,
-            'nomor_processor' => $request->nomor_processor,
-            'nama_processor' => $request->nama_processor,
+            'nomorProcessor' => $request->nomor_processor,
+            'namaProcessor' => $request->nama_processor,
             'generasi' => $request->generasi,
             'series' => $request->series,
             'kecepatan' => $request->kecepatan_processor,
-            'jumlah_core' => $request->jumlah_core,
-            'jumlah_thread' => $request->jumlah_thread,
+            'jumlahCore' => $request->jumlah_core,
+            'jumlahThread' => $request->jumlah_thread,
             'socket' => $request->socket,
             'harga' => $harga,
-            'tgl_pembelian' => $request->tanggal,
+            'tglPembelian' => $request->tanggal,
             'kondisi' => $request->kondisi,
             'keterangan' => $request->keterangan
         ]);
@@ -78,17 +78,18 @@ class InventarisPeralatanKomputer extends Controller
     {
         $harga = $request->harga;
         $harga = preg_replace('/[^0-9]/', '', $harga);
+        $kodeinv = KodeInv::create(['kodeInventaris' => KodeInv::kode_inventaris()]);
         $saved = InventarisRam::create([
-            'kodeInventaris' => Inventaris::kode_inventaris(),
+            'kodeInventaris' => $kodeinv->kodeInventaris,
             'idRuangan' => $request->lokasi,
             'idVendor' => $request->vendor,
-            'nama' => $request->nama_memory,
-            'jenis_memory' => $request->jenis_memory,
-            'tipe_memory' => $request->tipe_memory,
-            'frekuensi_memory' => $request->frekuensi_memory,
-            'kapasitas_memory' => $request->kapasitas_memory,
+            'namaMemory' => $request->nama_memory,
+            'jenisMemory' => $request->jenis_memory,
+            'tipeMemory' => $request->tipe_memory,
+            'frekuensiMemory' => $request->frekuensi_memory,
+            'kapasitasMemory' => $request->kapasitas_memory,
             'harga' => $harga,
-            'tgl_pembelian' => $request->tanggal,
+            'tglPembelian' => $request->tanggal,
             'kondisi' => $request->kondisi,
             'keterangan' => $request->keterangan
         ]);
@@ -101,15 +102,16 @@ class InventarisPeralatanKomputer extends Controller
     {
         $harga = $request->harga;
         $harga = preg_replace('/[^0-9]/', '', $harga);
+        $kodeinv = KodeInv::create(['kodeInventaris' => KodeInv::kode_inventaris()]);
         $saved = InventarisStorage::create([
-            'kodeInventaris' => Inventaris::kode_inventaris(),
+            'kodeInventaris' => $kodeinv->kodeInventaris,
             'idRuangan' => $request->lokasi,
             'idVendor' => $request->vendor,
-            'nama_storage' => $request->nama_storage,
-            'jenis_storage' => $request->jenis_storage,
-            'kapasitas_storage' => $request->kapasitas_storage,
+            'namaStorage' => $request->nama_storage,
+            'jenisStorage' => $request->jenis_storage,
+            'kapasitasStorage' => $request->kapasitas_storage,
             'harga' => $harga,
-            'tgl_pembelian' => $request->tanggal,
+            'tglPembelian' => $request->tanggal,
             'kondisi' => $request->kondisi,
             'keterangan' => $request->keterangan
         ]);
@@ -122,8 +124,9 @@ class InventarisPeralatanKomputer extends Controller
     public function gpu(request $request){
         $harga = $request->harga_gpu;
         $harga = preg_replace('/[^0-9]/', '', $harga);
+        $kodeinv = KodeInv::create(['kodeInventaris' => KodeInv::kode_inventaris()]);
         $saved = InventarisGPU::create([
-            'kodeInventaris' => Inventaris::kode_inventaris(),
+            'kodeInventaris' => $kodeinv->kodeInventaris,
             'namaGpu' => $request->nama_gpu,
             'ukuranMemori' => $request->ukuran_memori_gpu,
             'memoriInterface' => $request->memori_interface_gpu,
@@ -131,10 +134,10 @@ class InventarisPeralatanKomputer extends Controller
             'tipeMemori' => $request->tipe_memori_gpu,
             'idRuangan' => $request->lokasi_gpu,
             'idVendor' => $request->vendor_gpu,
-            'hargaGpu' => $harga,
-            'tglPembelianGpu' => $request->tgl_pembelian_gpu,
-            'kondisiGpu' => $request->kondisi_gpu,
-            'keteranganGpu' => $request->keterangan_gpu
+            'harga' => $harga,
+            'tglPembelian' => $request->tgl_pembelian_gpu,
+            'kondisi' => $request->kondisi_gpu,
+            'keterangan' => $request->keterangan_gpu
         ]);
         if ($saved) {
             return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Berhasil Ditambahkan');
@@ -146,8 +149,9 @@ class InventarisPeralatanKomputer extends Controller
     public function psu(request $request){
         $harga = $request->harga_psu;
         $harga = preg_replace('/[^0-9]/', '', $harga);
+        $kodeinv = KodeInv::create(['kodeInventaris' => KodeInv::kode_inventaris()]);
         $saved = InventarisPsu::create([
-            'kodeInventaris' => Inventaris::kode_inventaris(),
+            'kodeInventaris' => $kodeinv->kodeInventaris,
             'namaPsu' => $request->nama_psu,
             'formFactor' => $request->form_factor_psu,
             'jenisKabel' => $request->jenis_kabel_psu,
@@ -170,8 +174,9 @@ class InventarisPeralatanKomputer extends Controller
     public function casing(request $request){
         $harga = $request->harga_casing;
         $harga = preg_replace('/[^0-9]/', '', $harga);
+        $kodeinv = KodeInv::create(['kodeInventaris' => KodeInv::kode_inventaris()]);
         $saved = InventarisCasing::create([
-            'kodeInventaris' => Inventaris::kode_inventaris(),
+            'kodeInventaris' => $kodeinv->kodeInventaris,
             'namaCasing' => $request->nama_casing,
             'formFactor' => $request->form_factor_casing,
             'idRuangan' => $request->lokasi_casing,

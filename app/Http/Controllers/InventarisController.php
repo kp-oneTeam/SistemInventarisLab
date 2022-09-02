@@ -26,14 +26,14 @@ class InventarisController extends Controller
         $data = Inventaris::join('barang','barang.id','=','inventaris.idBarang')
             ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
             ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
-            ->select('kodeInventaris','namaBarang','spesifikasi','namaRuangan','kondisi','keterangan','tgl_pembelian')
+            ->select('kodeInventaris','namaBarang','spesifikasi','kodeRuangan','namaRuangan','kondisi','keterangan','tgl_pembelian')
             ->get();
         $data2 = SpesifikasiKomputer::join('inventaris','inventaris.id','=', 'spesifikasi_komputer.idInventaris')
             ->join('inventaris_komputer', 'inventaris_komputer.id', '=', 'spesifikasi_komputer.idInventarisKomputer')
                 ->join('barang', 'barang.id', '=', 'inventaris.idBarang')
                 ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
                 ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
-                ->select('kodeInventarisKomputer','kodeInventaris', 'namaBarang', 'spesifikasi', 'namaRuangan', 'inventaris_komputer.kondisi', 'inventaris_komputer.keterangan', 'tgl_pembelian')
+                ->select('kodeInventarisKomputer','kodeInventaris', 'namaBarang', 'spesifikasi', 'kodeRuangan','namaRuangan', 'inventaris_komputer.kondisi', 'inventaris_komputer.keterangan', 'tgl_pembelian')
                 ->get();
         //Peralatan Komputer
         $motherboard = Motherboard::join('vendor', 'vendor.id', '=', 'inventaris_motherboard.idVendor')
@@ -42,16 +42,28 @@ class InventarisController extends Controller
         ->get();
         $processor = InventarisProcessor::join('vendor', 'vendor.id', '=', 'inventaris_processor.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_processor.idRuangan')
-        ->select('kodeInventaris','nama_processor','nomor_processor','generasi','series','kecepatan','jumlah_core','jumlah_thread','socket','kodeRuangan','namaRuangan','namaVendor','harga','tgl_pembelian','kondisi','keterangan')
+        ->select('kodeInventaris','namaProcessor','nomorProcessor','generasi','series','kecepatan','jumlahCore','jumlahThread','socket','kodeRuangan','namaRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
         $ram = InventarisRam::join('vendor', 'vendor.id', '=', 'inventaris_ram.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_ram.idRuangan')
-        ->select('kodeInventaris','nama_memory','jenis_memory','tipe_memory','kapasitas_memory','frekuensi_memory','namaRuangan','idRuangan','idVendor','harga','tgl_pembelian','kondisi','keterangan')
+        ->select('kodeInventaris','namaMemory','jenisMemory','tipeMemory','kapasitasMemory','frekuensiMemory','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
-        $storage = InventarisStorage::get();
-        $gpu = InventarisGPU::get();
-        $psu = InventarisPsu::get();
-        $casing = InventarisCasing::get();
+        $storage = InventarisStorage::join('vendor', 'vendor.id', '=', 'inventaris_storage.idVendor')
+        ->join('ruangan', 'ruangan.id', '=', 'inventaris_storage.idRuangan')
+        ->select('kodeInventaris','namaStorage','jenisStorage','kapasitasStorage','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->get();
+        $gpu = InventarisGPU::join('vendor', 'vendor.id', '=', 'inventaris_gpu.idVendor')
+        ->join('ruangan', 'ruangan.id', '=', 'inventaris_gpu.idRuangan')
+        ->select('kodeInventaris','namaGpu','ukuranMemori','memoriInterface','kecepatanMemori','tipeMemori','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->get();
+        $psu = InventarisPsu::join('vendor', 'vendor.id', '=', 'inventaris_psu.idVendor')
+        ->join('ruangan', 'ruangan.id', '=', 'inventaris_psu.idRuangan')
+        ->select('kodeInventaris','namaPsu','formFactor','jenisKabel','besarDaya','sertifikasiPsu','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->get();
+        $casing = InventarisCasing::join('vendor', 'vendor.id', '=', 'inventaris_casing.idVendor')
+        ->join('ruangan', 'ruangan.id', '=', 'inventaris_casing.idRuangan')
+        ->select('kodeInventaris','namaCasing','formFactor','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->get();
         return view('inventaris.index',compact('title','data','data2','motherboard','processor','ram','storage','gpu','psu','casing'));
     }
     public function form_tambah_inventaris()

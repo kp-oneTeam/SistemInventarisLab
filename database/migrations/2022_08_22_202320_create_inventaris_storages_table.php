@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('kodeInventaris')->unique();
             $table->unsignedInteger('idRuangan');
             $table->unsignedInteger('idVendor');
-            $table->string('nama_storage');
-            $table->string('jenis_storage');
-            $table->string('kapasitas_storage');
+            $table->string('namaStorage');
+            $table->string('jenisStorage');
+            $table->string('kapasitasStorage');
             $table->integer('harga');
-            $table->date('tgl_pembelian');
+            $table->date('tglPembelian');
             $table->string('kondisi');
             $table->string('keterangan')->nullable();
             $table->timestamps();

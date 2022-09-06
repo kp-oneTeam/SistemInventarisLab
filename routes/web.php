@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GedungController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\InventarisKomputerController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\InventarisPeralatanKomputer;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VendorController;
 use App\Models\Inventaris;
 use App\Models\InventarisKomputer;
@@ -49,6 +51,7 @@ Route::put('update/ruangan/{id}',[RuanganController::class,'update_ruangan']);
 Route::delete('hapus/ruangan/{id}', [RuanganController::class, 'hapus_ruangan']);
 Route::post('checked/ruangan', [RuanganController::class, 'checked']);
 Route::get('validasi_ruangan/{nama}',[RuanganController::class,'validasi_nama_ruangan_tambah']);
+Route::get('validasi_kode_ruangan/{kode}', [RuanganController::class, 'validasi_kode_ruangan_tambah']);
 Route::get('validasi_edit_ruangan/{kode}/{nama}', [RuanganController::class, 'validasi_edit_nama_ruangan']);
 Route::get('get_gedung/{id}', [RuanganController::class, 'get_gedung']);
 // Inventaris
@@ -73,6 +76,8 @@ Route::post('tambah/inventaris_peralatan_komputer/gpu', [InventarisPeralatanKomp
 Route::post('tambah/inventaris_peralatan_komputer/psu', [InventarisPeralatanKomputer::class, 'psu']);
 Route::post('tambah/inventaris_peralatan_komputer/casing', [InventarisPeralatanKomputer::class, 'casing']);
 
+//users
+Route::get('users',[UsersController::class,'index']);
 // Laporan
 Route::get('laporan',[LaporanController::class,'index']);
 
@@ -90,3 +95,10 @@ Route::delete('hapus/vendor/{id}', [VendorController::class, 'hapus_vendor']);
 Route::post('checked/vendor', [VendorController::class, 'checked']);
 Route::get('validasi_vendor/{nama}',[VendorController::class,'validasi_nama_vendor_tambah']);
 Route::get('validasi_edit_vendor/{kode}/{nama}', [VendorController::class, 'validasi_edit_nama_vendor']);
+
+//Dashboard
+Route::get('dashboard',[DashboardController::class,'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -9,7 +9,7 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="@yield('dashboard')">
-                <a class="nav-link" href="blank.html">
+                <a class="nav-link" href="{{ url('dashboard') }}">
                     <i class="fas fa-columns"></i>
                     <span>Dashboard</span>
                 </a>
@@ -31,6 +31,9 @@
             <li class="menu-header">Laporan</li>
             <li class="@yield('laporan')"><a class="nav-link" href="{{ url('laporan') }}"><i
                         class="fas fa-file-pdf"></i> <span>Laporan</span></a></li>
+            <li class="menu-header">User Manajemen</li>
+            <li class="@yield('users')"><a class="nav-link" href="{{ url('users') }}"><i
+                        class="fas fa-users"></i> <span>Users</span></a></li>
         </ul>
     </aside>
 </div>

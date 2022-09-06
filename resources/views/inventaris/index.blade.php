@@ -139,7 +139,7 @@
                             </div>
                             <br><br>
                             {{-- tab --}}
-                            <ul class="nav nav-pills" id="myTab" role="tablist">
+                            <ul class="nav nav-pills red" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3" role="tab"
                                         aria-controls="home" aria-selected="true">Motherboard</a>

@@ -52,6 +52,20 @@ class RuanganController extends Controller
             ]);
         }
     }
+    public function validasi_kode_ruangan_tambah($kode)
+    {
+        $data = Ruangan::where('kodeRuangan', $kode)->first();
+        if ($data != null) {
+            return response()->json([
+                'status' => true,
+                'message' => "Kode Ruangan Sudah Digunakan"
+            ]);
+        } else {
+            return response()->json([
+                'status' => false
+            ]);
+        }
+    }
     public function validasi_edit_nama_ruangan($kode,$nama){
         $data = Ruangan::where('namaRuangan',$nama)->where('kodeRuangan','!=',$kode)->first();
         if ($data != null) {

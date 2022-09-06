@@ -17,7 +17,10 @@
                     @csrf
                     <div class="form-group">
                         <label for="">Kode Ruangan</label>
-                        <input type="text" name="kode_ruangan" class="form-control">
+                        <input type="text" id="kode_ruangan" name="kode_ruangan" class="form-control kode_ruangan">
+                        <div class="invalid-feedback" id="err_tambah_kode_ruangan">
+
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="">Nama Ruangan</label>
@@ -229,6 +232,34 @@
                     } else {
                         $('.nama_ruangan').removeClass("is-invalid")
                         $('#msg_err_tambah_nama_ruangan').remove()
+                        $('#tambah_ruangan').prop('disabled', false);  //button simpan agar dapat diklik
+                    }
+                }, delay);
+            }
+        });
+    });
+    //Validasi Tambah (Kode Ruangan)
+    $("#kode_ruangan").on('input', function () {
+        var delay = 0;
+        $('#msg_err_tambah_kode_ruangan').remove()
+        $.ajax({
+            url: 'validasi_kode_ruangan/' + $(this).val(),
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                setTimeout(function () {
+                    $('.kode_ruangan').removeClass("is-invalid")
+                    $('#msg_err_tambah_kode_ruangan').remove()
+                    if (data.status === true) {
+                        $('.kode_ruangan').addClass("is-invalid")
+                        html = "<div id='msg_err_tambah_kode_ruangan'>";
+                        html += data.message;
+                        html += "</div>";
+                        $('#err_tambah_kode_ruangan').append(html)
+                        $('#tambah_ruangan').prop('disabled', true); //button simpan agar tidak dapat diklik
+                    } else {
+                        $('.kode_ruangan').removeClass("is-invalid")
+                        $('#msg_err_tambah_kode_ruangan').remove()
                         $('#tambah_ruangan').prop('disabled', false);  //button simpan agar dapat diklik
                     }
                 }, delay);

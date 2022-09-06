@@ -5,22 +5,22 @@
     <div class="section-header">
         <ul class="nav nav-pills ml-4" id="pills-tab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="pills-non-tab" data-toggle="pill" href="#pills-non" role="tab"
+                <a class="nav-link {{ request()->is('inventaris/non-komputer') ? 'active' : null }}" id="pills-non-tab" href="{{ url('inventaris/non-komputer') }}" role="tab"
                     aria-controls="pills-non" aria-selected="true">Non Komputer</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-peralatan-komputer-tab" data-toggle="pill"
-                    href="#pills-peralatan-komputer" role="tab" aria-controls="pills-peralatan-komputer"
+                <a class="nav-link {{ request()->is('inventaris/peralatan-komputer') ? 'active' : null }}" id="pills-peralatan-komputer-tab"
+                    href="{{ url('inventaris/peralatan-komputer') }}" role="tab" aria-controls="pills-peralatan-komputer"
                     aria-selected="true">Peralatan Komputer</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+                <a class="nav-link {{ request()->is('inventaris/komputer') ? 'active' : null }}" id="pills-profile-tab" href="{{ url('inventaris/komputer') }}" role="tab"
                     aria-controls="pills-profile" aria-selected="false">Komputer</a>
             </li>
         </ul>
     </div>
     <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-non" role="tabpanel" aria-labelledby="pills-non-tab">
+        <div class="tab-pane fade show {{ request()->is('inventaris/non-komputer') ? 'active' : null }}" id="{{ url('inventaris/non-komputer') }}" role="tabpanel" aria-labelledby="pills-non-tab">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -60,7 +60,7 @@
                                             <th>Nama Barang</th>
                                             <th>Spesifikasi</th>
                                             <th>Lokasi</th>
-                                            <th>Tahun Pembelian</th>
+                                            <th>Tanggal Pembelian</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
                                             <th>Aksi</th>
@@ -77,10 +77,10 @@
                                             <td>{{ $item->kodeInventaris }}</td>
                                             <td>{{ $item->namaBarang }}</td>
                                             <td>{{ $item->spesifikasi }}</td>
-                                            <td>{{ $item->namaRuangan }}</td>
+                                            <td>{{$item->kodeRuangan ." ". $item->namaRuangan }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($item->tgl_pembelian)); }}</td>
                                             <td>{{ $item->kondisi }}</td>
                                             <td>{{ $item->keterangan }}</td>
-                                            <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                             <td>
                                                 <form method="POST"
                                                     action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade show" id="pills-peralatan-komputer" role="tabpanel"
+        <div class="tab-pane fade show {{ request()->is('inventaris/peralatan-komputer') ? 'active' : null }}" id="{{ url('inventaris/peralatan-komputer') }}" role="tabpanel"
             aria-labelledby="pills-peralatan-komputer-tab">
             <div class="row">
                 <div class="col-12">
@@ -118,7 +118,7 @@
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
-                                        <a href="{{ url('tambah/inventaris_peralatan_komputer') }}" class="btn btn-warning mr-2">Tambah Data</a>
+                                        <a href="{{ url('inventaris/peralatan-komputer/tambah/motherboard') }}" class="btn btn-warning mr-2">Tambah Data</a>
                                     </div>
                                 </form>
                             </div>
@@ -139,7 +139,7 @@
                             </div>
                             <br><br>
                             {{-- tab --}}
-                            <ul class="nav nav-pills red" id="myTab" role="tablist">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3" role="tab"
                                         aria-controls="home" aria-selected="true">Motherboard</a>
@@ -185,7 +185,7 @@
                                                     <th>Form Factor</th>
                                                     <th>Memori Slot</th>
                                                     <th>Memori Support</th>
-                                                    <th>Ruangan</th>
+                                                    <th>Lokasi</th>
                                                     <th>Vendor</th>
                                                     <th>Harga</th>
                                                     <th>Tanggal Pembelian</th>
@@ -209,7 +209,7 @@
                                                     <td>{{ $item->formFactor }}</td>
                                                     <td>{{ $item->memoriSlot }}</td>
                                                     <td>{{ $item->memoriSupport }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{$item->kodeRuangan ." ". $item->namaRuangan }}</td>
                                                     <td>{{ $item->namaVendor }}</td>
                                                     <td>{{ $item->harga }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($item->tglPembelian)); }}</td>
@@ -255,7 +255,7 @@
                                                     <th>Jumlah Core</th>
                                                     <th>Jumlah Thread</th>
                                                     <th>Socket</th>
-                                                    <th>Ruangan</th>
+                                                    <th>Lokasi</th>
                                                     <th>Vendor</th>
                                                     <th>Harga</th>
                                                     <th>Tanggal Pembelian</th>
@@ -273,18 +273,18 @@
                                                     <td width="1%"><input type="checkbox" class="checked"> </td>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->nama }}</td>
-                                                    <td>{{ $item->nomor_processor }}</td>
+                                                    <td>{{ $item->namaProcessor }}</td>
+                                                    <td>{{ $item->nomorProcessor }}</td>
                                                     <td>{{ $item->generasi }}</td>
                                                     <td>{{ $item->series }}</td>
                                                     <td>{{ $item->kecepatan }}</td>
-                                                    <td>{{ $item->jumlah_core }}</td>
-                                                    <td>{{ $item->jumlah_thread }}</td>
+                                                    <td>{{ $item->jumlahCore }}</td>
+                                                    <td>{{ $item->jumlahThread }}</td>
                                                     <td>{{ $item->socket }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
                                                     <td>{{ $item->namaVendor }}</td>
                                                     <td>{{ $item->harga }}</td>
-                                                    <td>{{ date('d-m-Y', strtotime($item->tgl_pembelian)); }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($item->tglPembelian)); }}</td>
                                                     <td>{{ $item->kondisi }}</td>
                                                     <td>{{ $item->keterangan }}</td>
                                                     <td>
@@ -319,11 +319,16 @@
                                                     <th><input type="checkbox" class="check-all"></th>
                                                     <th>No</th>
                                                     <th>Kode Inventaris</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Spesifikasi</th>
+                                                    <th>Nama Memori</th>
+                                                    <th>Jenis Memori</th>
+                                                    <th>Tipe Memori</th>
+                                                    <th>Kapasitas Memori</th>
+                                                    <th>Kecepatan Memori</th>
                                                     <th>Lokasi</th>
-                                                    <th>Tahun Pembelian</th>
-                                                    <th>Status</th>
+                                                    <th>Vendor</th>
+                                                    <th>Harga</th>
+                                                    <th>Tanggal Pembelian</th>
+                                                    <th>Kondisi</th>
                                                     <th>Keterangan</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -332,17 +337,22 @@
                                                 @php
                                                 $no = 1;
                                                 @endphp
-                                                @foreach ($data as $item)
+                                                @foreach ($ram as $item)
                                                 <tr>
                                                     <td width="1%"><input type="checkbox" class="checked"> </td>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaBarang }}</td>
-                                                    <td>{{ $item->spesifikasi }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaMemory }}</td>
+                                                    <td>{{ $item->jenisMemory }}</td>
+                                                    <td>{{ $item->tipeMemory }}</td>
+                                                    <td>{{ $item->kapasitasMemory }}</td>
+                                                    <td>{{ $item->frekuensiMemory }}</td>
+                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaVendor }}</td>
+                                                    <td>{{ $item->harga }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
                                                     <td>{{ $item->kondisi }}</td>
                                                     <td>{{ $item->keterangan }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                                     <td>
                                                         <form method="POST"
                                                             action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
@@ -375,11 +385,14 @@
                                                     <th><input type="checkbox" class="check-all"></th>
                                                     <th>No</th>
                                                     <th>Kode Inventaris</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Spesifikasi</th>
+                                                    <th>Nama Storage</th>
+                                                    <th>Jenis Storage</th>
+                                                    <th>Kapasitas Storage</th>
                                                     <th>Lokasi</th>
-                                                    <th>Tahun Pembelian</th>
-                                                    <th>Status</th>
+                                                    <th>Vendor</th>
+                                                    <th>Harga</th>
+                                                    <th>Tanggal Pembelian</th>
+                                                    <th>Kondisi</th>
                                                     <th>Keterangan</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -388,17 +401,20 @@
                                                 @php
                                                 $no = 1;
                                                 @endphp
-                                                @foreach ($data as $item)
+                                                @foreach ($storage as $item)
                                                 <tr>
                                                     <td width="1%"><input type="checkbox" class="checked"> </td>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaBarang }}</td>
-                                                    <td>{{ $item->spesifikasi }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaStorage }}</td>
+                                                    <td>{{ $item->jenisStorage }}</td>
+                                                    <td>{{ $item->kapasitasStorage }}</td>
+                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaVendor }}</td>
+                                                    <td>{{ $item->harga }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
                                                     <td>{{ $item->kondisi }}</td>
                                                     <td>{{ $item->keterangan }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                                     <td>
                                                         <form method="POST"
                                                             action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
@@ -431,11 +447,16 @@
                                                     <th><input type="checkbox" class="check-all"></th>
                                                     <th>No</th>
                                                     <th>Kode Inventaris</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Spesifikasi</th>
+                                                    <th>Nama GPU</th>
+                                                    <th>Ukuran Memori</th>
+                                                    <th>Memori Interface</th>
+                                                    <th>Kecepatan Memori</th>
+                                                    <th>Tipe Memori</th>
                                                     <th>Lokasi</th>
-                                                    <th>Tahun Pembelian</th>
-                                                    <th>Status</th>
+                                                    <th>Vendor</th>
+                                                    <th>Harga</th>
+                                                    <th>Tanggal Pembelian</th>
+                                                    <th>Kondisi</th>
                                                     <th>Keterangan</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -444,17 +465,23 @@
                                                 @php
                                                 $no = 1;
                                                 @endphp
-                                                @foreach ($data as $item)
+                                                @foreach ($gpu as $item)
                                                 <tr>
                                                     <td width="1%"><input type="checkbox" class="checked"> </td>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaBarang }}</td>
+                                                    <td>{{ $item->namaGpu }}</td>
                                                     <td>{{ $item->spesifikasi }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->ukuranMemori }}</td>
+                                                    <td>{{ $item->memoriInterface }}</td>
+                                                    <td>{{ $item->kecepatanMemori }}</td>
+                                                    <td>{{ $item->tipeMemori }}</td>
+                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaVendor }}</td>
+                                                    <td>{{ $item->harga }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
                                                     <td>{{ $item->kondisi }}</td>
                                                     <td>{{ $item->keterangan }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                                     <td>
                                                         <form method="POST"
                                                             action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
@@ -487,11 +514,16 @@
                                                     <th><input type="checkbox" class="check-all"></th>
                                                     <th>No</th>
                                                     <th>Kode Inventaris</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Spesifikasi</th>
+                                                    <th>Nama Psu</th>
+                                                    <th>Form Factor</th>
+                                                    <th>Jenis Kabel</th>
+                                                    <th>Besar Daya</th>
+                                                    <th>Sertifikasi Psu</th>
                                                     <th>Lokasi</th>
-                                                    <th>Tahun Pembelian</th>
-                                                    <th>Status</th>
+                                                    <th>Vendor</th>
+                                                    <th>Harga</th>
+                                                    <th>Tanggal Pembelian</th>
+                                                    <th>Kondisi</th>
                                                     <th>Keterangan</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -500,17 +532,22 @@
                                                 @php
                                                 $no = 1;
                                                 @endphp
-                                                @foreach ($data as $item)
+                                                @foreach ($psu as $item)
                                                 <tr>
                                                     <td width="1%"><input type="checkbox" class="checked"> </td>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaBarang }}</td>
-                                                    <td>{{ $item->spesifikasi }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaPsu }}</td>
+                                                    <td>{{ $item->formFactor }}</td>
+                                                    <td>{{ $item->jenisKabel }}</td>
+                                                    <td>{{ $item->besarDaya }}</td>
+                                                    <td>{{ $item->sertifikasiPsu }}</td>
+                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaVendor }}</td>
+                                                    <td>{{ $item->harga }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
                                                     <td>{{ $item->kondisi }}</td>
                                                     <td>{{ $item->keterangan }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                                     <td>
                                                         <form method="POST"
                                                             action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
@@ -543,11 +580,13 @@
                                                     <th><input type="checkbox" class="check-all"></th>
                                                     <th>No</th>
                                                     <th>Kode Inventaris</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Spesifikasi</th>
+                                                    <th>Nama Casing</th>
+                                                    <th>Form Faktor</th>
                                                     <th>Lokasi</th>
-                                                    <th>Tahun Pembelian</th>
-                                                    <th>Status</th>
+                                                    <th>Vendor</th>
+                                                    <th>Harga</th>
+                                                    <th>Tanggal Pembelian</th>
+                                                    <th>Kondisi</th>
                                                     <th>Keterangan</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -556,17 +595,19 @@
                                                 @php
                                                 $no = 1;
                                                 @endphp
-                                                @foreach ($data as $item)
+                                                @foreach ($casing as $item)
                                                 <tr>
                                                     <td width="1%"><input type="checkbox" class="checked"> </td>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaBarang }}</td>
-                                                    <td>{{ $item->spesifikasi }}</td>
-                                                    <td>{{ $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaCasing }}</td>
+                                                    <td>{{ $item->formFactor }}</td>
+                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
+                                                    <td>{{ $item->namaVendor }}</td>
+                                                    <td>{{ $item->harga }}</td>
+                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
                                                     <td>{{ $item->kondisi }}</td>
                                                     <td>{{ $item->keterangan }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                                     <td>
                                                         <form method="POST"
                                                             action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
@@ -596,7 +637,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="tab-pane fade show {{ request()->is('inventaris/komputer') ? 'active' : null }}" id="{{ url('inventaris/komputer') }}" role="tabpanel" aria-labelledby="pills-profile-tab">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -636,7 +677,7 @@
                                             <th>Nama Barang</th>
                                             <th>Spesifikasi</th>
                                             <th>Lokasi</th>
-                                            <th>Tahun Pembelian</th>
+                                            <th>Tanggal Pembelian</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
                                             <th>Aksi</th>
@@ -646,17 +687,17 @@
                                         @php
                                         $no = 1;
                                         @endphp
-                                        @foreach ($data as $item)
+                                        @foreach ($data2 as $item)
                                         <tr>
                                             <td width="1%"><input type="checkbox" class="checked"> </td>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->kodeInventaris }}</td>
                                             <td>{{ $item->namaBarang }}</td>
                                             <td>{{ $item->spesifikasi }}</td>
-                                            <td>{{ $item->namaRuangan }}</td>
+                                            <td>{{$item->kodeRuangan ." ". $item->namaRuangan }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($item->tgl_pembelian)); }}</td>
                                             <td>{{ $item->kondisi }}</td>
                                             <td>{{ $item->keterangan }}</td>
-                                            <td>{{ date('Y', strtotime($item->tgl_pembelian)); }}</td>
                                             <td>
                                                 <form method="POST"
                                                     action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">

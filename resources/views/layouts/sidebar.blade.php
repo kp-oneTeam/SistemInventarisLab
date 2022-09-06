@@ -24,7 +24,7 @@
             <li class="@yield('vendor')"><a class="nav-link" href="{{ url('vendor') }}"><i
                             class="fas fa-tags"></i> <span>Vendor</span></a></li>
             <li class="menu-header">Manajemen Inventaris</li>
-            <li class="@yield('inventaris')"><a class="nav-link" href="{{ url('inventaris') }}"><i
+            <li class="@yield('inventaris')"><a class="nav-link" href="{{ url('inventaris/non-komputer') }}"><i
                         class="fas fa-boxes"></i> <span>Inventaris</span></a></li>
             <li class="@yield('peminjaman')"><a class="nav-link" href="{{ url('peminjaman') }}"><i
                         class="fas fa-people-carry"></i> <span>Peminjaman</span></a></li>

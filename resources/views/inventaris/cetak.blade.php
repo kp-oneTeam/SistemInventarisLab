@@ -77,12 +77,12 @@
                         <tr>
                             <td width="10%">Nama Barang </td>
                             <td width="1%">:</td>
-                            <td width="20%">{{ $item->namaBarang }}</td>
+                            <td width="20%">{{ $item->namaBarang ?? $namaBarang}}</td>
                         </tr>
                         <tr>
-                            <td width="15%">Tgl Pembelian </td>
+                            <td width="10%">Tgl Pembelian </td>
                             <td width="1%">:</td>
-                            <td width="30%">{{ date('d - F - Y', strtotime($item->tgl_pembelian)) }}</td>
+                            <td width="40%">{{ date('d - m - Y', strtotime($item->tgl_pembelian ?? $item->tglPembelian)) }}</td>
                         </tr>
                         <tr>
                             <td width="35%">Nomor Barang </td>

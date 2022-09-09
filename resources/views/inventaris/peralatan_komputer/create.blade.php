@@ -47,9 +47,8 @@
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/motherboard') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="">Nama Motheboard</label>
+                                            <label for="">Nama / Merk Motheboard</label>
                                             <input type="text" name="nama_motherboard" class="form-control" required >
-                                            <small>Contoh: B450 Steel Legend</small>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Chipset</label>
@@ -105,7 +104,7 @@
                                             <select name="lokasi_mb" class="form-control select2" required>
                                                 <option selected>-- Pilih Ruang --</option>
                                                 @foreach ($lokasi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->kodeRuangan." || ".$item->namaRuangan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -163,16 +162,16 @@
                                             <input type="text" name="series" class="form-control">
                                         </div>
                                         <div class="form-group">
+                                            <label for="">Generasi</label>
+                                            <input type="text" name="generasi" class="form-control">
+                                        </div>
+                                        <div class="form-group">
                                             <label for="">Nomor Processor</label>
                                             <input type="text" name="nomor_processor" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Socket</label>
                                             <input type="text" name="socket" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Generasi</label>
-                                            <input type="text" name="generasi" class="form-control">
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
@@ -214,7 +213,7 @@
                                             <select name="lokasi" class="form-control select2" required>
                                                 <option value="">-- Pilih Ruang --</option>
                                                 @foreach ($lokasi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->kodeRuangan." || ".$item->namaRuangan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -318,7 +317,7 @@
                                             <select name="lokasi" class="form-control select2" required>
                                                 <option value="">-- Pilih Ruang --</option>
                                                 @foreach ($lokasi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->kodeRuangan." || ".$item->namaRuangan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -409,7 +408,7 @@
                                             <select name="lokasi" class="form-control select2" required>
                                                 <option value="">-- Pilih Ruang --</option>
                                                 @foreach ($lokasi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->kodeRuangan." || ".$item->namaRuangan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -482,7 +481,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-3">
+                                            {{-- <div class="form-group col-3">
                                                 <label for="">Memori Interface</label>
                                                 <div class="input-group">
                                                     <input type="text" name="memori_interface_gpu" class="form-control" required>
@@ -499,7 +498,7 @@
                                                         <span class="input-group-text" id="basic-addon2">MHz</span>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group col-3">
                                                 <label for="">Tipe Memori</label>
                                                 <input type="text" name="tipe_memori_gpu" class="form-control" required>
@@ -511,7 +510,7 @@
                                             <select name="lokasi_gpu" class="form-control select2" required>
                                                 <option selected>-- Pilih Ruang --</option>
                                                 @foreach ($lokasi as $item)
-                                                <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->kodeRuangan." || ".$item->namaRuangan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -623,7 +622,7 @@
                                                 <select name="lokasi_psu" class="form-control select2" required>
                                                     <option value="">-- Pilih Ruang --</option>
                                                     @foreach ($lokasi as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                    <option value="{{ $item->id }}">{{ $item->kodeRuangan." || ".$item->namaRuangan }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -703,7 +702,7 @@
                                                 <select name="lokasi_casing" class="form-control select2" required>
                                                     <option value="">-- Pilih Ruang --</option>
                                                     @foreach ($lokasi as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                                    <option value="{{ $item->id }}">{{ $item->kodeRuangan." || ".$item->namaRuangan }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

@@ -30,6 +30,7 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="">Gedung</label>
                         <select name="gedung" class="form-control select2" required>
                             <option value="">-- Pilih Gedung --</option>
                             @foreach ($gedung as $item)

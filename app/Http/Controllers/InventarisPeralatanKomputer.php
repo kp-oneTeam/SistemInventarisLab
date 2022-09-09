@@ -13,6 +13,7 @@ use App\Models\InventarisStorage;
 use App\Models\Ruangan;
 use App\Models\Vendor;
 use App\Models\KodeInv;
+use Exception;
 use Illuminate\Http\Request;
 
 class InventarisPeralatanKomputer extends Controller
@@ -23,6 +24,7 @@ class InventarisPeralatanKomputer extends Controller
         $vendor = Vendor::get();
         return view('inventaris.peralatan_komputer.create', compact('lokasi','vendor'));
     }
+    //Inventaris Motherboard
     public function tambah_inventaris_motherboard(request $request){
         $harga = $request->harga_mb;
         $harga = preg_replace('/[^0-9]/', '', $harga);
@@ -48,6 +50,62 @@ class InventarisPeralatanKomputer extends Controller
             return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Gagal Ditambahkan');
         }
     }
+    public function hapus_inv_motherboard($id){
+        try {
+            //code...
+            Motherboard::findOrFail($id)->delete();
+            return redirect('inventaris/peralatan-komputer')->with('message','Data Berhasil dihapus');
+        } catch (Exception $e) {
+            //throw $th;
+            return redirect('inventaris/peralatan-komputer')->with('message', 'Data Gagal dihapus');
+        }
+    }
+    public function form_ubah_motherboard($id){
+        $lokasi = Ruangan::get();
+        $vendor = Vendor::get();
+        $data = Motherboard::findOrFail($id);
+        return view('inventaris.peralatan_komputer.motherboard.edit',compact('data','lokasi','vendor'));
+    }
+    public function ubah($id,request $request)
+    {
+        if (!$request->has('lokasi_mb') && !$request->has('keterangan_mb')) {
+            $harga = $request->harga_mb;
+            $harga = preg_replace('/[^0-9]/', '', $harga);
+            $data = Motherboard::findOrFail($id);
+            $saved = $data->update([
+                'namaMotherboard' => $request->nama_motherboard,
+                'chipsetMotherboard' => $request->chipset_mb,
+                'socketMotherboard' => $request->socket_mb,
+                'formFactor' => $request->form_factor,
+                'memoriSlot' => $request->memori_slot,
+                'memoriSupport' => $request->memori_support,
+                'idVendor' => $request->vendor_mb,
+                'harga' => $harga,
+                'tglPembelian' => $request->tanggal_pembelian_mb,
+                'kondisi' => $request->kondisi_mb
+            ]);
+            if ($saved) {
+                return redirect('inventaris/peralatan-komputer')->with('message', 'Inventaris Berhasil Diubah');
+            } else {
+                return redirect('inventaris/peralatan-komputer')->with('message', 'Inventaris Gagal Diubah');
+            }
+            dd($request->all());
+        }
+        // $title = "Detail Inventaris Motherboard";
+        // $lokasi = Ruangan::get();
+        // $vendor = Vendor::get();
+        // $data = Motherboard::findOrFail($id);
+        // return view('inventaris.peralatan_komputer.motherboard.edit', compact('data'));
+    }
+    public function detail_motherboard($id)
+    {
+        $title = "Detail Inventaris Motherboard";
+        $lokasi = Ruangan::get();
+        $vendor = Vendor::get();
+        $data = Motherboard::findOrFail($id);
+        return view('inventaris.peralatan_komputer.motherboard.detail', compact('title', 'lokasi', 'vendor', 'data'));
+    }
+    //CPU
     public function cpu(request $request){
         $harga = $request->harga;
         $harga = preg_replace('/[^0-9]/', '', $harga);
@@ -120,7 +178,6 @@ class InventarisPeralatanKomputer extends Controller
             return redirect('inventaris/peralatan-komputer')->with('message', 'data berhasil disimpan!');
         }
     }
-
     public function gpu(request $request){
         $harga = $request->harga_gpu;
         $harga = preg_replace('/[^0-9]/', '', $harga);
@@ -129,8 +186,8 @@ class InventarisPeralatanKomputer extends Controller
             'kodeInventaris' => $kodeinv->kodeInventaris,
             'namaGpu' => $request->nama_gpu,
             'ukuranMemori' => $request->ukuran_memori_gpu,
-            'memoriInterface' => $request->memori_interface_gpu,
-            'kecepatanMemori' => $request->kecepatan_memori_gpu,
+            'memoriInterface' => "-",
+            'kecepatanMemori' => "-",
             'tipeMemori' => $request->tipe_memori_gpu,
             'idRuangan' => $request->lokasi_gpu,
             'idVendor' => $request->vendor_gpu,
@@ -145,7 +202,6 @@ class InventarisPeralatanKomputer extends Controller
             return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Gagal Ditambahkan');
         }
     }
-
     public function psu(request $request){
         $harga = $request->harga_psu;
         $harga = preg_replace('/[^0-9]/', '', $harga);
@@ -190,6 +246,133 @@ class InventarisPeralatanKomputer extends Controller
             return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Berhasil Ditambahkan');
         }else{
             return redirect('inventaris/peralatan-komputer')->with('message','Inventaris Gagal Ditambahkan');
+        }
+    }
+
+    //berfungsi untuk mencetak atau menghapus data yang di ceklis
+    public function checked_motherboard(request $request)
+    {
+        $kode_inventaris = [];
+        for ($i = 0; $i < count($request->kode_inventaris); $i++) {
+            $kode_inventaris[] = $request->kode_inventaris[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = Motherboard::whereIn('kodeInventaris', $kode_inventaris)
+                ->delete();
+            return redirect('inventaris/non-komputer')->with('message', 'Data Berhasil Dihapus!');
+        } else {
+            $data = Motherboard::select('kodeInventaris',  'tglPembelian')
+            ->whereIn('kodeInventaris', $kode_inventaris)
+                ->get();
+            $namaBarang = "Motherboard";
+            return view('inventaris.cetak', compact('data','namaBarang'));
+        }
+    }
+    public function checked_processor(request $request)
+    {
+        $kode_inventaris = [];
+        for ($i = 0; $i < count($request->kode_inventaris); $i++) {
+            $kode_inventaris[] = $request->kode_inventaris[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = InventarisProcessor::whereIn('kodeInventaris', $kode_inventaris)
+                ->delete();
+            return redirect('inventaris/non-komputer')->with('message', 'Data Berhasil Dihapus!');
+        } else {
+            $data = InventarisProcessor::select('kodeInventaris',  'tglPembelian')
+            ->whereIn('kodeInventaris', $kode_inventaris)
+                ->get();
+            $namaBarang = "Processor";
+            return view('inventaris.cetak', compact('data', 'namaBarang'));
+        }
+    }
+    public function checked_ram(request $request)
+    {
+        $kode_inventaris = [];
+        for ($i = 0; $i < count($request->kode_inventaris); $i++) {
+            $kode_inventaris[] = $request->kode_inventaris[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = InventarisRam::whereIn('kodeInventaris', $kode_inventaris)
+                ->delete();
+            return redirect('inventaris/non-komputer')->with('message', 'Data Berhasil Dihapus!');
+        } else {
+            $data = InventarisRam::select('kodeInventaris',  'tglPembelian')
+            ->whereIn('kodeInventaris', $kode_inventaris)
+                ->get();
+            $namaBarang = "RAM";
+            return view('inventaris.cetak', compact('data', 'namaBarang'));
+        }
+    }
+    public function checked_psu(request $request)
+    {
+        $kode_inventaris = [];
+        for ($i = 0; $i < count($request->kode_inventaris); $i++) {
+            $kode_inventaris[] = $request->kode_inventaris[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = InventarisPsu::whereIn('kodeInventaris', $kode_inventaris)
+                ->delete();
+            return redirect('inventaris/non-komputer')->with('message', 'Data Berhasil Dihapus!');
+        } else {
+            $data = InventarisPsu::select('kodeInventaris',  'tglPembelian')
+            ->whereIn('kodeInventaris', $kode_inventaris)
+                ->get();
+            $namaBarang = "PSU";
+            return view('inventaris.cetak', compact('data', 'namaBarang'));
+        }
+    }
+    public function checked_storage(request $request)
+    {
+        $kode_inventaris = [];
+        for ($i = 0; $i < count($request->kode_inventaris); $i++) {
+            $kode_inventaris[] = $request->kode_inventaris[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = InventarisStorage::whereIn('kodeInventaris', $kode_inventaris)
+                ->delete();
+            return redirect('inventaris/non-komputer')->with('message', 'Data Berhasil Dihapus!');
+        } else {
+            $data = InventarisStorage::select('kodeInventaris',  'tglPembelian')
+            ->whereIn('kodeInventaris', $kode_inventaris)
+                ->get();
+            $namaBarang = "Storage";
+            return view('inventaris.cetak', compact('data', 'namaBarang'));
+        }
+    }
+    public function checked_gpu(request $request)
+    {
+        $kode_inventaris = [];
+        for ($i = 0; $i < count($request->kode_inventaris); $i++) {
+            $kode_inventaris[] = $request->kode_inventaris[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = InventarisGPU::whereIn('kodeInventaris', $kode_inventaris)
+                ->delete();
+            return redirect('inventaris/non-komputer')->with('message', 'Data Berhasil Dihapus!');
+        } else {
+            $data = InventarisGPU::select('kodeInventaris',  'tglPembelian')
+            ->whereIn('kodeInventaris', $kode_inventaris)
+                ->get();
+            $namaBarang = "GPU";
+            return view('inventaris.cetak', compact('data', 'namaBarang'));
+        }
+    }
+    public function checked_casing(request $request)
+    {
+        $kode_inventaris = [];
+        for ($i = 0; $i < count($request->kode_inventaris); $i++) {
+            $kode_inventaris[] = $request->kode_inventaris[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = InventarisCasing::whereIn('kodeInventaris', $kode_inventaris)->delete();
+            return redirect('inventaris/non-komputer')->with('message', 'Data Berhasil Dihapus!');
+        } else {
+            $data = InventarisCasing::select('kodeInventaris',  'tglPembelian')
+            ->whereIn('kodeInventaris', $kode_inventaris)
+                ->get();
+            $namaBarang = "Casing";
+            return view('inventaris.cetak', compact('data', 'namaBarang'));
         }
     }
 }

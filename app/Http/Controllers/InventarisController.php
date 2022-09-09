@@ -38,7 +38,7 @@ class InventarisController extends Controller
         //Peralatan Komputer
         $motherboard = Motherboard::join('vendor', 'vendor.id', '=', 'inventaris_motherboard.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_motherboard.idRuangan')
-        ->select('kodeInventaris','namaMotherboard','chipsetMotherboard','socketMotherboard','formFactor','memoriSlot','memoriSupport','kodeRuangan','namaRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->select('inventaris_motherboard.id','kodeInventaris','namaMotherboard','chipsetMotherboard','socketMotherboard','formFactor','memoriSlot','memoriSupport','kodeRuangan','namaRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
         $processor = InventarisProcessor::join('vendor', 'vendor.id', '=', 'inventaris_processor.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_processor.idRuangan')
@@ -64,7 +64,9 @@ class InventarisController extends Controller
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_casing.idRuangan')
         ->select('kodeInventaris','namaCasing','formFactor','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
-        return view('inventaris.index',compact('title','data','data2','motherboard','processor','ram','storage','gpu','psu','casing'));
+
+        $komputer = InventarisKomputer::get();
+        return view('inventaris.index',compact('title','data','data2','motherboard','processor','ram','storage','gpu','psu','casing','komputer'));
     }
     public function form_tambah_inventaris()
     {

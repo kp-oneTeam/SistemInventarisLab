@@ -62,7 +62,7 @@
                                             <th>Lokasi</th>
                                             <th>Tanggal Pembelian</th>
                                             <th>Status</th>
-                                            <th>Keterangan</th>
+
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -80,9 +80,9 @@
                                             <td>{{$item->kodeRuangan ." ". $item->namaRuangan }}</td>
                                             <td>{{ date('d-m-Y', strtotime($item->tgl_pembelian)); }}</td>
                                             <td>{{ $item->kondisi }}</td>
-                                            <td>{{ $item->keterangan }}</td>
+
                                             <td>
-                                                <form method="POST"
+                                                <form method="POST" target="_blank"
                                                     action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
                                                     @csrf
                                                     @method('DELETE')
@@ -126,7 +126,7 @@
                         <div class="card-body">
                             <div class="float-right mb-2">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <form id="formCetak" action="{{ url('checked/inventaris') }}" method="post">
+                                    <form target="_blank" id="formCetak2" action="{{ url('checked/inventaris/peralatan-komputer/') }}" method="post">
                                         @csrf
                                         <button name="button" value="cetak" type="submit"
                                             class="btn btn-primary icon-left text-white"><i class="fas fa-print"></i>
@@ -171,573 +171,43 @@
                             </ul>
                             <div class="tab-content m-2" id="myTabContent2">
                                 {{-- motherboard --}}
-                                <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
-                                    <div class="table-responsive p-sm-1 mt-3">
-                                        <table class="table table-striped" id="myTable1">
-                                            <thead>
-                                                <tr>
-                                                    <th><input type="checkbox" class="check-all"></th>
-                                                    <th>No</th>
-                                                    <th>Kode Inventaris</th>
-                                                    <th>Nama Motherboard</th>
-                                                    <th>Chipset</th>
-                                                    <th>Socket</th>
-                                                    <th>Form Factor</th>
-                                                    <th>Memori Slot</th>
-                                                    <th>Memori Support</th>
-                                                    <th>Lokasi</th>
-                                                    <th>Vendor</th>
-                                                    <th>Harga</th>
-                                                    <th>Tanggal Pembelian</th>
-                                                    <th>Kondisi</th>
-                                                    <th>Keterangan</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                $no = 1;
-                                                @endphp
-                                                @foreach ($motherboard as $item)
-                                                <tr>
-                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
-                                                    <td>{{ $no++ }}</td>
-                                                    <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaMotherboard }}</td>
-                                                    <td>{{ $item->chipsetMotherboard }}</td>
-                                                    <td>{{ $item->socketMotherboard }}</td>
-                                                    <td>{{ $item->formFactor }}</td>
-                                                    <td>{{ $item->memoriSlot }}</td>
-                                                    <td>{{ $item->memoriSupport }}</td>
-                                                    <td>{{$item->kodeRuangan ." ". $item->namaRuangan }}</td>
-                                                    <td>{{ $item->namaVendor }}</td>
-                                                    <td>{{ $item->harga }}</td>
-                                                    <td>{{ date('d-m-Y', strtotime($item->tglPembelian)); }}</td>
-                                                    <td>{{ $item->kondisi }}</td>
-                                                    <td>{{ $item->keterangan }}</td>
-                                                    <td>
-                                                        <form method="POST"
-                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                                    class="far fa-eye"></i> Detail</a>
-                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
-                                                                    class="far fa-edit"></i> Edit</a>
-                                                            <button type="submit"
-                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                                data-toggle="tooltip" title='Hapus'><i
-                                                                    class="fas fa-trash"></i>Hapus</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @include('inventaris.peralatan_komputer.motherboard.list')
                                 {{-- processor --}}
-                                <div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">
-                                    <div class="table-responsive p-sm-1 mt-3">
-                                        <table class="table table-striped" id="myTable2">
-                                            <thead>
-                                                <tr>
-                                                    <th><input type="checkbox" class="check-all"></th>
-                                                    <th>No</th>
-                                                    <th>Kode Inventaris</th>
-                                                    <th>Nama Processor</th>
-                                                    <th>Nomor</th>
-                                                    <th>Generasi</th>
-                                                    <th>Series</th>
-                                                    <th>Kecepatan</th>
-                                                    <th>Jumlah Core</th>
-                                                    <th>Jumlah Thread</th>
-                                                    <th>Socket</th>
-                                                    <th>Lokasi</th>
-                                                    <th>Vendor</th>
-                                                    <th>Harga</th>
-                                                    <th>Tanggal Pembelian</th>
-                                                    <th>Kondisi</th>
-                                                    <th>Keterangan</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                $no = 1;
-                                                @endphp
-                                                @foreach ($processor as $item)
-                                                <tr>
-                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
-                                                    <td>{{ $no++ }}</td>
-                                                    <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaProcessor }}</td>
-                                                    <td>{{ $item->nomorProcessor }}</td>
-                                                    <td>{{ $item->generasi }}</td>
-                                                    <td>{{ $item->series }}</td>
-                                                    <td>{{ $item->kecepatan }}</td>
-                                                    <td>{{ $item->jumlahCore }}</td>
-                                                    <td>{{ $item->jumlahThread }}</td>
-                                                    <td>{{ $item->socket }}</td>
-                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
-                                                    <td>{{ $item->namaVendor }}</td>
-                                                    <td>{{ $item->harga }}</td>
-                                                    <td>{{ date('d-m-Y', strtotime($item->tglPembelian)); }}</td>
-                                                    <td>{{ $item->kondisi }}</td>
-                                                    <td>{{ $item->keterangan }}</td>
-                                                    <td>
-                                                        <form method="POST"
-                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                                    class="far fa-eye"></i> Detail</a>
-                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
-                                                                    class="far fa-edit"></i> Edit</a>
-                                                            <button type="submit"
-                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                                data-toggle="tooltip" title='Hapus'><i
-                                                                    class="fas fa-trash"></i>Hapus</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @include('inventaris.peralatan_komputer.processor.list')
                                 {{-- Memory --}}
-                                <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">
-                                    <div class="table-responsive p-sm-1 mt-3">
-                                        <table class="table table-striped" id="myTable3">
-                                            <thead>
-                                                <tr>
-                                                    <th><input type="checkbox" class="check-all"></th>
-                                                    <th>No</th>
-                                                    <th>Kode Inventaris</th>
-                                                    <th>Nama Memori</th>
-                                                    <th>Jenis Memori</th>
-                                                    <th>Tipe Memori</th>
-                                                    <th>Kapasitas Memori</th>
-                                                    <th>Kecepatan Memori</th>
-                                                    <th>Lokasi</th>
-                                                    <th>Vendor</th>
-                                                    <th>Harga</th>
-                                                    <th>Tanggal Pembelian</th>
-                                                    <th>Kondisi</th>
-                                                    <th>Keterangan</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                $no = 1;
-                                                @endphp
-                                                @foreach ($ram as $item)
-                                                <tr>
-                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
-                                                    <td>{{ $no++ }}</td>
-                                                    <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaMemory }}</td>
-                                                    <td>{{ $item->jenisMemory }}</td>
-                                                    <td>{{ $item->tipeMemory }}</td>
-                                                    <td>{{ $item->kapasitasMemory }}</td>
-                                                    <td>{{ $item->frekuensiMemory }}</td>
-                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
-                                                    <td>{{ $item->namaVendor }}</td>
-                                                    <td>{{ $item->harga }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
-                                                    <td>{{ $item->kondisi }}</td>
-                                                    <td>{{ $item->keterangan }}</td>
-                                                    <td>
-                                                        <form method="POST"
-                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                                    class="far fa-eye"></i> Detail</a>
-                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
-                                                                    class="far fa-edit"></i> Edit</a>
-                                                            <button type="submit"
-                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                                data-toggle="tooltip" title='Hapus'><i
-                                                                    class="fas fa-trash"></i>Hapus</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @include('inventaris.peralatan_komputer.ram.list')
                                 {{-- storage --}}
-                                <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab3">
-                                    <div class="table-responsive p-sm-1 mt-3">
-                                        <table class="table table-striped" id="myTable4">
-                                            <thead>
-                                                <tr>
-                                                    <th><input type="checkbox" class="check-all"></th>
-                                                    <th>No</th>
-                                                    <th>Kode Inventaris</th>
-                                                    <th>Nama Storage</th>
-                                                    <th>Jenis Storage</th>
-                                                    <th>Kapasitas Storage</th>
-                                                    <th>Lokasi</th>
-                                                    <th>Vendor</th>
-                                                    <th>Harga</th>
-                                                    <th>Tanggal Pembelian</th>
-                                                    <th>Kondisi</th>
-                                                    <th>Keterangan</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                $no = 1;
-                                                @endphp
-                                                @foreach ($storage as $item)
-                                                <tr>
-                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
-                                                    <td>{{ $no++ }}</td>
-                                                    <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaStorage }}</td>
-                                                    <td>{{ $item->jenisStorage }}</td>
-                                                    <td>{{ $item->kapasitasStorage }}</td>
-                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
-                                                    <td>{{ $item->namaVendor }}</td>
-                                                    <td>{{ $item->harga }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
-                                                    <td>{{ $item->kondisi }}</td>
-                                                    <td>{{ $item->keterangan }}</td>
-                                                    <td>
-                                                        <form method="POST"
-                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                                    class="far fa-eye"></i> Detail</a>
-                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
-                                                                    class="far fa-edit"></i> Edit</a>
-                                                            <button type="submit"
-                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                                data-toggle="tooltip" title='Hapus'><i
-                                                                    class="fas fa-trash"></i>Hapus</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @include('inventaris.peralatan_komputer.storage.list')
                                 {{-- GPU --}}
-                                <div class="tab-pane fade" id="contact5" role="tabpanel" aria-labelledby="contact-tab3">
-                                    <div class="table-responsive p-sm-1 mt-3">
-                                        <table class="table table-striped" id="myTable5">
-                                            <thead>
-                                                <tr>
-                                                    <th><input type="checkbox" class="check-all"></th>
-                                                    <th>No</th>
-                                                    <th>Kode Inventaris</th>
-                                                    <th>Nama GPU</th>
-                                                    <th>Ukuran Memori</th>
-                                                    <th>Memori Interface</th>
-                                                    <th>Kecepatan Memori</th>
-                                                    <th>Tipe Memori</th>
-                                                    <th>Lokasi</th>
-                                                    <th>Vendor</th>
-                                                    <th>Harga</th>
-                                                    <th>Tanggal Pembelian</th>
-                                                    <th>Kondisi</th>
-                                                    <th>Keterangan</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                $no = 1;
-                                                @endphp
-                                                @foreach ($gpu as $item)
-                                                <tr>
-                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
-                                                    <td>{{ $no++ }}</td>
-                                                    <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaGpu }}</td>
-                                                    <td>{{ $item->spesifikasi }}</td>
-                                                    <td>{{ $item->ukuranMemori }}</td>
-                                                    <td>{{ $item->memoriInterface }}</td>
-                                                    <td>{{ $item->kecepatanMemori }}</td>
-                                                    <td>{{ $item->tipeMemori }}</td>
-                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
-                                                    <td>{{ $item->namaVendor }}</td>
-                                                    <td>{{ $item->harga }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
-                                                    <td>{{ $item->kondisi }}</td>
-                                                    <td>{{ $item->keterangan }}</td>
-                                                    <td>
-                                                        <form method="POST"
-                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                                    class="far fa-eye"></i> Detail</a>
-                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
-                                                                    class="far fa-edit"></i> Edit</a>
-                                                            <button type="submit"
-                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                                data-toggle="tooltip" title='Hapus'><i
-                                                                    class="fas fa-trash"></i>Hapus</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @include('inventaris.peralatan_komputer.gpu.list')
                                 {{-- PSU --}}
-                                <div class="tab-pane fade" id="contact6" role="tabpanel" aria-labelledby="contact-tab3">
-                                    <div class="table-responsive p-sm-1 mt-3">
-                                        <table class="table table-striped" id="myTable6">
-                                            <thead>
-                                                <tr>
-                                                    <th><input type="checkbox" class="check-all"></th>
-                                                    <th>No</th>
-                                                    <th>Kode Inventaris</th>
-                                                    <th>Nama Psu</th>
-                                                    <th>Form Factor</th>
-                                                    <th>Jenis Kabel</th>
-                                                    <th>Besar Daya</th>
-                                                    <th>Sertifikasi Psu</th>
-                                                    <th>Lokasi</th>
-                                                    <th>Vendor</th>
-                                                    <th>Harga</th>
-                                                    <th>Tanggal Pembelian</th>
-                                                    <th>Kondisi</th>
-                                                    <th>Keterangan</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                $no = 1;
-                                                @endphp
-                                                @foreach ($psu as $item)
-                                                <tr>
-                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
-                                                    <td>{{ $no++ }}</td>
-                                                    <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaPsu }}</td>
-                                                    <td>{{ $item->formFactor }}</td>
-                                                    <td>{{ $item->jenisKabel }}</td>
-                                                    <td>{{ $item->besarDaya }}</td>
-                                                    <td>{{ $item->sertifikasiPsu }}</td>
-                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
-                                                    <td>{{ $item->namaVendor }}</td>
-                                                    <td>{{ $item->harga }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
-                                                    <td>{{ $item->kondisi }}</td>
-                                                    <td>{{ $item->keterangan }}</td>
-                                                    <td>
-                                                        <form method="POST"
-                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                                    class="far fa-eye"></i> Detail</a>
-                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
-                                                                    class="far fa-edit"></i> Edit</a>
-                                                            <button type="submit"
-                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                                data-toggle="tooltip" title='Hapus'><i
-                                                                    class="fas fa-trash"></i>Hapus</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @include('inventaris.peralatan_komputer.psu.list')
                                 {{-- Casing --}}
-                                <div class="tab-pane fade" id="contact7" role="tabpanel" aria-labelledby="contact-tab3">
-                                    <div class="table-responsive p-sm-1 mt-3">
-                                        <table class="table table-striped" id="myTable7">
-                                            <thead>
-                                                <tr>
-                                                    <th><input type="checkbox" class="check-all"></th>
-                                                    <th>No</th>
-                                                    <th>Kode Inventaris</th>
-                                                    <th>Nama Casing</th>
-                                                    <th>Form Faktor</th>
-                                                    <th>Lokasi</th>
-                                                    <th>Vendor</th>
-                                                    <th>Harga</th>
-                                                    <th>Tanggal Pembelian</th>
-                                                    <th>Kondisi</th>
-                                                    <th>Keterangan</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                $no = 1;
-                                                @endphp
-                                                @foreach ($casing as $item)
-                                                <tr>
-                                                    <td width="1%"><input type="checkbox" class="checked"> </td>
-                                                    <td>{{ $no++ }}</td>
-                                                    <td>{{ $item->kodeInventaris }}</td>
-                                                    <td>{{ $item->namaCasing }}</td>
-                                                    <td>{{ $item->formFactor }}</td>
-                                                    <td>{{ $item->kodeRuangan . " " . $item->namaRuangan }}</td>
-                                                    <td>{{ $item->namaVendor }}</td>
-                                                    <td>{{ $item->harga }}</td>
-                                                    <td>{{ date('Y', strtotime($item->tglPembelian)); }}</td>
-                                                    <td>{{ $item->kondisi }}</td>
-                                                    <td>{{ $item->keterangan }}</td>
-                                                    <td>
-                                                        <form method="POST"
-                                                            action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                                    class="far fa-eye"></i> Detail</a>
-                                                            <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
-                                                                class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
-                                                                    class="far fa-edit"></i> Edit</a>
-                                                            <button type="submit"
-                                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                                data-toggle="tooltip" title='Hapus'><i
-                                                                    class="fas fa-trash"></i>Hapus</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @include('inventaris.peralatan_komputer.casing.list')
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade show {{ request()->is('inventaris/komputer') ? 'active' : null }}" id="{{ url('inventaris/komputer') }}" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="text-warning">Data Inventaris Komputer</h4>
-                            <div class="card-header-form">
-                                <form>
-                                    <div class="input-group">
-                                        <a href="{{ url('tambah/inventaris_komputer') }}" class="btn btn-warning mr-2"
-                                            class="btn btn-primary">Tambah Data</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="float-right mb-2">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <form id="formCetak" action="{{ url('checked/inventaris') }}" method="post">
-                                        @csrf
-
-                                        <button name="button" value="cetak" type="submit"
-                                            class="btn btn-primary icon-left text-white"><i class="fas fa-print"></i>
-                                            &nbsp; Cetak</button>
-                                        <button name="button" value="hapus" type="submit"
-                                            class="btn btn-danger icon-left text-white"><i class="fas fa-trash"></i>
-                                            &nbsp; Hapus</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="table-responsive p-sm-1">
-                                <table class="table table-striped" id="myTable2">
-                                    <thead>
-                                        <tr>
-                                            <th><input type="checkbox" class="check-all"></th>
-                                            <th>No</th>
-                                            <th>Kode Inventaris</th>
-                                            <th>Nama Barang</th>
-                                            <th>Spesifikasi</th>
-                                            <th>Lokasi</th>
-                                            <th>Tanggal Pembelian</th>
-                                            <th>Status</th>
-                                            <th>Keterangan</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                        $no = 1;
-                                        @endphp
-                                        @foreach ($data2 as $item)
-                                        <tr>
-                                            <td width="1%"><input type="checkbox" class="checked"> </td>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $item->kodeInventaris }}</td>
-                                            <td>{{ $item->namaBarang }}</td>
-                                            <td>{{ $item->spesifikasi }}</td>
-                                            <td>{{$item->kodeRuangan ." ". $item->namaRuangan }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($item->tgl_pembelian)); }}</td>
-                                            <td>{{ $item->kondisi }}</td>
-                                            <td>{{ $item->keterangan }}</td>
-                                            <td>
-                                                <form method="POST"
-                                                    action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
-                                                        class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
-                                                            class="far fa-eye"></i> Detail</a>
-                                                    <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
-                                                        class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
-                                                            class="far fa-edit"></i> Edit</a>
-                                                    <button type="submit"
-                                                        class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
-                                                        data-toggle="tooltip" title='Hapus'><i
-                                                            class="fas fa-trash"></i>Hapus</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('inventaris.komputer.list')
     </div>
 </section>
 @include('layouts.sweatalert')
 <script>
+    $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+
+    });
     $(document).ready(function () {
         $('#myTable').DataTable();
-        $('#myTable1').DataTable();
-        $('#myTable2').DataTable();
-        $('#myTable3').DataTable();
-        $('#myTable4').DataTable();
-        $('#myTable5').DataTable();
-        $('#myTable6').DataTable();
-        $('#myTable7').DataTable();
+        $('#TableMotherboard').DataTable();
+        $('#tableKomputer').DataTable();
+        $('#tableProcessor').DataTable();
+        $('#tableRam').DataTable();
+        $('#tableStorage').DataTable();
+        $('#tableGpu').DataTable();
+        $('#tablePsu').DataTable();
+        $('#tableCasing').DataTable();
     });
 </script>
 <script type="text/javascript">
@@ -759,8 +229,28 @@
 {{-- checkbox --}}
 <script>
     $(document).ready(function () {
+        $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+            $("#formCetak2").hide();
+            $("#hapus_semua2").remove();
+            $(".hapus_semua2").remove();
+            $("#hapus_semua3").remove();
+            $(".hapus_semua3").remove();
+            $("#hapus_semua4").remove();
+            $(".hapus_semua4").remove();
+            $("#hapus_semua5").remove();
+            $(".hapus_semua5").remove();
+            $("#hapus_semua6").remove();
+            $(".hapus_semua6").remove();
+            $("#hapus_semua7").remove();
+            $(".hapus_semua7").remove();
+            $("#hapus_semua8").remove();
+            $(".hapus_semua8").remove();
+            $("input[type=checkbox]").prop('checked',false);
+        })
         $("#formCetak").hide();
-    })
+        $("#formCetak2").hide();
+        $("#formCetak3").hide();
+    });
     $(".check-all").on('change', function () {
         var html = "<div id='hapus_semua'>";
         var col1, col2;
@@ -799,6 +289,358 @@
             } else {
                 $("#formCetak").hide();
                 $("#input" + col1).remove();
+            }
+        }
+    });
+    //motherboard
+    $(".check-all-mth").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/motherboard") }}');
+        var html = "<div id='hapus_semua2'>";
+        var col1, col2;
+        $(".checked-mth").prop('checked', this.checked);
+        $(".checked-mth").each(function () {
+            var row = $(this).closest("tr")[0];
+            col1 = row.cells[1].innerHTML; //nomor
+            col2 = row.cells[2].innerHTML; //ambil kode inventaris
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="input' + col1 + '"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $(".hapus_semua2").remove();
+            $("#formCetak2").show();
+            $("#formCetak2").append(html);
+        } else {
+            $("#formCetak2").hide();
+            $("#hapus_semua2").remove();
+            $(".hapus_semua2").remove();
+        }
+    });
+    $("#TableMotherboard .checked-mth").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/motherboard") }}');
+        var message = "";
+        var html = "<div class='hapus_semua2'>";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
+        if ($(this).prop('checked')) {
+            $("#formCetak2").show();
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="inputmth' + col1 + '"></input></div>';
+            $("#formCetak2").append(html);
+        } else {
+            var checked_count = $('.checked-mth').filter(':checked').length;
+            if (checked_count != 0) {
+                $("#inputmth" + col1).remove();
+            } else {
+                $("#formCetak2").hide();
+                $("#inputmth" + col1).remove();
+            }
+        }
+    });
+    //processor
+    $(".check-all-cpu").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/processor") }}');
+        var html = "<div id='hapus_semua3'>";
+        var col1, col2;
+        $(".checked-cpu").prop('checked', this.checked);
+        $(".checked-cpu").each(function () {
+            var row = $(this).closest("tr")[0];
+            col1 = row.cells[1].innerHTML; //nomor
+            col2 = row.cells[2].innerHTML; //ambil kode inventaris
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="input' + col1 + '"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $(".hapus_semua3").remove();
+            $("#formCetak2").show();
+            $("#formCetak2").append(html);
+        } else {
+            $("#formCetak2").hide();
+            $("#hapus_semua3").remove();
+            $(".hapus_semua3").remove();
+        }
+    });
+    $("#tableProcessor .checked-cpu").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/processor") }}');
+        var message = "";
+        var html = "<div class='hapus_semua3'>";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
+        if ($(this).prop('checked')) {
+            $("#formCetak2").show();
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="inputcpu' + col1 + '"></input></div>';
+            $("#formCetak2").append(html);
+        } else {
+            var checked_count = $('.checked-cpu').filter(':checked').length;
+            if (checked_count != 0) {
+                $("#inputcpu" + col1).remove();
+            } else {
+                $("#formCetak2").hide();
+                $("#inputcpu" + col1).remove();
+            }
+        }
+    });
+    //ram
+    $(".check-all-ram").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/ram") }}');
+        var html = "<div id='hapus_semua4'>";
+        var col1, col2;
+        $(".checked-ram").prop('checked', this.checked);
+        $(".checked-ram").each(function () {
+            var row = $(this).closest("tr")[0];
+            col1 = row.cells[1].innerHTML; //nomor
+            col2 = row.cells[2].innerHTML; //ambil kode inventaris
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="input' + col1 + '"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $(".hapus_semua4").remove();
+            $("#formCetak2").show();
+            $("#formCetak2").append(html);
+        } else {
+            $("#formCetak2").hide();
+            $("#hapus_semua4").remove();
+            $(".hapus_semua4").remove();
+        }
+    });
+    $("#tableRam .checked-ram").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/ram") }}');
+        var message = "";
+        var html = "<div class='hapus_semua4'>";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
+        if ($(this).prop('checked')) {
+            $("#formCetak2").show();
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="inputram' + col1 + '"></input></div>';
+            $("#formCetak2").append(html);
+        } else {
+            var checked_count = $('.checked-ram').filter(':checked').length;
+            if (checked_count != 0) {
+                $("#inputram" + col1).remove();
+            } else {
+                $("#formCetak2").hide();
+                $("#inputram" + col1).remove();
+            }
+        }
+    });
+    //storage
+    $(".check-all-storage").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/storage") }}');
+        var html = "<div id='hapus_semua5'>";
+        var col1, col2;
+        $(".checked-storage").prop('checked', this.checked);
+        $(".checked-storage").each(function () {
+            var row = $(this).closest("tr")[0];
+            col1 = row.cells[1].innerHTML; //nomor
+            col2 = row.cells[2].innerHTML; //ambil kode inventaris
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="input' + col1 + '"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $(".hapus_semua5").remove();
+            $("#formCetak2").show();
+            $("#formCetak2").append(html);
+        } else {
+            $("#formCetak2").hide();
+            $("#hapus_semua5").remove();
+            $(".hapus_semua5").remove();
+        }
+    });
+    $("#tableStorage .checked-storage").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/storage") }}');
+        var message = "";
+        var html = "<div class='hapus_semua5'>";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
+        if ($(this).prop('checked')) {
+            $("#formCetak2").show();
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="inputstorage' + col1 + '"></input></div>';
+            $("#formCetak2").append(html);
+        } else {
+            var checked_count = $('.checked-storage').filter(':checked').length;
+            if (checked_count != 0) {
+                $("#inputstorage" + col1).remove();
+            } else {
+                $("#formCetak2").hide();
+                $("#inputstorage" + col1).remove();
+            }
+        }
+    });
+    //gpu
+    $(".check-all-gpu").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/gpu") }}');
+        var html = "<div id='hapus_semua6'>";
+        var col1, col2;
+        $(".checked-gpu").prop('checked', this.checked);
+        $(".checked-gpu").each(function () {
+            var row = $(this).closest("tr")[0];
+            col1 = row.cells[1].innerHTML; //nomor
+            col2 = row.cells[2].innerHTML; //ambil kode inventaris
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="input' + col1 + '"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $(".hapus_semua6").remove();
+            $("#formCetak2").show();
+            $("#formCetak2").append(html);
+        } else {
+            $("#formCetak2").hide();
+            $("#hapus_semua5").remove();
+            $(".hapus_semua5").remove();
+        }
+    });
+    $("#tableGpu .checked-gpu").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/gpu") }}');
+        var message = "";
+        var html = "<div class='hapus_semua6'>";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
+        if ($(this).prop('checked')) {
+            $("#formCetak2").show();
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="inputgpu' + col1 + '"></input></div>';
+            $("#formCetak2").append(html);
+        } else {
+            var checked_count = $('.checked-gpu').filter(':checked').length;
+            if (checked_count != 0) {
+                $("#inputgpu" + col1).remove();
+            } else {
+                $("#formCetak2").hide();
+                $("#inputgpu" + col1).remove();
+            }
+        }
+    });
+    //psu
+    $(".check-all-psu").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/psu") }}');
+        var html = "<div id='hapus_semua7'>";
+        var col1, col2;
+        $(".checked-psu").prop('checked', this.checked);
+        $(".checked-psu").each(function () {
+            var row = $(this).closest("tr")[0];
+            col1 = row.cells[1].innerHTML; //nomor
+            col2 = row.cells[2].innerHTML; //ambil kode inventaris
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="input' + col1 + '"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $(".hapus_semua7").remove();
+            $("#formCetak2").show();
+            $("#formCetak2").append(html);
+        } else {
+            $("#formCetak2").hide();
+            $("#hapus_semua5").remove();
+            $(".hapus_semua5").remove();
+        }
+    });
+    $("#tablePsu .checked-psu").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/psu") }}');
+        var message = "";
+        var html = "<div class='hapus_semua7'>";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
+        if ($(this).prop('checked')) {
+            $("#formCetak2").show();
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="inputpsu' + col1 + '"></input></div>';
+            $("#formCetak2").append(html);
+        } else {
+            var checked_count = $('.checked-psu').filter(':checked').length;
+            if (checked_count != 0) {
+                $("#inputpsu" + col1).remove();
+            } else {
+                $("#formCetak2").hide();
+                $("#inputpsu" + col1).remove();
+            }
+        }
+    });
+    //casing
+    $(".check-all-casing").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/casing") }}');
+        var html = "<div id='hapus_semua8'>";
+        var col1, col2;
+        $(".checked-casing").prop('checked', this.checked);
+        $(".checked-casing").each(function () {
+            var row = $(this).closest("tr")[0];
+            col1 = row.cells[1].innerHTML; //nomor
+            col2 = row.cells[2].innerHTML; //ambil kode inventaris
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="input' + col1 + '"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $(".hapus_semua8").remove();
+            $("#formCetak2").show();
+            $("#formCetak2").append(html);
+        } else {
+            $("#formCetak2").hide();
+            $("#hapus_semua5").remove();
+            $(".hapus_semua5").remove();
+        }
+    });
+    $("#tableCasing .checked-casing").on('change', function () {
+        $('#formCetak2').attr('action', '{{ url("checked/inventaris/peralatan-komputer/casing") }}');
+        var message = "";
+        var html = "<div class='hapus_semua8'>";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
+        if ($(this).prop('checked')) {
+            $("#formCetak2").show();
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="inputcasing' + col1 + '"></input></div>';
+            $("#formCetak2").append(html);
+        } else {
+            var checked_count = $('.checked-casing').filter(':checked').length;
+            if (checked_count != 0) {
+                $("#inputcasing" + col1).remove();
+            } else {
+                $("#formCetak2").hide();
+                $("#inputcasing" + col1).remove();
+            }
+        }
+    });
+    //komputer
+    $(".check-all-komputer").on('change', function () {
+        $('#formCetak3').attr('action', '{{ url("checked/inventaris/komputer") }}');
+        var html = "<div id='hapus_semua9'>";
+        var col1, col2;
+        $(".checked-komputer").prop('checked', this.checked);
+        $(".checked-komputer").each(function () {
+            var row = $(this).closest("tr")[0];
+            col1 = row.cells[1].innerHTML; //nomor
+            col2 = row.cells[2].innerHTML; //ambil kode inventaris
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="input' + col1 + '"></input>';
+        });
+        html += "<div>"
+        if ($(this).prop('checked')) {
+            $(".hapus_semua9").remove();
+            $("#formCetak3").show();
+            $("#formCetak3").append(html);
+        } else {
+            $("#formCetak3").hide();
+            $("#hapus_semua5").remove();
+            $(".hapus_semua5").remove();
+        }
+    });
+    $("#tableKomputer .checked-komputer").on('change', function () {
+        $('#formCetak3').attr('action', '{{ url("checked/inventaris/komputer") }}');
+        var message = "";
+        var html = "<div class='hapus_semua9'>";
+        var currentRow = $(this).closest("tr");
+        var col1 = currentRow.find("td:eq(1)").html(); //nomor
+        var col2 = currentRow.find("td:eq(2)").html(); //ambil kode inventaris
+        if ($(this).prop('checked')) {
+            $("#formCetak3").show();
+            html += '<input type="hidden" name="kode_inventaris[]" value="' + col2 + '" id="inputkomputer' + col1 + '"></input></div>';
+            $("#formCetak3").append(html);
+        } else {
+            var checked_count = $('.checked-komputer').filter(':checked').length;
+            if (checked_count != 0) {
+                $("#inputkomputer" + col1).remove();
+            } else {
+                $("#formCetak3").hide();
+                $("#inputkomputer" + col1).remove();
             }
         }
     });

@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.master')
 @section('users','active')
 @section('content')
 <section class="section">
@@ -22,8 +22,8 @@
                     @enderror
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="">Email</label>
-                    <input type="email" name="email" id="" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
+                    <label for="">Username</label>
+                    <input type="text" name="username" id="" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
                     @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}

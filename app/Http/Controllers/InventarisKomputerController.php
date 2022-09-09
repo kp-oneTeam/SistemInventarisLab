@@ -3,8 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\DetailInvKomRam;
+use App\Models\DetailInvKomStorage;
 use App\Models\Inventaris;
+use App\Models\InventarisCasing;
+use App\Models\InventarisGPU;
 use App\Models\InventarisKomputer;
+use App\Models\InventarisProcessor;
+use App\Models\InventarisPsu;
+use App\Models\InventarisRam;
+use App\Models\InventarisStorage;
+use App\Models\KodeInv;
+use App\Models\Motherboard;
 use App\Models\Ruangan;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -29,34 +39,13 @@ class InventarisKomputerController extends Controller
     {
         $title = "Tambah Inventaris Komputer";
         $lokasi = Ruangan::get();
-        $motherboard = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
-        ->where('namaBarang','LIKE','%'.'Motherboard'.'%')
-        ->select('inventaris.id','kodeInventaris', 'spesifikasi')
-        ->get();
-        $processor = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
-            ->where('namaBarang', 'LIKE', '%' . 'processor' . '%')
-            ->select('inventaris.id', 'kodeInventaris', 'spesifikasi')
-            ->get();
-        $ram = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
-            ->where('namaBarang', 'LIKE', '%' . 'ram' . '%')
-            ->select('inventaris.id', 'kodeInventaris', 'spesifikasi')
-            ->get();
-        $storage = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
-            ->where('namaBarang', 'LIKE', '%' . 'storage' . '%')
-            ->select('inventaris.id', 'kodeInventaris', 'spesifikasi')
-            ->get();
-        $psu = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
-            ->where('namaBarang', 'LIKE', '%' . 'psu' . '%')
-            ->select('inventaris.id', 'kodeInventaris', 'spesifikasi')
-            ->get();
-        $vga = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
-            ->where('namaBarang', 'LIKE', '%' . 'vga' . '%')
-            ->select('inventaris.id', 'kodeInventaris', 'spesifikasi')
-            ->get();
-        $casing = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
-            ->where('namaBarang', 'LIKE', '%' . 'casing' . '%')
-            ->select('inventaris.id', 'kodeInventaris', 'spesifikasi')
-            ->get();
+        $motherboard = Motherboard::get();
+        $processor = InventarisProcessor::get();
+        $ram = InventarisRam::get();
+        $storage = InventarisStorage::get();
+        $psu = InventarisPsu::get();
+        $vga = InventarisGPU::get();
+        $casing = InventarisCasing::get();
         return view('inventaris.create_inv_komputer',compact('lokasi','motherboard','processor','ram','storage','psu','casing','vga'));
     }
 
@@ -68,10 +57,34 @@ class InventarisKomputerController extends Controller
      */
     public function store(Request $request)
     {
+        $kodeinv = KodeInv::create(['kodeInventaris' => KodeInv::kode_inventaris()]);
         $inventarisKomputer = InventarisKomputer::create([
-            'kodeInventaris' => Inventaris::kode_inventaris(),
-            ''
+            'kodeInventarisKomputer' => $kodeinv->kodeInventaris,
+            'idRuangan' => $request->lokasi,
+            'idInventarisMotherboard' => $request->motherboard,
+            'idInventarisProcessor' => $request->processor,
+            'idInventarisGpu' => $request->vga,
+            'idInventarisCasing' => $request->casing,
+            'idInventarisPsu' => $request->psu,
+            'tanggal_perakitan' => $request->tanggal,
+            'kondisi' => $request->kondisi,
+            'keterangan' => ($request->keterangan ?? "-")
         ]);
+        if($inventarisKomputer){
+            for ($i = 0; $i < count($request->ram); $i++) {
+                DetailInvKomRam::create([
+                    'idInventarisKomputer' => $inventarisKomputer->id,
+                    'idInventarisRam' => $request->ram[$i]
+                ]);
+            }
+            for ($i = 0; $i < count($request->storage); $i++) {
+                DetailInvKomStorage::create([
+                    'idInventarisKomputer' => $inventarisKomputer->id,
+                    'idInventarisStorage' => $request->ram[$i]
+                ]);
+            }
+        }
+        return redirect('inventaris/komputer')->with('success',"berhasil disimpan!");
     }
 
     /**
@@ -117,5 +130,27 @@ class InventarisKomputerController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getRam($id){
+        $data = InventarisRam::where('id', '!=', $id)->get();
+        return response()->json($data);;
+    }
+    public function checked(request $request)
+    {
+        $kode_inventaris = [];
+        for ($i = 0; $i < count($request->kode_inventaris); $i++) {
+            $kode_inventaris[] = $request->kode_inventaris[$i];
+        }
+        if ($request->button == "hapus") {
+            $data = InventarisKomputer::whereIn('kodeInventarisKomputer', $kode_inventaris)
+                ->delete();
+            return redirect('inventaris/komputer')->with('message', 'Data Berhasil Dihapus!');
+        } else {
+            $data = InventarisKomputer::select('kodeInventarisKomputer as kodeInventaris',  'tanggal_perakitan as tglPembelian')
+            ->whereIn('kodeInventarisKomputer', $kode_inventaris)
+                ->get();
+            $namaBarang = "Komputer";
+            return view('inventaris.cetak', compact('data', 'namaBarang'));
+        }
     }
 }

@@ -10,4 +10,9 @@ class DetailPeminjaman extends Model
     use HasFactory;
     protected $table = 'detail_peminjaman';
     protected $guarded = [];
+    public function inventaris($id)
+    {
+        $data = Inventaris::findOrFail($id);
+        return $data;
+    }
 }

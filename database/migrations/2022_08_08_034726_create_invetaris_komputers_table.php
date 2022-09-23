@@ -16,14 +16,17 @@ return new class extends Migration
         Schema::create('inventaris_komputer', function (Blueprint $table) {
             $table->increments('id');
             $table->string('kodeInventarisKomputer');
-            $table->unsignedInteger('idBarang');
             $table->unsignedInteger('idRuangan');
+            $table->unsignedInteger('idInventarisMotherboard');
+            $table->unsignedInteger('idInventarisProcessor');
+            $table->unsignedInteger('idInventarisGpu');
+            $table->unsignedInteger('idInventarisPsu');
+            $table->unsignedInteger('idInventarisCasing');
             $table->string('tanggal_perakitan');
             $table->string('kondisi');
-            $table->text('keterangan');
+            $table->string('keterangan')->nullable()->default("-");
 
             $table->timestamps();
-            $table->foreign('idBarang')->references('id')->on('barang');
             $table->foreign('idRuangan')->references('id')->on('ruangan');
         });
     }

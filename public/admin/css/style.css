@@ -1393,7 +1393,7 @@ table tr:hover .table-links {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: #fff;
-    background-color: #6777ef;
+    background-color: #ffa426 !important;
 }
 
 .nav-pills .nav-item .nav-link {

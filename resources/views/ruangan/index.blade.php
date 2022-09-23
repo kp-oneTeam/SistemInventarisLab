@@ -30,6 +30,7 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="">Gedung</label>
                         <select name="gedung" class="form-control select2" required>
                             <option value="">-- Pilih Gedung --</option>
                             @foreach ($gedung as $item)
@@ -139,13 +140,17 @@
                                     <td>{{ $item->namaRuangan }}</td>
                                     <td>{{ $item->gedung->namaGedung }} </td>
                                     <td>
-                                        <form method="POST" action="{{ url('hapus/ruangan/'.$item->kodeRuangan) }}">
+                                        <form method="POST" action="{{ url('hapus/ruangan/'.$item->id) }}">
                                             @csrf
                                             @method('DELETE')
+                                            <a href="{{ url('detail/ruangan/'.$item->id) }}"
+                                                class="btn btn-sm btn-icon icon-left btn-info">
+                                                <i class="far fa-eye" data-id="{{ $item->id }}"></i> Detail
+                                            </a>
                                             <button type="button"
                                                 class="btn btn-sm btn-icon icon-left btn-primary btn_editRuangan"
                                                 data-toggle="modal" , data-target="#updateModal">
-                                                <i class="far fa-edit" data-id="{{ $item->kodeRuangan }}"></i> Edit
+                                                <i class="far fa-edit" data-id="{{ $item->id }}"></i> Edit
                                             </button>
                                             <button type="submit"
                                                 class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
@@ -175,9 +180,12 @@
         var name = $(this).data("name");
         event.preventDefault();
         Swal.fire({
-            title: 'Apakah Anda Yakin Akan Menghapus Data?',
+            title: 'Apakah Anda Yakin?',
+            text:'Akan Menghapus Data!',
             showCancelButton: true,
-            confirmButtonText: 'Yes',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+            icon: 'warning',
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {

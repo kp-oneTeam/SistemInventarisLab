@@ -43,14 +43,14 @@ class UsersController extends Controller
     {
         $request->validate(
             [
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'username' => ['required', 'string','unique:users'],
                 'nama' => ['required', 'string'],
                 'password' => ['required'],
                 'role_id' => ['sometimes','required'],
             ],
             [
-                'email.required' => 'Silahkan isi email',
-                'email.unique' => 'Email sudah digunakan!',
+                'username.required' => 'Silahkan isi username',
+                'username.unique' => 'Email sudah digunakan!',
                 'nama.required' => 'Silahkan isi nama',
                 'password.required' => 'Silahkan isi password',
                 'role_id.required' => 'Silahkan pilih role',
@@ -59,12 +59,12 @@ class UsersController extends Controller
         );
 
         $user = User::create([
-            'name' => $request->nama,
-            'email' => $request->email,
+            'nama' => $request->nama,
+            'username' => $request->username,
             'password' => bcrypt($request->password)
         ]);
         $user->assignRole($request->role_id);
-        return redirect('admin/users')->with('message', 'Data Add Successfully');
+        return redirect('users')->with('message', 'Data Add Successfully');
     }
 
     /**

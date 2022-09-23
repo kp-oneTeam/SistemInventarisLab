@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('vendor', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kodeVendor');
+            // $table->string('kodeVendor');
             $table->string('namaVendor');
             $table->string('teleponVendor');
             $table->string('alamatVendor');

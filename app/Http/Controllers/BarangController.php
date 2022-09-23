@@ -15,30 +15,42 @@ class BarangController extends Controller
         return view('barang.index',compact('title','data'));
     }
     public function tambah_barang(request $request){
-        $saved = Barang::create([
-            'kodeBarang' => $request->kode_barang,
-            'namaBarang' => $request->nama_barang
-        ]);
-        if ($saved) {
-            return redirect('/barang')->with('message','Barang Berhasil Ditambahkan');
-        }else{
-            return redirect('/barang')->with('message', 'Barang Gagal Ditambahkan');
+        try {
+            $saved = Barang::create([
+                // 'kodeBarang' => $request->kode_barang,
+                'namaBarang' => $request->nama_barang
+            ]);
+            return redirect('/barang')->with('message','Data Barang Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect('/barang')->with('failed', 'Data Barang Gagal Ditambahkan');
         }
     }
     public function update_barang($id,request $request){
-        $data = Barang::where('kodeBarang', '=', $id)->update([
-            'namaBarang' => $request->nama_barang
-        ]);
-        return redirect('/barang')->with('message', 'Barang Berhasil Diubah');
+        try {
+            $data = Barang::findOrFail($id)->update([
+                'namaBarang' => $request->nama_barang
+            ]);
+            return redirect('/barang')->with('message', 'Data Barang Berhasil Diubah');
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect('/barang')->with('failed', 'Data Barang Gagal Diubah');
+        }
     }
     public function hapus_barang($id)
     {
-        $data = Barang::where('kodeBarang','=',$id)->delete();
-        return redirect('/barang')->with('message', 'Barang Berhasil Dihapus');
+        try {
+            $data = Barang::where('id','=',$id)->delete();
+            return redirect('/barang')->with('message', 'Data Barang Berhasil Dihapus');
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect('/barang')->with('failed', 'Data Barang Gagal Dihapus');
+        }
     }
     public function detail_barang($id){
         $title = "Detail Data Barang";
-        $barang = Barang::where('kodeBarang',$id)->first();
+        $barang = Barang::where('id',$id)->first();
         $data = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
         ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
@@ -61,7 +73,7 @@ class BarangController extends Controller
         }
     }
     public function validasi_edit_nama_barang($kode,$nama){
-        $data = Barang::where('namaBarang',$nama)->where('kodeBarang','!=',$kode)->first();
+        $data = Barang::where('namaBarang',$nama)->where('id','!=',$kode)->first();
         if ($data != null) {
             return response()->json([
                 'status' => true,

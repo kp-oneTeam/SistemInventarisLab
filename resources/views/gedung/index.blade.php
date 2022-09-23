@@ -126,21 +126,24 @@
     });
 </script>
 <script type="text/javascript">
-     $('.show_confirm').click(function(event) {
-          var form =  $(this).closest("form");
-          var name = $(this).data("name");
-          event.preventDefault();
-          Swal.fire({
-            title: 'Apakah Anda Yakin Akan Menghapus Data?',
+     $('.show_confirm').click(function (event) {
+        var form = $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text:'Akan Menghapus Data!',
             showCancelButton: true,
-            confirmButtonText: 'Yes',
-            }).then((result) => {
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+            icon: 'warning',
+        }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 form.submit();
             }
         })
-      });
+    });
 </script>
 <script>
     $("#myTable .btn_editgedung").on("click", function() {

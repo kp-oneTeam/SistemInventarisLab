@@ -15,10 +15,6 @@
                 <form action="{{ url('tambah/vendor') }}" method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="">Kode Vendor</label>
-                        <input type="text" name="kode_vendor" class="form-control"/>
-                    </div>
-                    <div class="form-group">
                         <label for="">Nama Vendor</label>
                         <input type="text" id="nama_vendor" name="nama_vendor" class="form-control nama_vendor"/>
                         <div class="invalid-feedback" id="err_tambah_nama_vendor"></div>
@@ -59,9 +55,9 @@
                 <form action="" method="post" id="editformVendor">
                     @csrf
                     @method('PUT')
-                    <div class="form-group">
+                    <div class="form-group sr-only">
                         <label for="">Kode Vendor</label>
-                        <input type="text" disabled name="kode_vendor" id="input_edit_kode_vendor"class="form-control">
+                        <input type="text" disabled name="id" id="input_edit_kode_vendor" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Nama Vendor</label>
@@ -114,7 +110,7 @@
                                 <tr>
                                     <th><input type="checkbox" class="check-all"></th>
                                     <th>No</th>
-                                    <th>Kode Vendor</th>
+                                    <th>ID</th>
                                     <th>Nama Vendor</th>
                                     <th>Nomor Telepon</th>
                                     <th>Alamat Vendor</th>
@@ -129,16 +125,19 @@
                                     <tr>
                                         <td width="1%"><input type="checkbox" class="checked"> </td>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $item->kodeVendor }}</td>
+                                        <td>{{ $item->id }}</td>
                                         <td>{{ $item->namaVendor }}</td>
                                         <td>{{ $item->teleponVendor }}</td>
                                         <td>{{ $item->alamatVendor }}</td>
                                         <td>
-                                            <form method="POST" action="{{ url('hapus/vendor/'.$item->kodeVendor) }}">
+                                            <form method="POST" action="{{ url('hapus/vendor/'.$item->id) }}">
                                                 @csrf
                                                 @method('DELETE')
+                                                <a href="{{ url('detail/vendor/'.$item->id) }}" class="btn btn-sm btn-icon icon-left btn-info">
+                                                    <i class="far fa-eye" data-id="{{ $item->id }}"></i>Detail
+                                                    </a>
                                                 <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editVendor" data-toggle="modal", data-target="#updateModal" >
-                                                    <i class="far fa-edit" data-id="{{ $item->kodeVendor }}"></i>Edit
+                                                    <i class="far fa-edit" data-id="{{ $item->id }}"></i>Edit
                                                     </button>
                                                 <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title="Hapus">
                                                     <i class="fas fa-trash"></i>Hapus
@@ -162,30 +161,33 @@
     });
 </script>
 <script type="text/javascript">
-    $(".show_confirm").click(function (event) {
+    $('.show_confirm').click(function (event) {
         var form = $(this).closest("form");
         var name = $(this).data("name");
         event.preventDefault();
         Swal.fire({
-            title: "Apakah Anda Yakin Akan Menghapus Data?",
+            title: 'Apakah Anda Yakin?',
+            text:'Akan Menghapus Data!',
             showCancelButton: true,
-            confirmButtonText: "Yes",
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+            icon: 'warning',
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 form.submit();
             }
-        });
+        })
     });
 </script>
 <script>
     $("#myTable .btn_editVendor").on("click", function() {
             var count = $('.mainbody > tr').length+1;
             var currentRow = $(this).closest("tr");
-            var kode_vendor = currentRow.find("td:eq(1)").html(); // get current row 1st table cell TD value
-            var nama_vendor = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
-            var telepon_vendor = currentRow.find("td:eq(3)").html(); // get current row 1st table cell TD value
-            var alamat_vendor = currentRow.find("td:eq(4)").html(); // get current row 2nd table cell TD value
+            var kode_vendor = currentRow.find("td:eq(2)").html(); // get current row 1st table cell TD value
+            var nama_vendor = currentRow.find("td:eq(3)").html(); // get current row 2nd table cell TD value
+            var telepon_vendor = currentRow.find("td:eq(4)").html(); // get current row 1st table cell TD value
+            var alamat_vendor = currentRow.find("td:eq(5)").html(); // get current row 2nd table cell TD value
             $("#input_edit_kode_vendor").val(kode_vendor);
             $("#input_edit_nama_vendor").val(nama_vendor);
             $("#input_edit_telp_vendor").val(telepon_vendor);

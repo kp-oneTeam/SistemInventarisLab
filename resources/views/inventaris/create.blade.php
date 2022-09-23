@@ -27,7 +27,7 @@
                                     <select name="lokasi" class="form-control select2" required>
                                         <option value="">-- Pilih Ruang --</option>
                                         @foreach ($lokasi as $item)
-                                        <option value="{{ $item->id }}">{{ $item->namaRuangan }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->kodeRuangan." | ".$item->namaRuangan }}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -22,19 +22,12 @@ class InventarisController extends Controller
 {
     //
     public function index(){
-        $title = "Inventaris";
+        $title = "Data Inventaris Komputer";
         $data = Inventaris::join('barang','barang.id','=','inventaris.idBarang')
             ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
             ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
             ->select('kodeInventaris','namaBarang','spesifikasi','kodeRuangan','namaRuangan','kondisi','keterangan','tgl_pembelian')
             ->get();
-        $data2 = SpesifikasiKomputer::join('inventaris','inventaris.id','=', 'spesifikasi_komputer.idInventaris')
-            ->join('inventaris_komputer', 'inventaris_komputer.id', '=', 'spesifikasi_komputer.idInventarisKomputer')
-                ->join('barang', 'barang.id', '=', 'inventaris.idBarang')
-                ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
-                ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
-                ->select('kodeInventarisKomputer','kodeInventaris', 'namaBarang', 'spesifikasi', 'kodeRuangan','namaRuangan', 'inventaris_komputer.kondisi', 'inventaris_komputer.keterangan', 'tgl_pembelian')
-                ->get();
         //Peralatan Komputer
         $motherboard = Motherboard::join('vendor', 'vendor.id', '=', 'inventaris_motherboard.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_motherboard.idRuangan')
@@ -42,31 +35,31 @@ class InventarisController extends Controller
         ->get();
         $processor = InventarisProcessor::join('vendor', 'vendor.id', '=', 'inventaris_processor.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_processor.idRuangan')
-        ->select('kodeInventaris','namaProcessor','nomorProcessor','generasi','series','kecepatan','jumlahCore','jumlahThread','socket','kodeRuangan','namaRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->select('inventaris_processor.id','kodeInventaris','namaProcessor','nomorProcessor','generasi','series','kecepatan','jumlahCore','jumlahThread','socket','kodeRuangan','namaRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
         $ram = InventarisRam::join('vendor', 'vendor.id', '=', 'inventaris_ram.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_ram.idRuangan')
-        ->select('kodeInventaris','namaMemory','jenisMemory','tipeMemory','kapasitasMemory','frekuensiMemory','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->select('inventaris_ram.id','kodeInventaris','namaMemory','jenisMemory','tipeMemory','kapasitasMemory','frekuensiMemory','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
         $storage = InventarisStorage::join('vendor', 'vendor.id', '=', 'inventaris_storage.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_storage.idRuangan')
-        ->select('kodeInventaris','namaStorage','jenisStorage','kapasitasStorage','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->select('inventaris_storage.id','kodeInventaris','namaStorage','jenisStorage','kapasitasStorage','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
         $gpu = InventarisGPU::join('vendor', 'vendor.id', '=', 'inventaris_gpu.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_gpu.idRuangan')
-        ->select('kodeInventaris','namaGpu','ukuranMemori','memoriInterface','kecepatanMemori','tipeMemori','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->select('inventaris_gpu.id','kodeInventaris','namaGpu','ukuranMemori','memoriInterface','kecepatanMemori','tipeMemori','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
         $psu = InventarisPsu::join('vendor', 'vendor.id', '=', 'inventaris_psu.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_psu.idRuangan')
-        ->select('kodeInventaris','namaPsu','formFactor','jenisKabel','besarDaya','sertifikasiPsu','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->select('inventaris_psu.id','kodeInventaris','namaPsu','formFactor','jenisKabel','besarDaya','sertifikasiPsu','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
         $casing = InventarisCasing::join('vendor', 'vendor.id', '=', 'inventaris_casing.idVendor')
         ->join('ruangan', 'ruangan.id', '=', 'inventaris_casing.idRuangan')
-        ->select('kodeInventaris','namaCasing','formFactor','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
+        ->select('inventaris_casing.id','kodeInventaris','namaCasing','formFactor','namaRuangan','idRuangan','namaVendor','harga','tglPembelian','kondisi','keterangan')
         ->get();
 
         $komputer = InventarisKomputer::get();
-        return view('inventaris.index',compact('title','data','data2','motherboard','processor','ram','storage','gpu','psu','casing','komputer'));
+        return view('inventaris.index',compact('title','data','motherboard','processor','ram','storage','gpu','psu','casing','komputer'));
     }
     public function form_tambah_inventaris()
     {
@@ -89,7 +82,7 @@ class InventarisController extends Controller
             'harga' => $harga,
             'tgl_pembelian' => $request->tanggal,
             'kondisi' => $request->kondisi,
-            'keterangan' => $request->keterangan
+            'keterangan' => ($request->keterangan ?? "-")
         ]);
         return redirect('/inventaris/non-komputer')->with('message', 'Data Berhasil Disimpan');
     }
@@ -112,7 +105,7 @@ class InventarisController extends Controller
             'harga' => $harga,
             'tgl_pembelian' => $request->tanggal,
             'kondisi' => $request->kondisi,
-            'keterangan' => $request->keterangan
+            'keterangan' => ($request->keterangan ?? "-")
         ]);
         return redirect('/inventaris/non-komputer')->with('message', 'Data Berhasil Diubah');
     }
@@ -134,10 +127,11 @@ class InventarisController extends Controller
             $data = Inventaris::join('barang', 'barang.id', '=', 'inventaris.idBarang')
             ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
             ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
-            ->select('kodeInventaris', 'namaBarang', 'tgl_pembelian')
+            ->select('inventaris.id','kodeInventaris', 'namaBarang', 'tgl_pembelian')
             ->whereIn('kodeInventaris',$kode_inventaris)
             ->get();
-            return view('inventaris.cetak',compact('data'));
+            $namaBarang = "non-komputer";
+            return view('inventaris.cetak',compact('data','namaBarang'));
         }
     }
 
@@ -145,5 +139,11 @@ class InventarisController extends Controller
     public function detail($kode_inventaris){
         $data = Inventaris::where('kodeInventaris',$kode_inventaris)->first();
         return view('inventaris.detail',compact('data'));
+    }
+
+    //Mobile
+    public function mobile($id){
+        $data = Inventaris::where('id', $id)->first();
+        return view('inventaris.mobile', compact('data'));
     }
 }

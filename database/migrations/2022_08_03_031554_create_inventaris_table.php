@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('harga');
             $table->date('tgl_pembelian');
             $table->string('kondisi');
-            $table->string('keterangan')->nullable();
+            $table->string('keterangan')->nullable()->default("-");
             $table->timestamps();
 
             $table->foreign('idBarang')->references('id')->on('barang');

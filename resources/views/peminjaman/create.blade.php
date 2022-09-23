@@ -113,10 +113,6 @@
                             <input type="date" name="tanggal_pinjam" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label >Keterangan</label>
-                            <textarea name="ket" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
                             <button type="submit" class="btn btn-warning btn-icon icon-left btn-warning float-right m-2"><i class="fas fa-save"></i>Simpan</button>
                             <a href="{{ url('peminjaman') }}" class="btn btn-secondary btn-icon icon-left btn-primary float-right m-2"><i class="fas fa-times"></i>Batal</a>
                         </div>

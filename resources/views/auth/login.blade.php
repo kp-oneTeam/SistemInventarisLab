@@ -37,7 +37,7 @@
                                         <label for="username">username</label>
                                         <input id="username" type="text"
                                             class="form-control @error('username') is-invalid @enderror" name="username"
-                                            value="{{ old('username') }}" required autocomplete="email" autofocus>
+                                            value="{{ old('username') }}" required autofocus>
 
                                         @error('username')
                                         <span class="invalid-feedback" role="alert">

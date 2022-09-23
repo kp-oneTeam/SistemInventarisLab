@@ -1,6 +1,139 @@
 @extends('layouts.master')
 @section('dashboard','active')
 @section('content')
+    @php
+        $inv_baik = 0;
+        $inv_rusak = 0;
+        $inv_pinjam = 0;
+    @endphp
+    @foreach ($data as $item)
+        @if ($item->kondisi == "Baik")
+            @php
+                $inv_baik = $inv_baik + 1
+            @endphp
+        @else
+            @php
+                $inv_rusak = $inv_rusak + 1
+            @endphp
+        @endif
+        @if ($item->keterangan == "Sedang dipinjam")
+            @php
+                $inv_pinjam = $inv_pinjam + 1
+            @endphp
+        @endif
+    @endforeach
+    @foreach ($motherboard as $item)
+        @if ($item->kondisi == "Baik")
+            @php
+                $inv_baik = $inv_baik + 1
+            @endphp
+        @else
+            @php
+                $inv_rusak = $inv_rusak + 1
+            @endphp
+        @endif
+        @if ($item->keterangan == "Sedang dipinjam")
+            @php
+                $inv_pinjam = $inv_pinjam + 1
+            @endphp
+        @endif
+    @endforeach
+    @foreach ($processor as $item)
+        @if ($item->kondisi == "Baik")
+            @php
+                $inv_baik = $inv_baik + 1
+            @endphp
+        @else
+            @php
+                $inv_rusak = $inv_rusak + 1
+            @endphp
+        @endif
+        @if ($item->keterangan == "Sedang dipinjam")
+            @php
+                $inv_pinjam = $inv_pinjam + 1
+            @endphp
+        @endif
+    @endforeach
+    @foreach ($ram as $item)
+        @if ($item->kondisi == "Baik")
+            @php
+                $inv_baik = $inv_baik + 1
+            @endphp
+        @else
+            @php
+                $inv_rusak = $inv_rusak + 1
+            @endphp
+        @endif
+        @if ($item->keterangan == "Sedang dipinjam")
+            @php
+                $inv_pinjam = $inv_pinjam + 1
+            @endphp
+        @endif
+    @endforeach
+    @foreach ($gpu as $item)
+        @if ($item->kondisi == "Baik")
+            @php
+                $inv_baik = $inv_baik + 1
+            @endphp
+        @else
+            @php
+                $inv_rusak = $inv_rusak + 1
+            @endphp
+        @endif
+        @if ($item->keterangan == "Sedang dipinjam")
+            @php
+                $inv_pinjam = $inv_pinjam + 1
+            @endphp
+        @endif
+    @endforeach
+    @foreach ($psu as $item)
+        @if ($item->kondisi == "Baik")
+            @php
+                $inv_baik = $inv_baik + 1
+            @endphp
+        @else
+            @php
+                $inv_rusak = $inv_rusak + 1
+            @endphp
+        @endif
+        @if ($item->keterangan == "Sedang dipinjam")
+            @php
+                $inv_pinjam = $inv_pinjam + 1
+            @endphp
+        @endif
+    @endforeach
+    @foreach ($casing as $item)
+        @if ($item->kondisi == "Baik")
+            @php
+                $inv_baik = $inv_baik + 1
+            @endphp
+        @else
+            @php
+                $inv_rusak = $inv_rusak + 1
+            @endphp
+        @endif
+        @if ($item->keterangan == "Sedang dipinjam")
+            @php
+                $inv_pinjam = $inv_pinjam + 1
+            @endphp
+        @endif
+    @endforeach
+    @foreach ($storage as $item)
+        @if ($item->kondisi == "Baik")
+            @php
+                $inv_baik = $inv_baik + 1
+            @endphp
+        @else
+            @php
+                $inv_rusak = $inv_rusak + 1
+            @endphp
+        @endif
+        @if ($item->keterangan == "Sedang dipinjam")
+            @php
+                $inv_pinjam = $inv_pinjam + 1
+            @endphp
+        @endif
+    @endforeach
     <section class="section">
         <div class="section-header">
             <h1>Dashboard</h1>
@@ -8,46 +141,167 @@
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-primary text-white" style="font-size: 40px">
-                        <i class="bi bi-journal-check"></i>
+                    <div class="card-icon bg-primary text-white">
+                        <i class="fas fa-box" style="font-size: 35px"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Jumlah Inventaris Non Komputer</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $data->count() ?? "0" }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-info text-white">
+                        <i class="fas fa-hdd" style="font-size: 35px"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Inventaris Peralatan Komputer</h4>
+                        </div>
+                        <div class="card-body">
+                            @php
+                                $count_mth = ($motherboard->count() ?? 0);
+                                $count_cpu = ($processor->count() ?? 0);
+                                $count_ram = ($processor->count() ?? 0 );
+                                $count_storage = ($storage->count() ?? 0);
+                                $count_gpu = ($gpu->count() ?? 0);
+                                $count_psu = ($psu->count() ?? 0);
+                                $count_casing = ($casing->count() ?? 0);
+                                $total_peralatan = $count_mth + $count_cpu + $count_ram + $count_storage + $count_gpu + $count_psu + $count_casing;
+                            @endphp
+                            {{ $total_peralatan }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-success text-white">
+                        <i class="fas fa-desktop" style="font-size: 35px"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Inventaris Komputer</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $komputer->count() ?? "0" }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-success text-white">
+                        <i class="fas fa-check-square" style="font-size: 35px"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
                             <h4>Inventaris Yang Normal</h4>
                         </div>
                         <div class="card-body">
-                            20
+                            {{ $inv_baik ?? "0" }}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-info text-white" style="font-size: 40px">
-                        <i class="bi bi-check"></i>
+                    <div class="card-icon bg-danger text-white">
+                        <i class="fas fa-times-circle" style="font-size: 35px"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
                             <h4>Inventaris Yang Rusak</h4>
                         </div>
                         <div class="card-body">
-                            20
+                            {{ $inv_rusak ?? "0" }}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-success text-white" style="font-size: 40px">
-                        <i class="bi bi-cash"></i>
+                    <div class="card-icon bg-warning text-white">
+                        <i class="fas fa-people-carry" style="font-size: 35px"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
                             <h4>Inventaris Sedang Dipinjam</h4>
                         </div>
                         <div class="card-body">
-                           20
+                           {{ $inv_pinjam ?? "0" }}
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-warning">Inventaris Non-Komputer</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>No</th>
+                                <th>Ruangan</th>
+                                <th>Jumlah</th>
+                                <th>Aksi</th>
+                            </tr>
+                            @php
+                                $no = 1;
+                            @endphp
+                            @foreach ($inv_non_komputer as $item)
+                            <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $item['namaRuangan'] }}</td>
+                                <td>{{ $item['jumlah'] }}</td>
+                                <td>
+                                    <a href="{{ url('detail/ruangan/'.$item['idRuangan']) }}"
+                                                class="btn btn-sm btn-icon icon-left btn-info">
+                                                <i class="far fa-eye"></i> Lihat
+                                            </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-warning">Inventaris Komputer</h4>
+                    </div>
+                    <div class="card-body">
+                            <table class="table table-bordered">
+                            <tr>
+                                <th>No</th>
+                                <th>Ruangan</th>
+                                <th>Jumlah</th>
+                                <th>Aksi</th>
+                            </tr>
+                            @php
+                                $no = 1;
+                            @endphp
+                            @foreach ($inv_komputer as $item)
+                            <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $item['namaRuangan'] }}</td>
+                                <td>{{ $item['jumlah'] }}</td>
+                                <td>
+                                    <a href="{{ url('detail/ruangan/'.$item['idRuangan']) }}"
+                                                class="btn btn-sm btn-icon icon-left btn-info">
+                                                <i class="far fa-eye"></i> Lihat
+                                            </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
             </div>

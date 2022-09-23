@@ -69,15 +69,6 @@
                             </select>
                         </div>
                         <div id="newStorage"></div>
-                        {{-- <div class="form-group">
-                            <label>Storage 2</label>
-                            <select name="spek[]" class="form-control select2">
-                                <option value="">-- Pilih Storage 2 --</option>
-                                @foreach ($storage as $item)
-                                <option value="{{ $item->id }}">{{ $item->kodeInventaris }} | {{ $item->spesifikasi }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                         <div class="form-group">
                             <label>PSU</label>
                             <select name="psu" class="form-control select2">

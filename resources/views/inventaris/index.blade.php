@@ -77,10 +77,9 @@
                                             <td>{{ $item->kodeInventaris }}</td>
                                             <td>{{ $item->namaBarang }}</td>
                                             <td>{{ $item->spesifikasi }}</td>
-                                            <td>{{$item->kodeRuangan ." ". $item->namaRuangan }}</td>
+                                            <td>{{ $item->namaRuangan }}</td>
                                             <td>{{ date('d-m-Y', strtotime($item->tgl_pembelian)); }}</td>
                                             <td>{{ $item->kondisi }}</td>
-
                                             <td>
                                                 <form method="POST" target="_blank"
                                                     action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
@@ -216,10 +215,14 @@
         var name = $(this).data("name");
         event.preventDefault();
         Swal.fire({
-            title: 'Apakah Anda Yakin Akan Menghapus Data?',
+            title: 'Apakah Anda Yakin?',
+            text:'Akan Menghapus Data!',
             showCancelButton: true,
-            confirmButtonText: 'Yes',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+            icon: 'warning',
         }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 form.submit();
             }

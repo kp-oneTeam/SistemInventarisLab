@@ -64,6 +64,10 @@
 </head>
 
 <body>
+    {{-- @php
+        $non_komputer = ($item->namaBarang ?? "false");
+        $alat_komputer = ($namaBarang ?? "false");
+    @endphp --}}
     <div style="display: grid;grid-template-columns: auto auto;">
         @foreach ($data as $item)
         <div style="width: 458px;margin: 5px;">
@@ -92,7 +96,18 @@
                     </table>
                 </div>
                 <div class="column" style="text-align: right;">
-                    {!! QrCode::size(100)->generate('https://28e8-180-244-139-129.ap.ngrok.io/detail/inventaris/'.$item->kodeInventaris); !!}
+                    @if ($namaBarang == "Komputer" || $namaBarang == "komputer")
+                    {!! QrCode::size(100)->generate(url('mobile/inventaris/komputer/'.$item->id)); !!}
+                    @elseif($namaBarang == "non-komputer")
+                    {!! QrCode::size(100)->generate(url('mobile/inventaris/non-komputer/'.$item->id)); !!}
+                    @else
+                    {!! QrCode::size(100)->generate(url('mobile/inventaris/peralatan_komputer/'.$namaBarang.'/'.$item->id)); !!}
+                    @endif
+                    {{-- @if ($non_komputer == "false")
+                    @endif
+                    @if ($alat_komputer == "false")
+                    {!! QrCode::size(100)->generate(url('mobile/inventaris/non-komputer/'.$item->id)); !!}
+                    @endif --}}
                 </div>
             </div>
         </div>

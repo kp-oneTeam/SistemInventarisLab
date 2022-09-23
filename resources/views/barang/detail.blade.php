@@ -3,6 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
+        <a href="{{ url('barang') }}" class="btn btn-warning mr-4"><i
+                class="fas fa-arrow-left"></i></a>
         <h1>Detail Data Barang</h1>
     </div>
     <div class="row">
@@ -17,11 +19,11 @@
                     </div>
                     </p>
                     <p>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-2">Kode Barang</div>
                         <div class="col-1">:</div>
                         <div class="col-6">{{ $barang->kodeBarang }}</div>
-                    </div>
+                    </div> --}}
                     </p>
                 </div>
             </div>
@@ -29,7 +31,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-warning">Data Inventaris Monitor</h4>
+                    <h4 class="text-warning">Data Inventaris</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive p-sm-1">

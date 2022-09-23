@@ -73,14 +73,13 @@
                                             <td>{{ $item->kondisi }}</td>
 
                                             <td>
-                                                <form method="POST"
-                                                    action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
+                                                <form method="POST" action="{{ url('hapus/inventaris_komputer/'.$item->id) }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
+                                                    <a href="{{ url('detail/inventaris_komputer/'.$item->id) }}"
                                                         class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
                                                             class="far fa-eye"></i> Detail</a>
-                                                    <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
+                                                    <a href="{{ url('edit/inventaris_komputer/'.$item->id) }}"
                                                         class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
                                                             class="far fa-edit"></i> Edit</a>
                                                     <button type="submit"

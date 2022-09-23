@@ -154,7 +154,7 @@
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/cpu') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="">Nama Processor</label><small>(Intel/AMD)</small>
+                                            <label for="">Nama / Merk Processor</label><small>(Intel/AMD)</small>
                                             <input type="text" name="nama_processor" class="form-control">
                                         </div>
                                         <div class="form-group">
@@ -272,7 +272,7 @@
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/ram') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="">Nama Memory</label>
+                                            <label for="">Nama / Merk Memory</label>
                                             <input type="text" name="nama_memory" class="form-control">
                                         </div>
                                         <div class="form-group">
@@ -376,7 +376,7 @@
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/storage') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="">Nama Storage</label>
+                                            <label for="">Nama / Merk Storage</label>
                                             <input type="text" name="nama_storage" class="form-control">
                                         </div>
                                         <div class="row">
@@ -467,7 +467,7 @@
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/gpu') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="">Nama GPU</label>
+                                            <label for="">Nama / Merk GPU</label>
                                             <input type="text" name="nama_gpu" class="form-control" required>
                                             <small>Contoh : MSI GeForce® GTX 1050</small>
                                         </div>
@@ -569,7 +569,7 @@
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/psu') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="">Nama PSU</label>
+                                            <label for="">Nama / Merk PSU</label>
                                             <input type="text" name="nama_psu" class="form-control">
                                             <small>Contoh : be quiet! SYSTEM POWER 9</small>
                                         </div>
@@ -683,7 +683,7 @@
                                     <form action="{{ url('tambah/inventaris_peralatan_komputer/casing') }}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="">Nama Casing</label>
+                                            <label for="">Nama / Merk Casing</label>
                                             <input type="text" name="nama_casing" class="form-control">
                                             <small>Contoh: Powerlogic Armaggeddon Tessaraxx Apex 7</small>
                                         </div>

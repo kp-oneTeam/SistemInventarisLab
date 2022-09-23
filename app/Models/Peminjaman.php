@@ -10,4 +10,7 @@ class Peminjaman extends Model
     use HasFactory;
     protected $table = 'peminjaman';
     protected $guarded = [];
+    public function detail_peminjaman($id){
+       return DetailPeminjaman::where('idPeminjaman',$id)->get();
+    }
 }

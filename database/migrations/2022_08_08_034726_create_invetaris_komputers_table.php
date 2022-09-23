@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('idInventarisCasing');
             $table->string('tanggal_perakitan');
             $table->string('kondisi');
-            $table->text('keterangan');
+            $table->string('keterangan')->nullable()->default("-");
 
             $table->timestamps();
             $table->foreign('idRuangan')->references('id')->on('ruangan');

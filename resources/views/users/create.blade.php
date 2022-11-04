@@ -9,7 +9,7 @@
       <div class="col-12">
         <div class="card ">
           <div class="card-body p-0">
-            <form action="{{ url('admin/users') }}" method="post">
+            <form action="{{ url('users') }}" method="post">
             @csrf
             <div class="p-4">
                 <div class="form-group col-md-6">

@@ -13,7 +13,7 @@
                     <div class="card-header-form">
                       <form>
                         <div class="input-group">
-                          <a href="{{ url('admin/users/create') }}" class="btn btn-primary mr-2">Tambah Data</a>
+                          <a href="{{ url('users/create') }}" class="btn btn-primary mr-2">Tambah Data</a>
                         </div>
                       </form>
                     </div>
@@ -27,7 +27,7 @@
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Role</th>
-                                {{-- <th>Action</th> --}}
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,14 +46,14 @@
                                         @endforeach
                                     @endif
                                 </td>
-                                {{-- <td>
-                                    <form method="POST" action="{{ url('admin/users/'.$item->id) }}">
+                                <td>
+                                    <form method="POST" action="{{ url('users/'.$item->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <a href="{{ url('admin/users/'.$item->id.'/edit') }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Edit</a>
+                                        <a href="{{ url('users/'.$item->id.'/edit') }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Edit</a>
                                         <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title='Delete'><i class="fas fa-trash"></i>Delete</button>
                                     </form>
-                                </td> --}}
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('idBarang');
             $table->unsignedInteger('idRuangan');
             $table->unsignedInteger('idVendor');
+            $table->string('merk');
             $table->string('spesifikasi');
             $table->integer('harga');
             $table->date('tgl_pembelian');

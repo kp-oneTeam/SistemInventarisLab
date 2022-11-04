@@ -397,7 +397,10 @@
                                                     <div class="input-group">
                                                         <input type="number" min="1" name="kapasitas_storage" class="form-control" required>
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text" id="basic-addon2">GB</span>
+                                                            <select class="form-control input-group-text" name="jenisKapasitasStorage" id="">
+                                                                <option value="GB">GB</option>
+                                                                <option value="TB">TB</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>

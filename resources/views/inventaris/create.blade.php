@@ -32,6 +32,10 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Merk</label>
+                                    <input name="merk" id="" class="form-control" required>
+                                </div>
+                                <div class="form-group">
                                     <label for="">Spesifikasi</label>
                                     <textarea name="spek" id="" class="form-control" required></textarea>
                                 </div>

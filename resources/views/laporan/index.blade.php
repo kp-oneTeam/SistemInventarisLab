@@ -29,27 +29,27 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        {{-- <div class="card-header">
-                            <h4 class="text-warning">Table Ruangan</h4>
-                            <div class="card-header-form">
-                                <form>
-                                    <div class="input-group">
-                                        <a href="{{ url('tambah/barang') }}" class="btn btn-warning mr-2" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Data</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div> --}}
                         <div class="card-body m-2">
                             <div class="row">
                                 <div class="col-12 col-md-6 col-lg-6">
-                                    <form action="" method="post">
+                                    <form action="{{ url('laporan/print') }}" method="post">
+                                        @csrf
                                         <div class="form-group">
                                             <label for="">Dari Tanggal</label>
-                                            <input type="date" name="" id="" class="form-control">
+                                            <input type="date" name="dari_tanggal"  placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Sampai Tanggal Tanggal</label>
-                                            <input type="date" name="" id="" class="form-control">
+                                            <label for="">Sampai Tanggal</label>
+                                            <input type="date" name="sampai_tanggal" id="" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Jenis Laporan</label>
+                                            <select name="jenis_laporan" id="" class="form-control">
+                                                <option value="Sedang dipinjam">Inventaris Yang Sedang Dipinjam</option>
+                                                <option value="Rusak">Inventaris Yang Rusak</option>
+                                                <option value="Baik">Inventaris Yang Normal</option>
+                                                <option value="all">Semua Inventaris</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-warning btn-icon icon-left btn-warning float-right m-2"><i class="fas fa-print"></i>Cetak</button>

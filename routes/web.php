@@ -160,11 +160,13 @@ Route::group(['middleware' => 'auth'],function () {
     Route::get('inventaris/inventaris-peralatan-komputer/casing', [InventarisController::class, 'index']);
 
     //users
-    Route::get('users', [UsersController::class, 'index']);
-    Route::get('admin/users/create', [UsersController::class, 'create']);
-    Route::post('admin/users', [UsersController::class, 'store']);
+    // Route::resource('users', [UsersController::class, 'index']);
+    // Route::get('users/create', [UsersController::class, 'create']);
+    // Route::post('users', [UsersController::class, 'store']);
+    Route::resource('/users', UsersController::class);
     // Laporan
     Route::get('laporan', [LaporanController::class, 'index']);
+    Route::post('laporan/print', [LaporanController::class, 'cetak']);
 
     //Peminjaman
     Route::get('peminjaman', [PeminjamanController::class, 'index']);

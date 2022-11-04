@@ -321,6 +321,7 @@ class InventarisPeralatanKomputer extends Controller
             'idRuangan' => $request->lokasi,
             'idVendor' => $request->vendor,
             'namaStorage' => $request->nama_storage,
+            'jenisKapasitasStorage' => $request->jenisKapasitasStorage,
             'jenisStorage' => $request->jenis_storage,
             'kapasitasStorage' => $request->kapasitas_storage,
             'harga' => $harga,
@@ -362,6 +363,7 @@ class InventarisPeralatanKomputer extends Controller
                 $saved = $data->update([
                     'idVendor' => $request->vendor,
                     'namaStorage' => $request->nama_storage,
+                    'jenisKapasitasStorage' => $request->jenisKapasitasStorage,
                     'jenisStorage' => $request->jenis_storage,
                     'kapasitasStorage' => $request->kapasitas_storage,
                     'harga' => $harga,
@@ -377,6 +379,7 @@ class InventarisPeralatanKomputer extends Controller
                     'idRuangan' => $request->lokasi,
                     'idVendor' => $request->vendor,
                     'namaStorage' => $request->nama_storage,
+                    'jenisKapasitasStorage' => $request->jenisKapasitasStorage,
                     'jenisStorage' => $request->jenis_storage,
                     'kapasitasStorage' => $request->kapasitas_storage,
                     'harga' => $harga,

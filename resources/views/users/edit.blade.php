@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.master')
 @section('users','active')
 @section('content')
 <section class="section">
@@ -9,13 +9,13 @@
       <div class="col-12">
         <div class="card ">
           <div class="card-body p-0">
-            <form action="{{ url('admin/users/'.$user->id) }}" method="post">
+            <form action="{{ url('users/'.$user->id) }}" method="post">
             @method('put')
             @csrf
             <div class="p-4">
                 <div class="form-group col-md-6">
                     <label for="">Nama</label>
-                    <input type="text" value="{{ $user->name }}" name="nama" id="" class="form-control @error('nama') is-invalid @enderror" name="text" value="{{ old('nama') }}" autofocus>
+                    <input type="text" value="{{ $user->nama }}" name="nama" id="" class="form-control @error('nama') is-invalid @enderror" name="text" value="{{ old('nama') }}" autofocus>
                     @error('nama')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -23,9 +23,9 @@
                     @enderror
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="">Email</label>
-                    <input type="email" value="{{ $user->email }}" name="email" id="" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
-                    @error('email')
+                    <label for="">username</label>
+                    <input type="text" value="{{ $user->username }}" name="username" id="" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}">
+                    @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

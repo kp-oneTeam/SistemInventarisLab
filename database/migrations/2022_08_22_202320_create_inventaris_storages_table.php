@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('namaStorage');
             $table->string('jenisStorage');
             $table->string('kapasitasStorage');
+            $table->string('jenisKapasitasStorage');
             $table->integer('harga');
             $table->date('tglPembelian');
             $table->string('kondisi');

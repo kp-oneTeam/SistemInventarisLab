@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Inventaris;
 use App\Models\Peminjaman;
 use App\Models\DetailPeminjaman;
+
 class PeminjamanController extends Controller
 {
     //

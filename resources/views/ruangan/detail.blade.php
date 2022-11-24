@@ -3,8 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <a href="{{ url('vendor') }}" class="btn btn-warning mr-4"><i class="fas fa-arrow-left"></i></a>
-        <h1>Detail Data Vendor</h1>
+        <a href="{{ url('ruangan') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i class="fas fa-caret-left"></i></a>
+        <h1>Detail Ruangan</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -170,6 +170,7 @@
                                             <th>Lokasi</th>
                                             <th>Tanggal Perakitan</th>
                                             <th>Status</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -201,6 +202,22 @@
                                             <td>{{ $item->ruangan->namaRuangan }}</td>
                                             <td>{{ date('d-m-Y', strtotime($item->tanggal_perakitan)); }}</td>
                                             <td>{{ $item->kondisi }}</td>
+                                            <td>
+                                                <form method="POST" action="{{ url('hapus/inventaris_komputer/'.$item->id) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a href="{{ url('detail/inventaris_komputer/'.$item->id) }}"
+                                                        class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
+                                                            class="far fa-eye"></i> Detail</a>
+                                                    <a href="{{ url('edit/inventaris_komputer/'.$item->id) }}"
+                                                        class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
+                                                            class="far fa-edit"></i> Edit</a>
+                                                    <button type="submit"
+                                                        class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                        data-toggle="tooltip" title='Hapus'><i
+                                                            class="fas fa-trash"></i>Hapus</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -214,15 +231,87 @@
 @include('layouts.sweatalert')
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable();
-        $('#TableMotherboard').DataTable();
-        $('#tableProcessor').DataTable();
-        $('#tableRam').DataTable();
-        $('#tableStorage').DataTable();
-        $('#tableGpu').DataTable();
-        $('#tablePsu').DataTable();
-        $('#tableCasing').DataTable();
-        $('#tableKomputer').DataTable();
+        $('#myTable').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#TableMotherboard').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableProcessor').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableRam').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableStorage').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableGpu').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tablePsu').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableCasing').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableKomputer').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
     });
 </script>
 <script type="text/javascript">

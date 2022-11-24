@@ -149,8 +149,8 @@
                                             </a>
                                             <button type="button"
                                                 class="btn btn-sm btn-icon icon-left btn-primary btn_editRuangan"
-                                                data-toggle="modal" , data-target="#updateModal">
-                                                <i class="far fa-edit" data-id="{{ $item->id }}"></i> Edit
+                                                data-toggle="modal" data-target="#updateModal" data-id="{{ $item->id }}">
+                                                <i class="far fa-edit"></i> Edit
                                             </button>
                                             <button type="submit"
                                                 class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
@@ -171,7 +171,15 @@
 @include('layouts.sweatalert')
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable();
+        $('#myTable').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
     });
 </script>
 <script type="text/javascript">
@@ -197,6 +205,7 @@
 <script>
     $("#myTable .btn_editRuangan").click(function () {
         var count = $('.mainbody > tr').length + 1;
+        var id = $(this).data("id");
         var currentRow = $(this).closest("tr");
         var kode_ruangan = currentRow.find("td:eq(1)").html(); // get current row 1st table cell TD value
         var nama_ruangan = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
@@ -216,7 +225,7 @@
         })
         $("#input_edit_kode_ruangan").val(kode_ruangan);
         $("#input_edit_nama_ruangan").val(nama_ruangan);
-        $("#editformRuangan").attr('action', 'update/ruangan/' + kode_ruangan);
+        $("#editformRuangan").attr('action', 'update/ruangan/' + id);
     });
     //Validasi Tambah (Nama Ruangan)
     $("#nama_ruangan").on('input', function () {

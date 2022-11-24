@@ -23,7 +23,7 @@ class RuanganController extends Controller
 {
     //
     public function index(){
-        $title = "Manajemen Ruangan";
+        $title = "Data Ruangan Ruangan";
         $data = Ruangan::get();
         $gedung = Gedung::get();
         return view('ruangan.index',compact('title', 'data','gedung'));
@@ -35,29 +35,29 @@ class RuanganController extends Controller
                 'namaRuangan' => $request->nama_ruangan,
                 'idGedung' => $request->gedung
             ]);
-            return redirect('/ruangan')->with('message','Data Ruangan Berhasil Ditambahkan');
+            return redirect('/ruangan')->with('message','Data Ruangan Berhasil Disimpan');
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect('/ruangan')->with('failed','Data Ruangan Gagal Ditambahkan');
+            return redirect('/ruangan')->with('failed', 'Data Ruangan Gagal Disimpan');
         }
     }
     public function update_ruangan($id,request $request){
         try {
-            $data = Ruangan::where('id', '=', $id)->update([
+            $data = Ruangan::findOrFail($id)->update([
                 'namaRuangan' => $request->nama_ruangan,
-                'namaGedung' => $request->nama_gedung
+                'idGedung' => $request->gedung
             ]);
             return redirect('/ruangan')->with('message', 'Data Ruangan Berhasil Diubah');
             //code...
         } catch (\Throwable $th) {
-            //throw $th;
-            return redirect('/ruangan')->with('failed', 'Data Ruangan Berhasil Diubah');
+            // throw $th;
+            return redirect('/ruangan')->with('failed', 'Data Ruangan Gagal Diubah');
         }
     }
     public function hapus_ruangan($id)
     {
         try {
-            $data = Ruangan::where('id','=',$id)->delete();
+            $data = Ruangan::findOrFail($id)->delete();
             return redirect('/ruangan')->with('message', 'Data Ruangan Berhasil Dihapus');
             //code...
         } catch (\Throwable $th) {

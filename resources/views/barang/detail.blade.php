@@ -3,9 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <a href="{{ url('barang') }}" class="btn btn-warning mr-4"><i
-                class="fas fa-arrow-left"></i></a>
-        <h1>Detail Data Barang</h1>
+        <a href="{{ url('ruangan') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i class="fas fa-caret-left"></i></a>
+        <h1>Detail Barang</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -17,13 +16,6 @@
                         <div class="col-1">:</div>
                         <div class="col-6">{{ $barang->namaBarang }}</div>
                     </div>
-                    </p>
-                    <p>
-                    {{-- <div class="row">
-                        <div class="col-2">Kode Barang</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6">{{ $barang->kodeBarang }}</div>
-                    </div> --}}
                     </p>
                 </div>
             </div>
@@ -95,7 +87,15 @@
 @include('layouts.sweatalert')
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable();
+        $('#myTable').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
     });
 </script>
 <script type="text/javascript">

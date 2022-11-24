@@ -10,20 +10,19 @@ class BarangController extends Controller
 {
     //
     public function index(){
-        $title = "Manajemen Barang";
+        $title = "Data Barang";
         $data = Barang::get();
         return view('barang.index',compact('title','data'));
     }
     public function tambah_barang(request $request){
         try {
             $saved = Barang::create([
-                // 'kodeBarang' => $request->kode_barang,
                 'namaBarang' => $request->nama_barang
             ]);
-            return redirect('/barang')->with('message','Data Barang Berhasil Ditambahkan');
+            return redirect('/barang')->with('message','Data Barang Berhasil Disimpan');
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect('/barang')->with('failed', 'Data Barang Gagal Ditambahkan');
+            return redirect('/barang')->with('failed', 'Data Barang Gagal Disimpan');
         }
     }
     public function update_barang($id,request $request){

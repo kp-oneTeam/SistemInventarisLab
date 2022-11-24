@@ -15,10 +15,6 @@
             <div class="modal-body">
                 <form action="{{ url('tambah/barang') }}" method="post" id="formBarang">
                     @csrf
-                    {{-- <div class="form-group">
-                        <label for="">Kode Barang</label>
-                        <input type="text" name="kode_barang" class="form-control">
-                    </div> --}}
                     <div class="form-group">
                         <label for="">Nama Barang</label>
                         <input type="text" id="nama_barang" name="nama_barang" class="form-control nama_barang">
@@ -52,10 +48,6 @@
                 <form action="" method="post" id="editformBarang">
                     @csrf
                     @method('PUT')
-                    <div class="form-group sr-only">
-                        <label for="">ID Barang</label>
-                        <input type="hidden" name="kode_barang" id="input_edit_kode_barang"class="form-control">
-                    </div>
                     <div class="form-group">
                         <label for="">Nama Barang</label>
                         <input type="text" name="nama_barang" id="input_edit_nama_barang" class="form-control edit_nama_barang">
@@ -99,7 +91,6 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>ID</th>
                                     <th>Nama Barang</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -111,7 +102,6 @@
                                 @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $item->id }}</td>
                                     <td>{{ $item->namaBarang }}</td>
                                     <td>
                                         <form method="POST" action="{{ url('hapus/barang/'.$item->id) }}">
@@ -119,8 +109,8 @@
                                             @method('DELETE')
                                             <a href="{{ url('detail/barang/'.$item->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i
                                                     class="far fa-eye"></i> Detail</a>
-                                            <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editBarang" data-toggle="modal" data-target="#updateModal">
-                                                <i class="far fa-edit" data-id="{{ $item->id }}"></i> Edit</button>
+                                            <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editBarang" data-id="{{ $item->id }}" data-toggle="modal" data-target="#updateModal">
+                                                <i class="far fa-edit" ></i> Edit</button>
                                             <button type="submit"
                                                 class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
                                                 data-toggle="tooltip" title='Hapus'><i
@@ -140,7 +130,15 @@
 @include('layouts.sweatalert')
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable();
+        $('#myTable').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
     });
 </script>
 <script type="text/javascript">
@@ -165,13 +163,12 @@
 </script>
 <script>
     $("#myTable .btn_editBarang").on("click", function() {
+            var id = $(this).data("id");
             var count = $('.mainbody > tr').length+1;
             var currentRow = $(this).closest("tr");
             var col1 = currentRow.find("td:eq(1)").html(); // get current row 1st table cell TD value
-            var col2 = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
-            $("#input_edit_kode_barang").val(col1);
-            $("#input_edit_nama_barang").val(col2);
-            $("#editformBarang").attr('action','update/barang/'+col1);
+            $("#input_edit_nama_barang").val(col1);
+            $("#editformBarang").attr('action','update/barang/'+id);
     });
     //Validasi Tambah (Nama Barang)
     $("#nama_barang").on('input',function(){

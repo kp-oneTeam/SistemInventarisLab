@@ -122,7 +122,16 @@
 @include('layouts.sweatalert')
 <script>
     $(document).ready(function(){
-    $('#myTable').DataTable();
+    $('#myTable').DataTable({
+        "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+
+    });
     });
 </script>
 <script type="text/javascript">

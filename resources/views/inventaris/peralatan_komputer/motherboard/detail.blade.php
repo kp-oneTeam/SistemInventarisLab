@@ -3,7 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Detail Data Inventaris</h1>
+        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i class="fas fa-caret-left"></i></a>
+        <h1>Detail Motherboard</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -12,69 +13,147 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center">
-                            {!! QrCode::size(200)->generate('https://28e8-180-244-139-129.ap.ngrok.io/detail/inventaris/'.$data->kodeInventaris); !!}
+                            {!! QrCode::size(200)->generate(url(env('NGROK_SERVER').'mobile/inventaris/peralatan_komputer/Motherboard/'.$data->id)); !!}
                         </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 mt-3">
                             <p>
                                 <div class="row">
-                                    <div class="col-5">Kode Inventaris</div>
+                                    <div class="col-3">Kode Inventaris</div>
                                     <div class="col-1">:</div>
                                     <div class="col-5">{{ $data->kodeInventaris }}</div>
                                 </div>
                             </p>
                             <p>
                                 <div class="row">
-                                    <div class="col-5">Nama Barang</div>
-                                    <div class="col-1">:</div>
-                                    <div class="col-5">{{ $data->barang->namaBarang }}</div>
-                                </div>
-                            </p>
-                            <p>
-                                <div class="row">
-                                    <div class="col-5">Vendor</div>
+                                    <div class="col-3">Vendor</div>
                                     <div class="col-1">:</div>
                                     <div class="col-5">{{ $data->vendor->namaVendor }}</div>
                                 </div>
                             </p>
                             <p>
                                 <div class="row">
-                                    <div class="col-5">Lokasi</div>
+                                    <div class="col-3">Lokasi</div>
                                     <div class="col-1">:</div>
                                     <div class="col-5">{{ $data->ruangan->namaRuangan }}</div>
                                 </div>
                             </p>
                             <p>
                                 <div class="row">
-                                    <div class="col-5">Spesifikasi</div>
+                                    <div class="col-3">Kondisi</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-5">{{ $data->spesifikasi }}</div>
+                                    <div class="col-5">{{ $data->keterangan }}</div>
                                 </div>
                             </p>
                             <p>
                                 <div class="row">
-                                    <div class="col-5">Tanggal Pembelian</div>
+                                    <div class="col-3">Keterangan</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-5">{{ $data->tgl_pembelian }}</div>
+                                    <div class="col-5">{{ $data->keterangan }}</div>
                                 </div>
                             </p>
                             <p>
                                 <div class="row">
-                                    <div class="col-5">Harga Pembelian</div>
+                                    <div class="col-3">
+                                        Nama / Merk Motherboard
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->namaMotherboard }}
+                                    </div>
+                                </div>
+                                </p>
+                                <p>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Chipset
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->chipsetMotherboard }}
+                                    </div>
+                                </div>
+                                </p>
+                                <p>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Socket Motherboard
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->socketMotherboard }}
+                                    </div>
+                                </div>
+                                </p>
+                                <p>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Form Factor
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->formFactor }}
+                                    </div>
+                                </div>
+                                </p>
+                                <p>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Memory Slot
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->memoriSlot }}
+                                    </div>
+                                </div>
+                                </p>
+                                <p>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Memory Support
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->memoriSupport }}
+                                    </div>
+                                </div>
+                                </p>
+                            <p>
+                                <div class="row">
+                                    <div class="col-3">Tanggal Pembelian</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-5">{{ $data->tglPembelian }}</div>
+                                </div>
+                            </p>
+                            <p>
+                                <div class="row">
+                                    <div class="col-3">Harga Pembelian</div>
                                     <div class="col-1">:</div>
                                     <div class="col-5">{{ number_format($data->harga,0,"",".") }}</div>
                                 </div>
                             </p>
                             <p>
                                 <div class="row">
-                                    <div class="col-5">Kondisi</div>
+                                    <div class="col-3">Kondisi</div>
                                     <div class="col-1">:</div>
                                     <div class="col-5">{{ $data->kondisi }}</div>
                                 </div>
                             </p>
                             <p>
                                 <div class="row">
-                                    <div class="col-5">Keterangan</div>
+                                    <div class="col-3">Keterangan</div>
                                     <div class="col-1">:</div>
                                     <div class="col-5">{{ $data->keterangan }}</div>
                                 </div>

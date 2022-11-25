@@ -9,11 +9,11 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Table Users</h4>
+                    <h4 class="text-warning">Table Users</h4>
                     <div class="card-header-form">
                       <form>
                         <div class="input-group">
-                          <a href="{{ url('users/create') }}" class="btn btn-primary mr-2">Tambah Data</a>
+                          <a href="{{ url('users/create') }}" class="btn btn-warning mr-2">Tambah Data</a>
                         </div>
                       </form>
                     </div>
@@ -38,7 +38,7 @@
                             <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ $item->username }}</td>
+                                <td>{{ $item->username}}</td>
                                 <td>
                                     @if (!empty($item->getRoleNames()))
                                         @foreach ($item->getRoleNames() as $role)
@@ -51,7 +51,9 @@
                                         @csrf
                                         @method('DELETE')
                                         <a href="{{ url('users/'.$item->id.'/edit') }}" class="btn btn-sm btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Edit</a>
+                                        @if (auth()->user()->id != $item->id)
                                         <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title='Delete'><i class="fas fa-trash"></i>Delete</button>
+                                        @endif
                                     </form>
                                 </td>
                             </tr>
@@ -66,7 +68,15 @@
 </section>
 <script>
     $(document).ready(function(){
-    $('#myTable').DataTable();
+    $('#myTable').DataTable({
+        "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+    });
     });
 </script>
 <script type="text/javascript">

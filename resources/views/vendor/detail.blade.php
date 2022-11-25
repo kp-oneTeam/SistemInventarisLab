@@ -3,7 +3,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <a href="{{ url('vendor') }}" class="btn btn-warning mr-4"><i class="fas fa-arrow-left"></i></a>
+        <a href="{{ url('vendor') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i class="fas fa-caret-left"></i></a>
         <h1>Detail Data Vendor</h1>
     </div>
     <div class="row">
@@ -158,14 +158,78 @@
 @include('layouts.sweatalert')
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable();
-        $('#TableMotherboard').DataTable();
-        $('#tableProcessor').DataTable();
-        $('#tableRam').DataTable();
-        $('#tableStorage').DataTable();
-        $('#tableGpu').DataTable();
-        $('#tablePsu').DataTable();
-        $('#tableCasing').DataTable();
+        $('#myTable').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#TableMotherboard').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableProcessor').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableRam').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableStorage').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableGpu').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tablePsu').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableCasing').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
     });
 </script>
 <script type="text/javascript">

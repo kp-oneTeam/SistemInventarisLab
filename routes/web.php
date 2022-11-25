@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::group(['middleware' => 'auth'],function () {
+Route::group(['middleware' => ['role:laboran','auth']],function () {
     // Barang
     Route::get('/barang', [BarangController::class, 'index']);
     Route::post('tambah/barang', [BarangController::class, 'tambah_barang']);
@@ -56,6 +56,24 @@ Route::group(['middleware' => 'auth'],function () {
     Route::get('validasi_edit_ruangan/{kode}/{nama}', [RuanganController::class, 'validasi_edit_nama_ruangan']);
     Route::get('get_gedung/{id}', [RuanganController::class, 'get_gedung']);
     Route::get('detail/ruangan/{id}', [RuanganController::class, 'detail']);
+    // Inventaris
+    Route::get('/inventaris', [InventarisController::class, 'index']);
+    Route::post('checked/inventaris', [InventarisController::class, 'checked']);
+    Route::get('tambah/inventaris', [InventarisController::class, 'form_tambah_inventaris']);
+    Route::post('tambah/inventaris', [InventarisController::class, 'tambah_inventaris']);
+    Route::get('edit/inventaris/{id}', [InventarisController::class, 'form_ubah_inventaris']);
+    Route::put('ubah/inventaris/{kodeInventaris}', [InventarisController::class, 'ubah']);
+    Route::delete('hapus/inventaris/{id}', [InventarisController::class, 'hapus_inventaris']);
+    Route::get('detail/inventaris/{kode_inventaris}', [InventarisController::class, 'detail']);
+    Route::get('mobile/inventaris/non-komputer/{id}', [InventarisController::class, 'mobile']);
+});
+Route::group(['middleware' => ['role:kepala lab','auth']],function () {
+    Route::resource('/users', UsersController::class);
+    // Laporan
+    Route::get('laporan', [LaporanController::class, 'index']);
+});
+Route::group(['middleware' =>'auth'], function () {
+    Route::post('laporan/print', [LaporanController::class, 'cetak']);
     // Inventaris
     Route::get('/inventaris', [InventarisController::class, 'index']);
     Route::post('checked/inventaris', [InventarisController::class, 'checked']);
@@ -163,10 +181,7 @@ Route::group(['middleware' => 'auth'],function () {
     // Route::resource('users', [UsersController::class, 'index']);
     // Route::get('users/create', [UsersController::class, 'create']);
     // Route::post('users', [UsersController::class, 'store']);
-    Route::resource('/users', UsersController::class);
-    // Laporan
-    Route::get('laporan', [LaporanController::class, 'index']);
-    Route::post('laporan/print', [LaporanController::class, 'cetak']);
+
 
     //Peminjaman
     Route::get('peminjaman', [PeminjamanController::class, 'index']);
@@ -189,6 +204,7 @@ Route::group(['middleware' => 'auth'],function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
+
 
 Auth::routes();
 

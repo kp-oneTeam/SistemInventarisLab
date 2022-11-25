@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gedung;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
 
 class GedungController extends Controller
@@ -11,29 +12,39 @@ class GedungController extends Controller
     public function index(){
         $data = Gedung::get();
         $title = "Data Gedung";
-        return view('gedung.index',compact('data'));
+        return view('gedung.index',compact('data','title'));
     }
     public function tambah_gedung(request $request){
+        try {
         $saved = Gedung::create([
             'namaGedung' => $request->nama_gedung
         ]);
-        if ($saved) {
             return redirect('gedung')->with('message','Data Berhasil Disimpan!');
+        } catch (\Throwable $th) {
+            return redirect('gedung')->with('failed', 'Data Gagal Disimpan!');
         }
     }
     public function update_gedung($id,request $request)
     {
+        try {
         $gedung = Gedung::findOrFail($id);
         $saved = $gedung->update([
             'namaGedung' => $request->nama_gedung
         ]);
-        return redirect('gedung')->with('message', 'Data Berhasil Diupdate!');
+            return redirect('gedung')->with('message', 'Data Berhasil Diubah!');
+        } catch (\Throwable $th) {
+            return redirect('gedung')->with('failed', 'Data Gagal Diubah!');
+        }
     }
     public function hapus_gedung($id)
     {
-        $gedung = Gedung::findOrFail($id);
-        $gedung->delete();
-        return redirect('gedung')->with('message', 'Data Berhasil Dihapus!');
+        try {
+            $gedung = Gedung::findOrFail($id);
+            $gedung->delete();
+            return redirect('gedung')->with('message', 'Data Berhasil Dihapus!');
+        } catch (\Throwable $th) {
+            return redirect('gedung')->with('failed', 'Data Gagal Dihapus!');
+        }
     }
     public function validasi_nama_gedung_tambah($nama)
     {

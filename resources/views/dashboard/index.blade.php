@@ -239,6 +239,9 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-8 section-header">
+                <h1>Ruangan</h1>
+            </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-header">
@@ -246,18 +249,59 @@
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">
-                            <tr>
-                                <th>No</th>
-                                <th>Ruangan</th>
-                                <th>Jumlah</th>
-                                <th>Aksi</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode Ruangan</th>
+                                    <th>Ruangan</th>
+                                    <th>Jumlah</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
                             @php
                                 $no = 1;
                             @endphp
                             @foreach ($inv_non_komputer as $item)
                             <tr>
                                 <td>{{ $no++ }}</td>
+                                 <td>{{ $item['kodeRuangan'] }}</td>
+                                <td>{{ $item['namaRuangan'] }}</td>
+                                <td>{{ $item['jumlah'] }}</td>
+                                <td>
+                                    <a href="{{ url('detail/ruangan/'.$item['idRuangan']) }}"
+                                                class="btn btn-sm btn-icon icon-left btn-info">
+                                                <i class="far fa-eye"></i> Lihat
+                                            </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-warning">Inventaris Peralatan Komputer</h4>
+                    </div>
+                    <div class="card-body">
+                            <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode Ruangan</th>
+                                    <th>Ruangan</th>
+                                    <th>Jumlah</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            @php
+                                $no = 1;
+                            @endphp
+                            @foreach ($inv_peralatan_komputer as $item)
+                            <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $item['kodeRuangan'] }}</td>
                                 <td>{{ $item['namaRuangan'] }}</td>
                                 <td>{{ $item['jumlah'] }}</td>
                                 <td>
@@ -279,18 +323,22 @@
                     </div>
                     <div class="card-body">
                             <table class="table table-bordered">
-                            <tr>
-                                <th>No</th>
-                                <th>Ruangan</th>
-                                <th>Jumlah</th>
-                                <th>Aksi</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode Ruangan</th>
+                                    <th>Ruangan</th>
+                                    <th>Jumlah</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
                             @php
                                 $no = 1;
                             @endphp
                             @foreach ($inv_komputer as $item)
                             <tr>
                                 <td>{{ $no++ }}</td>
+                                <td>{{ $item['kodeRuangan'] }}</td>
                                 <td>{{ $item['namaRuangan'] }}</td>
                                 <td>{{ $item['jumlah'] }}</td>
                                 <td>
@@ -304,6 +352,86 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-8 section-header">
+                <h1>Barang</h1>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Barang</th>
+                                    <th>Jumlah Inventaris</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                $no = 1;
+                                @endphp
+                                @foreach ($barang as $item)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $item->namaBarang }}</td>
+                                    <td>{{ $item->inventaris($item->id) }}</td>
+                                    <td>
+                                        <form method="POST" action="{{ url('hapus/barang/'.$item->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="{{ url('detail/barang/'.$item->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i
+                                                    class="far fa-eye"></i> Detail</a>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8 section-header">
+                <h1>Vendor</h1>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Barang</th>
+                                    <th>Jumlah Inventaris</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                $no = 1;
+                                @endphp
+                                @foreach ($vendor as $item)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $item->namaVendor }}</td>
+                                    <td>{{ $item->inventaris($item->id) }}</td>
+                                    <td>
+                                        <form method="POST" action="{{ url('hapus/barang/'.$item->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="{{ url('detail/vendor/'.$item->id) }}" class="btn btn-sm btn-icon icon-left btn-info"><i
+                                                    class="far fa-eye"></i> Detail</a>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
         {{-- <div class="row">

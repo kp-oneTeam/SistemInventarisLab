@@ -61,25 +61,60 @@ class DashboardController extends Controller
         $komputer = InventarisKomputer::get();
         $inv_non_komputer = [];
         $inv_komputer = [];
+        $inv_peralatan_komputer = [];
         $ruangan = Ruangan::get();
         foreach ($ruangan as $r) {
             $temp = Inventaris::where('idRuangan', $r->id)->count();
             $temp2 = InventarisKomputer::where('idRuangan', $r->id)->count();
+            $mth = Motherboard::join('vendor', 'vendor.id', '=', 'inventaris_motherboard.idVendor')
+            ->join('ruangan', 'ruangan.id', '=', 'inventaris_motherboard.idRuangan')
+            ->select('inventaris_motherboard.id', 'kodeInventaris', 'namaMotherboard', 'chipsetMotherboard', 'socketMotherboard', 'formFactor', 'memoriSlot', 'memoriSupport', 'kodeRuangan', 'namaRuangan', 'namaVendor', 'harga', 'tglPembelian', 'kondisi', 'keterangan')
+            ->where('idRuangan', $r->id)->count();
+            $pro = InventarisProcessor::join('vendor', 'vendor.id', '=', 'inventaris_processor.idVendor')
+            ->join('ruangan', 'ruangan.id', '=', 'inventaris_processor.idRuangan')
+            ->select('inventaris_processor.id', 'kodeInventaris', 'namaProcessor', 'nomorProcessor', 'generasi', 'series', 'kecepatan', 'jumlahCore', 'jumlahThread', 'socket', 'kodeRuangan', 'namaRuangan', 'namaVendor', 'harga', 'tglPembelian', 'kondisi', 'keterangan')
+            ->where('idRuangan', $r->id)->count();
+            $rams = InventarisRam::join('vendor', 'vendor.id', '=', 'inventaris_ram.idVendor')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_ram.idRuangan')
+                ->select('inventaris_ram.id', 'kodeInventaris', 'namaMemory', 'jenisMemory', 'tipeMemory', 'kapasitasMemory', 'frekuensiMemory', 'namaRuangan', 'idRuangan', 'namaVendor', 'harga', 'tglPembelian', 'kondisi', 'keterangan')
+                ->where('idRuangan', $r->id)->count();
+            $sto = InventarisStorage::join('vendor', 'vendor.id', '=', 'inventaris_storage.idVendor')
+            ->join('ruangan', 'ruangan.id', '=', 'inventaris_storage.idRuangan')
+            ->select('inventaris_storage.id', 'kodeInventaris', 'namaStorage', 'jenisStorage', 'kapasitasStorage', 'namaRuangan', 'idRuangan', 'namaVendor', 'harga', 'tglPembelian', 'kondisi', 'keterangan')
+            ->where('idRuangan', $r->id)->count();
+            $gpus = InventarisGPU::join('vendor', 'vendor.id', '=', 'inventaris_gpu.idVendor')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_gpu.idRuangan')
+                ->select('inventaris_gpu.id', 'kodeInventaris', 'namaGpu', 'ukuranMemori', 'memoriInterface', 'kecepatanMemori', 'tipeMemori', 'namaRuangan', 'idRuangan', 'namaVendor', 'harga', 'tglPembelian', 'kondisi', 'keterangan')
+                ->where('idRuangan', $r->id)->count();
+            $psus = InventarisPsu::join('vendor', 'vendor.id', '=', 'inventaris_psu.idVendor')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_psu.idRuangan')
+                ->select('inventaris_psu.id', 'kodeInventaris', 'namaPsu', 'formFactor', 'jenisKabel', 'besarDaya', 'sertifikasiPsu', 'namaRuangan', 'idRuangan', 'namaVendor', 'harga', 'tglPembelian', 'kondisi', 'keterangan')
+                ->where('idRuangan', $r->id)->count();
+            $casings = InventarisCasing::join('vendor', 'vendor.id', '=', 'inventaris_casing.idVendor')
+            ->join('ruangan', 'ruangan.id', '=', 'inventaris_casing.idRuangan')
+            ->select('inventaris_casing.id', 'kodeInventaris', 'namaCasing', 'formFactor', 'namaRuangan', 'idRuangan', 'namaVendor', 'harga', 'tglPembelian', 'kondisi', 'keterangan')
+            ->where('idRuangan', $r->id)->count();
+            array_push($inv_peralatan_komputer, [
+                "idRuangan" => $r->id,
+                "kodeRuangan" => $r->kodeRuangan,
+                "namaRuangan" => $r->namaRuangan,
+                "jumlah" => $mth + $pro + $rams + $sto + $gpus + $psus + $casings
+            ]);
             array_push($inv_non_komputer, [
                 "idRuangan" => $r->id,
+                "kodeRuangan" => $r->kodeRuangan,
                 "namaRuangan" => $r->namaRuangan,
                 "jumlah" => $temp
             ]);
             array_push($inv_komputer, [
                 "idRuangan" => $r->id,
+                "kodeRuangan" => $r->kodeRuangan,
                 "namaRuangan" => $r->namaRuangan,
                 "jumlah" => $temp2
             ]);
         }
-        // foreach ($inv_non_komputer as $key) {
-        //     # code...
-        //     dd($key['namaRuangan']);
-        // }
-        return view('dashboard.index', compact('title','inv_komputer','inv_non_komputer', 'data', 'motherboard', 'processor', 'ram', 'storage', 'gpu', 'psu', 'casing', 'komputer'));
+        $barang = Barang::get();
+        $vendor = Vendor::get();
+        return view('dashboard.index', compact('title','vendor','barang','inv_komputer', 'inv_peralatan_komputer','inv_non_komputer', 'data', 'motherboard', 'processor', 'ram', 'storage', 'gpu', 'psu', 'casing', 'komputer'));
     }
 }

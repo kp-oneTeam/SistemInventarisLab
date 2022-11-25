@@ -13,6 +13,7 @@
                     <th>Vendor</th>
                     <th>Tanggal Pembelian</th>
                     <th>Kondisi</th>
+                    <th>Keterangan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -32,6 +33,7 @@
                     <td>{{ $item->namaVendor }}</td>
                     <td>{{ date('d-m-Y', strtotime($item->tglPembelian)); }}</td>
                     <td>{{ $item->kondisi }}</td>
+                    <td>{{ $item->keterangan }}</td>
                     <td>
                         <form method="POST" action="{{ url('hapus/inventaris-peralatan-komputer/processor/'.$item->id) }}">
                             @csrf
@@ -39,11 +41,13 @@
                             <a href="{{ url('detail/inventaris-peralatan-komputer/processor/'.$item->id) }}"
                                 class="btn btn-sm btn-icon icon-left btn-info mb-2"><i class="far fa-eye"></i>
                                 Detail</a>
+                            @role('laboran')
                             <a href="{{ url('edit/inventaris-peralatan-komputer/processor/'.$item->id) }}"
                                 class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i class="far fa-edit"></i>
                                 Edit</a>
                             <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
                                 data-toggle="tooltip" title='Hapus'><i class="fas fa-trash"></i>Hapus</button>
+                            @endrole
                         </form>
                     </td>
                 </tr>

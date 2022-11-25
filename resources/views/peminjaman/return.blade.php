@@ -3,7 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Pengembalian Alat/Barang</h1>
+        <a href="{{ url('peminjaman') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i class="fas fa-caret-left"></i></a>
+        <h1>Pengembalian</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -14,7 +15,6 @@
                 <div class="card-body">
                     <form action="{{ url('proses/pengembalian/'.$data->id) }}" method="POST">
                         @csrf
-                        <h6>Kamis, 20 Agustus 2022</h6><br>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -64,6 +64,7 @@
                                @foreach ($inventaris as $item)
                                <tr>
                                    <td>{{ $no++ }}</td>
+
                                    <td>{{ $item->inventaris($item->idInventaris)->kodeInventaris }}</td>
                                    <td>{{ $item->inventaris($item->idInventaris)->barang->namaBarang }} {{ $item->inventaris($item->idInventaris)->spesifikasi }}</td>
                                    <td>
@@ -77,6 +78,7 @@
                                         </div>
                                    </td>
                                    <td>
+                                        <input type="hidden" class="form-control" name="idInventaris[]">
                                         <input type="text" class="form-control" name="keterangan_inv[]">
                                    </td>
                                </tr>

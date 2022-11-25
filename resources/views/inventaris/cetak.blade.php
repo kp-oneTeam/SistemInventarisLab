@@ -89,7 +89,7 @@
                             <td width="40%">{{ date('d - m - Y', strtotime($item->tgl_pembelian ?? $item->tglPembelian)) }}</td>
                         </tr>
                         <tr>
-                            <td width="35%">Nomor Barang </td>
+                            <td width="35%">Nomor Barang  </td>
                             <td width="1%">:</td>
                             <td width="50%">{{ $item->kodeInventaris }}</td>
                         </tr>
@@ -97,11 +97,11 @@
                 </div>
                 <div class="column" style="text-align: right;">
                     @if ($namaBarang == "Komputer" || $namaBarang == "komputer")
-                    {!! QrCode::size(100)->generate(url('mobile/inventaris/komputer/'.$item->id)); !!}
+                    {!! QrCode::size(100)->generate(url(env('NGROK_SERVER').'mobile/inventaris/komputer/'.$item->id)); !!}
                     @elseif($namaBarang == "non-komputer")
-                    {!! QrCode::size(100)->generate(url('mobile/inventaris/non-komputer/'.$item->id)); !!}
+                    {!! QrCode::size(100)->generate(url(env('NGROK_SERVER').'mobile/inventaris/non-komputer/'.$item->id)); !!}
                     @else
-                    {!! QrCode::size(100)->generate(url('mobile/inventaris/peralatan_komputer/'.$namaBarang.'/'.$item->id)); !!}
+                    {!! QrCode::size(100)->generate(url(env('NGROK_SERVER').'mobile/inventaris/peralatan_komputer/'.$namaBarang.'/'.$item->id)); !!}
                     @endif
                     {{-- @if ($non_komputer == "false")
                     @endif

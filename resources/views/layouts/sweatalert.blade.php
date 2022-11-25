@@ -32,7 +32,7 @@ Toast.fire({
 
 Toast.fire({
   icon: 'error',
-  title: "{{ session('message') }}"
+  title: "{{ session('failed') }}"
 })
 @endif
 </script>

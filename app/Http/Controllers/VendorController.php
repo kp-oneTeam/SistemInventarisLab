@@ -22,7 +22,7 @@ class VendorController extends Controller
 {
     //
     public function index(){
-        $title = "Manajemen Vendor";
+        $title = "Data Vendor";
         $data = Vendor::get();
         return view('vendor.index',compact('title', 'data'));
     }
@@ -35,16 +35,18 @@ class VendorController extends Controller
                 'teleponVendor' => $request->telepon_vendor,
                 'alamatVendor' => $request->alamat_vendor
             ]);
-            return redirect('/vendor')->with('message', 'Data Vendor Berhasil Ditambahkan');
+            return redirect('/vendor')->with('message', 'Data Vendor Berhasil Disimpan');
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect('/vendor')->with('failed', 'Data Vendor Gagal Ditambahkan');
+            return redirect('/vendor')->with('failed', 'Data Vendor Gagal Disimpan');
         }
     }
     public function update_vendor($id,request $request){
         try {
             $data = Vendor::where('id', '=', $id)->update([
-                'namaVendor' => $request->nama_vendor
+                'namaVendor' => $request->nama_vendor,
+                'teleponVendor' => $request->telepon_vendor,
+                'alamatVendor' => $request->alamat_vendor
             ]);
             return redirect('/vendor')->with('message', 'Data Vendor Berhasil Diubah');
         } catch (\Throwable $th) {
@@ -55,9 +57,9 @@ class VendorController extends Controller
     {
         try {
             $data = Vendor::where('id','=',$id)->delete();
-            return redirect('/vendor')->with('message', 'Vendor Berhasil Dihapus');
+            return redirect('/vendor')->with('message', 'Data Vendor Berhasil Dihapus');
         } catch (\Throwable $th) {
-            return redirect('/vendor')->with('failed', 'Data Vendor Gagal Diubah');
+            return redirect('/vendor')->with('failed', 'Data Vendor Gagal Dihapus');
         }
     }
     public function validasi_nama_vendor_tambah($nama){

@@ -5,12 +5,14 @@
                         <div class="card-header">
                             <h4 class="text-warning">Data Inventaris Komputer</h4>
                             <div class="card-header-form">
+                                @role('laboran')
                                 <form>
                                     <div class="input-group">
                                         <a href="{{ url('tambah/inventaris_komputer') }}" class="btn btn-warning mr-2"
                                             class="btn btn-primary">Tambah Data</a>
                                     </div>
                                 </form>
+                                @endrole
                             </div>
                         </div>
                         <div class="card-body">
@@ -21,13 +23,24 @@
 
                                         <button name="button" value="cetak" type="submit"
                                             class="btn btn-primary icon-left text-white"><i class="fas fa-print"></i>
-                                            &nbsp; Cetak</button>
+                                            &nbsp; Cetak QR</button>
+                                        @role('laboran')
                                         <button name="button" value="hapus" type="submit"
                                             class="btn btn-danger icon-left text-white"><i class="fas fa-trash"></i>
                                             &nbsp; Hapus</button>
+                                        @endrole
                                     </form>
                                 </div>
                             </div>
+                            <form action="{{ url('laporan/print') }}" method="post">
+                                @csrf
+                                <div class="input-group">
+                                    <div class="form-group">
+                                        <input type="hidden" name="jenis_laporan" value="inventaris komputer">
+                                        <button type="submit" class="btn btn-danger btn-icon icon-left float-right m-2"><i class="fas fa-print"></i>Cetak Data</button>
+                                    </div>
+                                </div>
+                            </form>
                             <div class="table-responsive p-sm-1">
                                 <table class="table table-striped" id="tableKomputer">
                                     <thead>
@@ -38,7 +51,8 @@
                                             <th>Spesifikasi Komputer</th>
                                             <th>Lokasi</th>
                                             <th>Tanggal Perakitan</th>
-                                            <th>Status</th>
+                                            <th>Kondisi</th>
+                                            <th>Keterangan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -71,7 +85,7 @@
                                             <td>{{ $item->ruangan->namaRuangan }}</td>
                                             <td>{{ date('d-m-Y', strtotime($item->tanggal_perakitan)); }}</td>
                                             <td>{{ $item->kondisi }}</td>
-
+                                            <td>{{ $item->keterangan }}</td>
                                             <td>
                                                 <form method="POST" action="{{ url('hapus/inventaris_komputer/'.$item->id) }}">
                                                     @csrf
@@ -79,6 +93,7 @@
                                                     <a href="{{ url('detail/inventaris_komputer/'.$item->id) }}"
                                                         class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
                                                             class="far fa-eye"></i> Detail</a>
+                                                    @role('laboran')
                                                     <a href="{{ url('edit/inventaris_komputer/'.$item->id) }}"
                                                         class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
                                                             class="far fa-edit"></i> Edit</a>
@@ -86,6 +101,7 @@
                                                         class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
                                                         data-toggle="tooltip" title='Hapus'><i
                                                             class="fas fa-trash"></i>Hapus</button>
+                                                    @endrole
                                                 </form>
                                             </td>
                                         </tr>

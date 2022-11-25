@@ -57,7 +57,7 @@
                     @method('PUT')
                     <div class="form-group sr-only">
                         <label for="">Kode Vendor</label>
-                        <input type="text" disabled name="id" id="input_edit_kode_vendor" class="form-control">
+                        <input type="text" name="id" id="input_edit_kode_vendor" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Nama Vendor</label>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Alamat Vendor</label>
-                        <textarea name="alamat_vendor"id="input_edit_alamat_vendor" class="form-control"></textarea>
+                        <textarea name="alamat_vendor" id="input_edit_alamat_vendor" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal">
@@ -108,12 +108,11 @@
                         <table class="table table-striped" id="myTable">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" class="check-all"></th>
                                     <th>No</th>
-                                    <th>ID</th>
                                     <th>Nama Vendor</th>
                                     <th>Nomor Telepon</th>
                                     <th>Alamat Vendor</th>
+                                    <th>Jumlah Inventaris</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -123,12 +122,11 @@
                                 @endphp
                                 @foreach ($data as $item)
                                     <tr>
-                                        <td width="1%"><input type="checkbox" class="checked"> </td>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $item->id }}</td>
                                         <td>{{ $item->namaVendor }}</td>
                                         <td>{{ $item->teleponVendor }}</td>
                                         <td>{{ $item->alamatVendor }}</td>
+                                        <td>{{ $item->inventaris($item->id) }}</td>
                                         <td>
                                             <form method="POST" action="{{ url('hapus/vendor/'.$item->id) }}">
                                                 @csrf
@@ -136,12 +134,15 @@
                                                 <a href="{{ url('detail/vendor/'.$item->id) }}" class="btn btn-sm btn-icon icon-left btn-info">
                                                     <i class="far fa-eye" data-id="{{ $item->id }}"></i>Detail
                                                     </a>
-                                                <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editVendor" data-toggle="modal", data-target="#updateModal" >
-                                                    <i class="far fa-edit" data-id="{{ $item->id }}"></i>Edit
+                                                <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editVendor" data-id="{{ $item->id }}" data-toggle="modal", data-target="#updateModal" >
+                                                    <i class="far fa-edit" ></i>Edit
                                                     </button>
-                                                <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title="Hapus">
-                                                    <i class="fas fa-trash"></i>Hapus
-                                                </button>
+                                                @if ($item->inventaris($item->id) < 1)
+                                                <button type="submit"
+                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                data-toggle="tooltip" title='Hapus'><i
+                                                    class="fas fa-trash"></i>Hapus</button>
+                                                @endif
                                             </form>
                                         </td>
                                     </tr>
@@ -157,7 +158,15 @@
 @include('layouts.sweatalert')
 <script>
     $(document).ready(function () {
-        $("#myTable").DataTable();
+        $("#myTable").DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
     });
 </script>
 <script type="text/javascript">
@@ -184,15 +193,15 @@
     $("#myTable .btn_editVendor").on("click", function() {
             var count = $('.mainbody > tr').length+1;
             var currentRow = $(this).closest("tr");
-            var kode_vendor = currentRow.find("td:eq(2)").html(); // get current row 1st table cell TD value
-            var nama_vendor = currentRow.find("td:eq(3)").html(); // get current row 2nd table cell TD value
-            var telepon_vendor = currentRow.find("td:eq(4)").html(); // get current row 1st table cell TD value
-            var alamat_vendor = currentRow.find("td:eq(5)").html(); // get current row 2nd table cell TD value
-            $("#input_edit_kode_vendor").val(kode_vendor);
+            var id = $(this).data("id");
+            var nama_vendor = currentRow.find("td:eq(1)").html(); // get current row 1st table cell TD value
+            var telepon_vendor = currentRow.find("td:eq(2)").html(); // get current row 2nd table cell TD value
+            var alamat_vendor = currentRow.find("td:eq(3)").html(); // get current row 1st table cell TD value
+            $("#input_edit_kode_vendor").val(id);
             $("#input_edit_nama_vendor").val(nama_vendor);
             $("#input_edit_telp_vendor").val(telepon_vendor);
             $("#input_edit_alamat_vendor").val(alamat_vendor);
-            $("#editformVendor").attr('action','update/vendor/'+kode_vendor);
+            $("#editformVendor").attr('action','update/vendor/'+id);
         });
     //Validasi Tambah (Nama Vendor)
     $("#nama_vendor").on('input',function(){

@@ -1,111 +1,6 @@
 @extends('layouts.master')
 @section('peminjaman', 'active')
 @section('content')
-<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true" >
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-height: 80%">
-        <div class="modal-content ">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Peminjaman Barang</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="height: 80vh; overflow-y: auto;">
-                <form action="" method="get" id="detailPeminjaman">
-                    @csrf
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="">Kode Peminjaman</label>
-                                <input type="text" disabled name="kode_barang" id="kode_peminjaman"class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Nama Peminjam</label>
-                                <input type="text" disabled name="kode_barang" id="nama_peminjam"class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="">NIP/NID/NIM/NIK</label>
-                                <input type="text" disabled name="kode_barang" id="no_identitas"class="form-control">
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="">Tanggal Pinjam</label>
-                                        <input type="text" disabled name="kode_barang" id="no_identitas"class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="">Tanggal Kembali</label>
-                                        <input type="text" disabled name="kode_barang" id="no_identitas"class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label >Tujuan Peminjaman</label>
-                        <textarea name="spek" disabled id="" class="form-control"></textarea>
-                    </div>
-                    <div class="table-responsive p-sm-1">
-                        <table class="table table-striped" id="tableDetail">
-                            <thead>
-                                <tr>
-                                    <th >No</th>
-                                    <th >Kode Inventaris</th>
-                                    <th >Nama Alat/Barang</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>31434312413434</td>
-                                    <td>Camera</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>31434312413434</td>
-                                    <td>HDMI</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>31434312413434</td>
-                                    <td>Camera</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>31434312413434</td>
-                                    <td>HDMI</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>31434312413434</td>
-                                    <td>Camera</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>31434312413434</td>
-                                    <td>HDMI</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-icon icon-left btn-danger" data-dismiss="modal"><i
-                        class="fas fa-times"></i>Batal</button>
-                <a href="{{ url('pengembalian/1') }}" class="btn btn-sm btn-icon icon-left btn-primary" data-toggle="tooltip" title="Pengembalian Barang">
-                     <i class="fas fa-undo"></i>Pengembalian
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
     <section class="section">
         <div class="section-header">
             <h1>Data Peminjaman</h1>
@@ -115,6 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-warning">Table Peminjaman</h4>
+                        @role('laboran')
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
@@ -122,6 +18,7 @@
                                 </div>
                             </form>
                         </div>
+                        @endrole
                     </div>
                     <div class="card-body">
                         <div class="table-responsive p-sm-1">
@@ -135,7 +32,9 @@
                                         <th>Tanggal Pinjam</th>
                                         <th>Tanggal Kembali</th>
                                         <th>Status</th>
+                                        @role('laboran')
                                         <th>Aksi</th>
+                                        @endrole
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -161,6 +60,7 @@
                                                 <td>{{ date('d-m-Y', strtotime($item->tglKembali)); }}</td>
                                             @endif
                                             <td>{{ $item->status }}</td>
+                                            @role('laboran')
                                             <td>
                                                 <form method="POST" action="{{ url('hapus/peminjaman/'.$item->id) }}">
                                                     @csrf
@@ -175,6 +75,7 @@
                                                     @endif
                                                 </form>
                                             </td>
+                                            @endrole
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -188,13 +89,29 @@
 @include('layouts.sweatalert')
 <script>
     $(document).ready(function(){
-        $('#myTable').DataTable();
-        $('#tableDetail').DataTable({
-        paging:false,
-        ordering:false,
-        info:false,
-        searching:false
-    });
+        $('#myTable').DataTable({
+        "autoWidth":false,
+        "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+        language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            },
+            dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                className: "btn btn-danger",
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+                }
+            }
+        ]
+         });
     });
 </script>
 <script type="text/javascript">

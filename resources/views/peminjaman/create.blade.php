@@ -53,7 +53,8 @@
 {{-- End Modal Tambah Barang --}}
 <section class="section">
     <div class="section-header">
-        <h1>Tambah Data Peminjaman</h1>
+        <a href="{{ url('peminjaman') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i class="fas fa-caret-left"></i></a>
+        <h1>Peminjaman</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -64,18 +65,17 @@
                 <div class="card-body">
                     <form action="{{ url('tambah/peminjaman') }}" method="POST">
                         @csrf
-                        <h6>Kamis, 20 Agustus 2022</h6><br>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Nama Peminjam</label>
-                                    <input type="text" name="nama_peminjam" class="form-control">
+                                    <input required type="text" name="nama_peminjam" class="form-control">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>No.Identitas (NID/NIP/NIM)</label>
-                                    <input type="text" name="no_identitas" class="form-control">
+                                    <input required type="text" name="no_identitas" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -106,11 +106,11 @@
                         <br>
                         <div class="form-group">
                             <label >Tujuan Peminjaman</label>
-                            <textarea name="tujuan_peminjaman" id="" class="form-control"></textarea>
+                            <textarea required name="tujuan_peminjaman" id="" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Tanggal Peminjaman</label>
-                            <input type="date" name="tanggal_pinjam" class="form-control">
+                            <input required type="date" name="tanggal_pinjam" class="form-control">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-warning btn-icon icon-left btn-warning float-right m-2"><i class="fas fa-save"></i>Simpan</button>

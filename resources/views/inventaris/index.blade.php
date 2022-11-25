@@ -25,7 +25,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="text-warning">Data Inventaris</h4>
+                            <h4 class="text-warning">Data Inventaris Non Komputer</h4>
+                            @role('laboran')
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
@@ -34,6 +35,7 @@
                                     </div>
                                 </form>
                             </div>
+                            @endrole
                         </div>
                         <div class="card-body">
                             <div class="float-right mb-2">
@@ -43,13 +45,24 @@
 
                                         <button name="button" value="cetak" type="submit"
                                             class="btn btn-primary icon-left text-white"><i class="fas fa-print"></i>
-                                            &nbsp; Cetak</button>
+                                            &nbsp; Cetak QR</button>
+                                        @role('laboran')
                                         <button name="button" value="hapus" type="submit"
                                             class="btn btn-danger icon-left text-white"><i class="fas fa-trash"></i>
                                             &nbsp; Hapus</button>
+                                        @endrole
                                     </form>
                                 </div>
                             </div>
+                            <form action="{{ url('laporan/print') }}" method="post">
+                                @csrf
+                                <div class="input-group">
+                                    <div class="form-group">
+                                        <input type="hidden" name="jenis_laporan" value="inventaris non-komputer">
+                                        <button type="submit" class="btn btn-danger btn-icon icon-left float-right m-2"><i class="fas fa-print"></i>Cetak Data</button>
+                                    </div>
+                                </div>
+                            </form>
                             <div class="table-responsive p-sm-1">
                                 <table class="table table-striped" id="myTable">
                                     <thead>
@@ -58,11 +71,12 @@
                                             <th>No</th>
                                             <th>Kode Inventaris</th>
                                             <th>Nama Barang</th>
+                                            <th>Merk</th>
                                             <th>Spesifikasi</th>
                                             <th>Lokasi</th>
                                             <th>Tanggal Pembelian</th>
-                                            <th>Status</th>
-
+                                            <th>Kondisi</th>
+                                            <th>Keterangan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -76,10 +90,12 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->kodeInventaris }}</td>
                                             <td>{{ $item->namaBarang }}</td>
+                                            <td>{{ $item->merk }}</td>
                                             <td>{{ $item->spesifikasi }}</td>
                                             <td>{{ $item->namaRuangan }}</td>
                                             <td>{{ date('d-m-Y', strtotime($item->tgl_pembelian)); }}</td>
-                                            <td>{{ $item->kondisi }}</td>
+                                            <td>{{ $item->kondisi ?? "-" }}</td>
+                                            <td>{{ $item->keterangan ?? "-" }}</td>
                                             <td>
                                                 <form method="POST" target="_blank"
                                                     action="{{ url('hapus/inventaris/'.$item->kodeInventaris) }}">
@@ -88,13 +104,15 @@
                                                     <a href="{{ url('detail/inventaris/'.$item->kodeInventaris) }}"
                                                         class="btn btn-sm btn-icon icon-left btn-info mb-2"><i
                                                             class="far fa-eye"></i> Detail</a>
+                                                    @role('laboran')
                                                     <a href="{{ url('edit/inventaris/'.$item->kodeInventaris) }}"
                                                         class="btn btn-sm btn-icon icon-left btn-primary mb-2"><i
                                                             class="far fa-edit"></i> Edit</a>
                                                     <button type="submit"
-                                                        class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                        class="btn btn-icon btn-sm icon-left mb-2 btn-danger show_confirm"
                                                         data-toggle="tooltip" title='Hapus'><i
                                                             class="fas fa-trash"></i>Hapus</button>
+                                                    @endrole
                                                 </form>
                                             </td>
                                         </tr>
@@ -114,6 +132,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="text-warning">Data Inventaris Peralatan Komputer</h4>
+                            @role('laboran')
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
@@ -121,7 +140,9 @@
                                     </div>
                                 </form>
                             </div>
+                            @endrole
                         </div>
+
                         <div class="card-body">
                             <div class="float-right mb-2">
                                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -129,14 +150,24 @@
                                         @csrf
                                         <button name="button" value="cetak" type="submit"
                                             class="btn btn-primary icon-left text-white"><i class="fas fa-print"></i>
-                                            &nbsp; Cetak</button>
+                                            &nbsp; Cetak QR</button>
+                                        @role('laboran')
                                         <button name="button" value="hapus" type="submit"
                                             class="btn btn-danger icon-left text-white"><i class="fas fa-trash"></i>
                                             &nbsp; Hapus</button>
+                                        @endrole
                                     </form>
                                 </div>
                             </div>
-                            <br><br>
+                            <form action="{{ url('laporan/print') }}" method="post">
+                                @csrf
+                                <div class="input-group">
+                                    <div class="form-group">
+                                        <input type="hidden" name="jenis_laporan" value="inventaris peralatan komputer">
+                                        <button type="submit" class="btn btn-danger btn-icon icon-left float-right m-2"><i class="fas fa-print"></i>Cetak Data</button>
+                                    </div>
+                                </div>
+                            </form>
                             {{-- tab --}}
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -198,15 +229,87 @@
 
     });
     $(document).ready(function () {
-        $('#myTable').DataTable();
-        $('#TableMotherboard').DataTable();
-        $('#tableKomputer').DataTable();
-        $('#tableProcessor').DataTable();
-        $('#tableRam').DataTable();
-        $('#tableStorage').DataTable();
-        $('#tableGpu').DataTable();
-        $('#tablePsu').DataTable();
-        $('#tableCasing').DataTable();
+        $("#myTable").DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#TableMotherboard').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableKomputer').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableProcessor').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableRam').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableStorage').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableGpu').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tablePsu').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
+        $('#tableCasing').DataTable({
+            "autoWidth":false,
+            "columnDefs": [
+                { "width": "5%", "targets": 0 }
+            ],
+            language: {
+                "url": "{{ url('admin/js/datatable-id.json') }}",
+            }
+        });
     });
 </script>
 <script type="text/javascript">

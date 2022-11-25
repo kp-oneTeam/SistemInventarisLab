@@ -3,7 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Detail Data Inventaris</h1>
+        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i class="fas fa-caret-left"></i></a>
+        <h1>Detail Motherboard</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -12,7 +13,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center">
-                                {!! QrCode::size(200)->generate(url('detail/inventaris/').$data->kodeInventaris); !!}
+                                {!! QrCode::size(100)->generate(url(env('NGROK_SERVER').'mobile/inventaris/peralatan_komputer/Motherboard/'.$data->id)); !!}
                             </div>
                         </div>
                         <div class="col-12">
@@ -91,7 +92,7 @@
                                         :
                                     </div>
                                     <div class="col-5">
-                                        {{ $data->memoriSlot }}Ghz
+                                        {{ $data->memoriSlot }}
                                     </div>
                                 </div>
                                 </p>
@@ -121,6 +122,20 @@
                                     </div>
                                 </div>
                                 </p>
+                                <p>
+                                <div class="row">
+                                    <div class="col-5">Kondisi</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-5">{{ $data->keterangan }}</div>
+                                </div>
+                            </p>
+                            <p>
+                                <div class="row">
+                                    <div class="col-5">Keterangan</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-5">{{ $data->keterangan }}</div>
+                                </div>
+                            </p>
                                 <p>
                                 <div class="row">
                                     <div class="col-5">

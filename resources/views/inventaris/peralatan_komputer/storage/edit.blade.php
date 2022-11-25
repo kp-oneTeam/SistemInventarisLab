@@ -3,8 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4"><i
-                class="fas fa-arrow-left"></i></a>
+        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i
+                class="fas fa-caret-left"></i></a>
         <h1>Edit Inventaris Storage</h1>
     </div>
     <div class="row">

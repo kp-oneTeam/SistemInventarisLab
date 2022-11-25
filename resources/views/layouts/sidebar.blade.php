@@ -14,8 +14,8 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-
-            <li class="menu-header">Master Data</li>
+            @role('laboran')
+                <li class="menu-header">Master Data</li>
             <li class="@yield('gedung')"><a class="nav-link" href="{{ url('gedung') }}">
                 <i class="fas fa-building"></i><span>Gedung</span></a></li>
             <li class="@yield('ruangan')"><a class="nav-link" href="{{ url('ruangan') }}"><i
@@ -23,17 +23,21 @@
                 <li class="@yield('barang')"><a class="nav-link" href="{{ url('barang') }}"><i class="fas fa-archive"></i> <span>Barang</span></a></li>
             <li class="@yield('vendor')"><a class="nav-link" href="{{ url('vendor') }}"><i
                             class="fas fa-tags"></i> <span>Vendor</span></a></li>
+            @endrole
+
             <li class="menu-header">Manajemen Inventaris</li>
             <li class="@yield('inventaris')"><a class="nav-link" href="{{ url('inventaris/non-komputer') }}"><i
                         class="fas fa-boxes"></i> <span>Inventaris</span></a></li>
             <li class="@yield('peminjaman')"><a class="nav-link" href="{{ url('peminjaman') }}"><i
                         class="fas fa-people-carry"></i> <span>Peminjaman</span></a></li>
+            @role('kepala lab')
             <li class="menu-header">Laporan</li>
             <li class="@yield('laporan')"><a class="nav-link" href="{{ url('laporan') }}"><i
                         class="fas fa-file-pdf"></i> <span>Laporan</span></a></li>
             <li class="menu-header">User Manajemen</li>
             <li class="@yield('users')"><a class="nav-link" href="{{ url('users') }}"><i
                         class="fas fa-users"></i> <span>Users</span></a></li>
+            @endrole
         </ul>
     </aside>
 </div>

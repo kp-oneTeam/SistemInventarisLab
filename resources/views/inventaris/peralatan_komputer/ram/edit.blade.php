@@ -3,9 +3,9 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4"><i
-                class="fas fa-arrow-left"></i></a>
-        <h1>Edit Data Inventaris Ram</h1>
+        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i
+                class="fas fa-caret-left"></i></a>
+        <h1>Edit RAM</h1>
     </div>
     <div class="row">
         <div class="col-12">

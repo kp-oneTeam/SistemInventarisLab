@@ -1,5 +1,7 @@
   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
   <!-- General JS Scripts -->
    <script src="{{ asset('admin/modules/popper.js')}}"></script>
   <script src="{{ asset('admin/modules/tooltip.js')}}"></script>

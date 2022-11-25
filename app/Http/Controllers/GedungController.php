@@ -15,25 +15,25 @@ class GedungController extends Controller
         return view('gedung.index',compact('data','title'));
     }
     public function tambah_gedung(request $request){
+        try {
         $saved = Gedung::create([
             'namaGedung' => $request->nama_gedung
         ]);
-        try {
             return redirect('gedung')->with('message','Data Berhasil Disimpan!');
         } catch (\Throwable $th) {
-            return redirect('gedung')->with('failed', 'Data Berhasil Disimpan!');
+            return redirect('gedung')->with('failed', 'Data Gagal Disimpan!');
         }
     }
     public function update_gedung($id,request $request)
     {
+        try {
         $gedung = Gedung::findOrFail($id);
         $saved = $gedung->update([
             'namaGedung' => $request->nama_gedung
         ]);
-        try {
             return redirect('gedung')->with('message', 'Data Berhasil Diubah!');
         } catch (\Throwable $th) {
-            return redirect('gedung')->with('failed', 'Data Berhasil Diubah!');
+            return redirect('gedung')->with('failed', 'Data Gagal Diubah!');
         }
     }
     public function hapus_gedung($id)

@@ -3,106 +3,101 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4"><i
-                class="fas fa-arrow-left"></i></a>
-        <h1>Detail Inventaris Storage</h1>
+        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i
+                class="fas fa-caret-left"></i></a>
+        <h1>Detail Storage</h1>
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-md-12  col-sm-12">
-                            <form action="{{ url('tambah/inventaris_peralatan_komputer/ram') }}" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="">Kode Inventaris</label>
-                                    <input disabled type="text" value="{{ $data->kodeInventaris }}" name="ki"
-                                        class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Nama / Merk Storage</label>
-                                    <input disabled type="text" value="{{ $data->namaStorage }}" name="nama_storage" class="form-control">
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Jenis Storage</label><small>(HDD/NVME/SSD)</small>
-                                            <select disabled name="jenis_storage" id="" class="form-control">
-                                                <option value="">{{ $data->jenisStorage }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Kapasitas Storage</label>
-                                            <div class="input-group">
-                                                <input disabled value="{{ $data->kapasitasStorage }}" type="number" min="1" name="kapasitas_storage"
-                                                    class="form-control" required>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon2">GB</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Lokasi</label>
-                                    <select disabled name="lokasi" class="form-control select2" required>
-                                        <option value="">{{$data->ruangan->namaRuangan}}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Vendor</label>
-                                    <select disabled name="vendor" class="form-control select2" required>
-                                        <option value="">{{ $data->vendor->namaVendor }}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Harga</label>
-                                    <input disabled value="{{ $data->harga }}" name="harga" id="rupiah" type="text"
-                                        class="form-control rupiah" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Tanggal Pembelian</label>
-                                    <input disabled value="{{ $data->tglPembelian }}" type="date" name="tanggal"
-                                        class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Kondisi</label>
-                                    <div class="selectgroup w-100">
-                                        @if ($data->kondisi == "Baik")
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Baik"
-                                                class="selectgroup-input" checked required>
-                                            <span class="selectgroup-button">Baik</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Rusak"
-                                                class="selectgroup-input" required>
-                                            <span class="selectgroup-button">Rusak</span>
-                                        </label>
-                                        @else
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Baik"
-                                                class="selectgroup-input" required>
-                                            <span class="selectgroup-button">Baik</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Rusak"
-                                                class="selectgroup-input" checked required>
-                                            <span class="selectgroup-button">Rusak</span>
-                                        </label>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Keterangan</label>
-                                    <textarea disabled name="keterangan_mb"
-                                        class="form-control">{{ $data->keterangan }}</textarea>
-                                </div>
-                            </form>
+                        <div class="col-12">
+                            <div class="text-center">
+                                {!! QrCode::size(200)->generate(url(env('NGROK_SERVER').'mobile/inventaris/peralatan_komputer/Storage/'.$data->id)); !!}
+                            </div>
                         </div>
+                        <div class="col-12">
+                            <div class="card-body">
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        Kode Inventaris
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->kodeInventaris }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        Nama / Merk Storage
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->namaStorage }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        Jenis Storage
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->jenisStorage }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        Kapasitas Storage
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->kapasitasStorage }} {{ $data->jenisKapasitasStorage }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-5">Lokasi</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-5">{{ $data->ruangan->namaRuangan }}</div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        Vendor
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->vendor->namaVendor }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        Harga
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ number_format($data->harga,0,".",".") }}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-12">
+                                <a href="{{ url('edit/inventaris-peralatan-komputer/storage/'.$data->id) }}"
+                                    class="btn btn-primary col-12">Ubah Data</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

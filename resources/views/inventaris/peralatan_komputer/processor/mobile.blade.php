@@ -3,7 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Detail Data Inventaris</h1>
+        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i class="fas fa-caret-left"></i></a>
+        <h1>Detail Processor</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -12,13 +13,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center">
-                                {!! QrCode::size(200)->generate(url('detail/inventaris/').$data->kodeInventaris); !!}
+                                {!! QrCode::size(100)->generate(url(env('NGROK_SERVER').'mobile/inventaris/peralatan_komputer/Processor/'.$data->id)); !!}
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="card-body">
-                                <p>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Kode Inventaris
                                     </div>
@@ -29,8 +29,7 @@
                                         {{ $data->kodeInventaris }}
                                     </div>
                                 </div>
-                                </p>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Nama / Merk Processor
                                     </div>
@@ -41,7 +40,7 @@
                                         {{ $data->namaProcessor }}
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Series
                                     </div>
@@ -52,7 +51,7 @@
                                         {{ $data->series }}
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Nomor Processor
                                     </div>
@@ -63,7 +62,7 @@
                                         {{ $data->nomorProcessor }}
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Generasi
                                     </div>
@@ -74,7 +73,7 @@
                                         {{ $data->generasi }}
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Kecepatan
                                     </div>
@@ -85,7 +84,7 @@
                                         {{ $data->kecepatan }}Ghz
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Core / Thread
                                     </div>
@@ -96,7 +95,7 @@
                                         {{ $data->jumlahCore }} Core / {{ $data->jumlahThread }} Thread
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Socket
                                     </div>
@@ -107,8 +106,12 @@
                                         {{ $data->socket }}
                                     </div>
                                 </div>
-                                <p>
-                                <div class="row">
+                                <div class="row mt-2">
+                                    <div class="col-5">Lokasi</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-5">{{ $data->ruangan->namaRuangan }}</div>
+                                </div>
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Vendor
                                     </div>
@@ -119,9 +122,7 @@
                                         {{ $data->vendor->namaVendor }}
                                     </div>
                                 </div>
-                                </p>
-                                <p>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Harga
                                     </div>
@@ -132,8 +133,6 @@
                                         {{ number_format($data->harga,0,".",".") }}
                                     </div>
                                 </div>
-                                </p>
-
                             </div>
                             <div class="col-12">
                                 <a href="{{ url('edit/inventaris-peralatan-komputer/processor/'.$data->id) }}"

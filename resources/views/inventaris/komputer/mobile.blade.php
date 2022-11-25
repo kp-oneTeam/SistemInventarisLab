@@ -12,59 +12,43 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                {!! QrCode::size(200)->generate(url(env('NGROK_SERVER').'mobile/inventaris/komputer/'.$data->id)); !!}
+                            </div>
+                        </div>
                         <div class="col-12 col-md-12  col-sm-12">
-                            <form action="{{ url('tambah/inventaris_peralatan_komputer/ram') }}" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="">Kode Inventaris</label>
-                                    <input disabled type="text" value="{{ $data->kodeInventarisKomputer }}" name="ki"
-                                        class="form-control">
+                            <div class="row mt-2">
+                                <div class="col-5">
+                                    Kode Inventaris
                                 </div>
-                                <div class="form-group">
-                                    <label>Lokasi</label>
-                                    <select disabled name="lokasi" class="form-control select2" required>
-                                        <option value="">{{$data->ruangan->namaRuangan}}</option>
-                                    </select>
+                                <div class="col-1">
+                                    :
                                 </div>
-                                <div class="form-group">
-                                    <label>Tanggal Perakitan</label>
-                                    <input disabled value="{{ $data->tanggal_perakitan }}" type="date" name="tanggal"
-                                        class="form-control" required>
+                                <div class="col-5">
+                                    {{ $data->kodeInventarisKomputer }}
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Kondisi</label>
-                                    <div class="selectgroup w-100">
-                                        @if ($data->kondisi == "Baik")
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Baik"
-                                                class="selectgroup-input" checked required>
-                                            <span class="selectgroup-button">Baik</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Rusak"
-                                                class="selectgroup-input" required>
-                                            <span class="selectgroup-button">Rusak</span>
-                                        </label>
-                                        @else
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Baik"
-                                                class="selectgroup-input" required>
-                                            <span class="selectgroup-button">Baik</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Rusak"
-                                                class="selectgroup-input" checked required>
-                                            <span class="selectgroup-button">Rusak</span>
-                                        </label>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Keterangan</label>
-                                    <textarea disabled name="keterangan_mb"
-                                        class="form-control">{{ $data->keterangan }}</textarea>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-5">Lokasi</div>
+                                <div class="col-1">:</div>
+                                <div class="col-5">{{ $data->ruangan->namaRuangan }}</div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-5">Tanggal Perakitan</div>
+                                <div class="col-1">:</div>
+                                <div class="col-5">{{ $data->tanggal_perakitan }}</div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-5">Kondisi</div>
+                                <div class="col-1">:</div>
+                                <div class="col-5">{{ $data->kondisi }}</div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-5">Keterangan</div>
+                                <div class="col-1">:</div>
+                                <div class="col-5">{{ $data->keterangan }}</div>
+                            </div>
                             @php
                                 $totalharga = 0;
                             @endphp
@@ -457,7 +441,7 @@
                                                     :
                                                 </div>
                                                 <div class="col-5">
-                                                    {{ $item->storage->kapasitasStorage }}GB
+                                                    {{ $item->storage->kapasitasStorage }} {{ $item->storage->jenisKapasitasStorage }}
                                                 </div>
                                             </div>
                                             <div class="row">

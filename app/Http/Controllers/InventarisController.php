@@ -22,11 +22,11 @@ class InventarisController extends Controller
 {
     //
     public function index(){
-        $title = "Data Inventaris Komputer";
+        $title = "Data Inventaris";
         $data = Inventaris::join('barang','barang.id','=','inventaris.idBarang')
             ->join('vendor', 'vendor.id', '=', 'inventaris.idVendor')
             ->join('ruangan', 'ruangan.id', '=', 'inventaris.idRuangan')
-            ->select('kodeInventaris','namaBarang','spesifikasi','kodeRuangan','namaRuangan','kondisi','keterangan','tgl_pembelian')
+            ->select('kodeInventaris','namaBarang','spesifikasi','merk','kodeRuangan','namaRuangan','kondisi','keterangan','tgl_pembelian')
             ->get();
         //Peralatan Komputer
         $motherboard = Motherboard::join('vendor', 'vendor.id', '=', 'inventaris_motherboard.idVendor')
@@ -63,7 +63,7 @@ class InventarisController extends Controller
     }
     public function form_tambah_inventaris()
     {
-        $title = "Tambah Inventaris";
+        $title = "Tambah Data Inventaris";
         $barang = Barang::get();
         $lokasi = Ruangan::get();
         $vendor = Vendor::get();
@@ -83,7 +83,7 @@ class InventarisController extends Controller
             'harga' => $harga,
             'tgl_pembelian' => $request->tanggal,
             'kondisi' => $request->kondisi,
-            'keterangan' => ($request->keterangan ?? "-")
+            'keterangan' => (empty($request->keterangan) ? "-" : $request->keterangan)
         ]);
         return redirect('/inventaris/non-komputer')->with('message', 'Data Berhasil Disimpan');
     }

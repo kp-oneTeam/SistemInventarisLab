@@ -11,7 +11,7 @@ class PeminjamanController extends Controller
 {
     //
     public function index(){
-        $title = "Manajemen Peminjaman";
+        $title = "Data Peminjam";
         $dataPeminjaman = Peminjaman::get();
         return view('peminjaman.index',compact('title', 'dataPeminjaman'));
     }
@@ -66,9 +66,9 @@ class PeminjamanController extends Controller
             $data = DetailPeminjaman::where('idPeminjaman',$id)->get();
             $index = 0;
             foreach ($data as $item) {
-                Inventaris::findOrFail($id)->update([
+                Inventaris::findOrFail($item->idInventaris)->update([
                     'kondisi' => $request->kondisi[$index],
-                    'keterangan' => $request->keterangan_inv[$index]
+                    'keterangan' => ($request->keterangan_inv[$index] ?? "-")
                 ]);
                 $index = $index + 1;
             }

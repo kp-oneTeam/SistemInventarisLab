@@ -112,6 +112,7 @@
                                     <th>Nama Vendor</th>
                                     <th>Nomor Telepon</th>
                                     <th>Alamat Vendor</th>
+                                    <th>Jumlah Inventaris</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -125,6 +126,7 @@
                                         <td>{{ $item->namaVendor }}</td>
                                         <td>{{ $item->teleponVendor }}</td>
                                         <td>{{ $item->alamatVendor }}</td>
+                                        <td>{{ $item->inventaris($item->id) }}</td>
                                         <td>
                                             <form method="POST" action="{{ url('hapus/vendor/'.$item->id) }}">
                                                 @csrf
@@ -135,9 +137,12 @@
                                                 <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editVendor" data-id="{{ $item->id }}" data-toggle="modal", data-target="#updateModal" >
                                                     <i class="far fa-edit" ></i>Edit
                                                     </button>
-                                                <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title="Hapus">
-                                                    <i class="fas fa-trash"></i>Hapus
-                                                </button>
+                                                @if ($item->inventaris($item->id) < 1)
+                                                <button type="submit"
+                                                class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
+                                                data-toggle="tooltip" title='Hapus'><i
+                                                    class="fas fa-trash"></i>Hapus</button>
+                                                @endif
                                             </form>
                                         </td>
                                     </tr>

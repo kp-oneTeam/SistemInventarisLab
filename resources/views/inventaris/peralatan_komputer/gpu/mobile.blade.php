@@ -3,7 +3,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Detail Data Inventaris</h1>
+        <h1>Detail GPU</h1>
     </div>
     <div class="row">
         <div class="col-12">
@@ -12,13 +12,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center">
-                                {!! QrCode::size(200)->generate(url('detail/inventaris/').$data->kodeInventaris); !!}
+                                {!! QrCode::size(100)->generate(url(env('NGROK_SERVER').'mobile/inventaris/peralatan_komputer/GPU/'.$data->id)); !!}
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="card-body">
-                                <p>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Kode Inventaris
                                     </div>
@@ -29,42 +28,45 @@
                                         {{ $data->kodeInventaris }}
                                     </div>
                                 </div>
-                                </p>
-                                <div class="row">
-                                                <div class="col-5">
-                                                    Nama / Merk GPU
-                                                </div>
-                                                <div class="col-1">
-                                                    :
-                                                </div>
-                                                <div class="col-5">
-                                                    {{ $data->namaGpu }}
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-5">
-                                                    Kapasitas Memory
-                                                </div>
-                                                <div class="col-1">
-                                                    :
-                                                </div>
-                                                <div class="col-5">
-                                                    {{ $data->ukuranMemori }}
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-5">
-                                                    Tipe Memory
-                                                </div>
-                                                <div class="col-1">
-                                                    :
-                                                </div>
-                                                <div class="col-5">
-                                                    {{ $data->tipeMemori }}
-                                                </div>
-                                            </div>
-                                <p>
-                                <div class="row">
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        Nama / Merk GPU
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->namaGpu }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        Kapasitas Memory
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->ukuranMemori }}GB
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        Tipe Memory
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->tipeMemori }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-5">Lokasi</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-5">{{ $data->ruangan->namaRuangan }}</div>
+                                </div>
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Vendor
                                     </div>
@@ -75,9 +77,7 @@
                                         {{ $data->vendor->namaVendor }}
                                     </div>
                                 </div>
-                                </p>
-                                <p>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-5">
                                         Harga
                                     </div>
@@ -88,7 +88,6 @@
                                         {{ number_format($data->harga,0,".",".") }}
                                     </div>
                                 </div>
-                                </p>
 
                             </div>
                             <div class="col-12">
@@ -96,7 +95,6 @@
                                     class="btn btn-primary col-12">Ubah Data</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

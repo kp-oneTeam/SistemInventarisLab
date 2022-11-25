@@ -36,15 +36,15 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="">Dari Tanggal</label>
-                                            <input type="date" name="dari_tanggal"  placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31" class="form-control">
+                                            <input type="date"  required name="dari_tanggal"  placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Sampai Tanggal</label>
-                                            <input type="date" name="sampai_tanggal" id="" class="form-control">
+                                            <input type="date" required  name="sampai_tanggal" id="" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Jenis Laporan</label>
-                                            <select name="jenis_laporan" id="" class="form-control">
+                                            <select required  name="jenis_laporan" id="" class="form-control">
                                                 <option value="Sedang dipinjam">Inventaris Yang Sedang Dipinjam</option>
                                                 <option value="Rusak">Inventaris Yang Rusak</option>
                                                 <option value="Baik">Inventaris Yang Normal</option>

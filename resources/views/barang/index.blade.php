@@ -92,6 +92,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Barang</th>
+                                    <th>Jumlah Inventaris</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -103,6 +104,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $item->namaBarang }}</td>
+                                    <td>{{ $item->inventaris($item->id) }}</td>
                                     <td>
                                         <form method="POST" action="{{ url('hapus/barang/'.$item->id) }}">
                                             @csrf
@@ -111,10 +113,12 @@
                                                     class="far fa-eye"></i> Detail</a>
                                             <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editBarang" data-id="{{ $item->id }}" data-toggle="modal" data-target="#updateModal">
                                                 <i class="far fa-edit" ></i> Edit</button>
-                                            <button type="submit"
+                                            @if ($item->inventaris($item->id) < 1)
+                                                <button type="submit"
                                                 class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
                                                 data-toggle="tooltip" title='Hapus'><i
                                                     class="fas fa-trash"></i>Hapus</button>
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>

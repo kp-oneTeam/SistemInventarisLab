@@ -3,72 +3,54 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <a href="{{ url('inventaris/komputer') }}" class="btn btn-warning mr-4"><i
-                class="fas fa-arrow-left"></i></a>
+        <a href="{{ url('inventaris/komputer') }}" class="btn btn-warning mr-4"><i class="fas fa-arrow-left"></i></a>
         <h1>Detail Inventaris Komputer</h1>
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card">
+                <div class="text-center mt-4">
+                    {!! QrCode::size(200)->generate(url(env('NGROK_SERVER').'mobile/inventaris/komputer/'.$data->id));
+                    !!}
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 col-md-12  col-sm-12">
-                            <form action="{{ url('tambah/inventaris_peralatan_komputer/ram') }}" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="">Kode Inventaris</label>
-                                    <input disabled type="text" value="{{ $data->kodeInventarisKomputer }}" name="ki"
-                                        class="form-control">
+                            <div class="row mt-2">
+                                <div class="col-3">
+                                    Kode Inventaris
                                 </div>
-                                <div class="form-group">
-                                    <label>Lokasi</label>
-                                    <select disabled name="lokasi" class="form-control select2" required>
-                                        <option value="">{{$data->ruangan->namaRuangan}}</option>
-                                    </select>
+                                <div class="col-1">
+                                    :
                                 </div>
-                                <div class="form-group">
-                                    <label>Tanggal Perakitan</label>
-                                    <input disabled value="{{ $data->tanggal_perakitan }}" type="date" name="tanggal"
-                                        class="form-control" required>
+                                <div class="col-5">
+                                    {{ $data->kodeInventarisKomputer }}
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Kondisi</label>
-                                    <div class="selectgroup w-100">
-                                        @if ($data->kondisi == "Baik")
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Baik"
-                                                class="selectgroup-input" checked required>
-                                            <span class="selectgroup-button">Baik</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Rusak"
-                                                class="selectgroup-input" required>
-                                            <span class="selectgroup-button">Rusak</span>
-                                        </label>
-                                        @else
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Baik"
-                                                class="selectgroup-input" required>
-                                            <span class="selectgroup-button">Baik</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Rusak"
-                                                class="selectgroup-input" checked required>
-                                            <span class="selectgroup-button">Rusak</span>
-                                        </label>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Keterangan</label>
-                                    <textarea disabled name="keterangan_mb"
-                                        class="form-control">{{ $data->keterangan }}</textarea>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-3">Lokasi</div>
+                                <div class="col-1">:</div>
+                                <div class="col-5">{{ $data->ruangan->namaRuangan }}</div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-3">Tanggal Perakitan</div>
+                                <div class="col-1">:</div>
+                                <div class="col-5">{{ $data->tanggal_perakitan }}</div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-3">Kondisi</div>
+                                <div class="col-1">:</div>
+                                <div class="col-5">{{ $data->kondisi }}</div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-3">Keterangan</div>
+                                <div class="col-1">:</div>
+                                <div class="col-5">{{ $data->keterangan }}</div>
+                            </div>
                             @php
-                                $totalharga = 0;
+                            $totalharga = 0;
                             @endphp
-                            <h4>Spesifikasi</h4>
+                            <h4 class="mt-4">Spesifikasi</h4>
                             <div class="row mt-2">
                                 <div class="col-6 col-md-6 col-sm-6">
                                     <div class="card card-primary">
@@ -174,7 +156,7 @@
                                                 <div class="col-6">
                                                     {{ number_format($data->motherboard->harga,0,".",".") }}
                                                     @php
-                                                        $totalharga = $data->motherboard->harga + $totalharga;
+                                                    $totalharga = $data->motherboard->harga + $totalharga;
                                                     @endphp
                                                 </div>
                                             </div>
@@ -261,7 +243,8 @@
                                                     :
                                                 </div>
                                                 <div class="col-6">
-                                                    {{ $data->processor->jumlahCore }} Core / {{ $data->processor->jumlahThread }} Thread
+                                                    {{ $data->processor->jumlahCore }} Core / {{
+                                                    $data->processor->jumlahThread }} Thread
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -296,7 +279,7 @@
                                                 <div class="col-6">
                                                     {{ number_format($data->processor->harga,0,".",".") }}
                                                     @php
-                                                        $totalharga = $data->processor->harga + $totalharga;
+                                                    $totalharga = $data->processor->harga + $totalharga;
                                                     @endphp
                                                 </div>
                                             </div>
@@ -304,8 +287,8 @@
                                     </div>
                                 </div>
                                 @php
-                                    $index_ram = 1;
-                                    $index_storage = 1;
+                                $index_ram = 1;
+                                $index_storage = 1;
                                 @endphp
                                 @foreach ($data->ram($data->id) as $item)
                                 <div class="col-6 col-md-6 col-sm-6">
@@ -401,7 +384,7 @@
                                                 <div class="col-6">
                                                     {{ number_format($item->rams->harga,0,".",".") }}
                                                     @php
-                                                        $totalharga = $item->rams->harga + $totalharga;
+                                                    $totalharga = $item->rams->harga + $totalharga;
                                                     @endphp
                                                 </div>
                                             </div>
@@ -457,7 +440,8 @@
                                                     :
                                                 </div>
                                                 <div class="col-6">
-                                                    {{ $item->storage->kapasitasStorage }}GB
+                                                    {{ $item->storage->kapasitasStorage }} {{
+                                                    $item->storage->jenisKapasitasStorage }}
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -481,7 +465,7 @@
                                                 <div class="col-6">
                                                     {{ number_format($item->storage->harga,0,".",".") }}
                                                     @php
-                                                        $totalharga = $item->storage->harga + $totalharga;
+                                                    $totalharga = $item->storage->harga + $totalharga;
                                                     @endphp
                                                 </div>
                                             </div>
@@ -560,7 +544,7 @@
                                                 <div class="col-6">
                                                     {{ number_format($data->gpu->harga,0,".",".") }}
                                                     @php
-                                                        $totalharga = $data->gpu->harga + $totalharga;
+                                                    $totalharga = $data->gpu->harga + $totalharga;
                                                     @endphp
                                                 </div>
                                             </div>
@@ -660,7 +644,7 @@
                                                 <div class="col-6">
                                                     {{ number_format($data->psu->harga,0,".",".") }}
                                                     @php
-                                                        $totalharga = $data->psu->harga + $totalharga;
+                                                    $totalharga = $data->psu->harga + $totalharga;
                                                     @endphp
                                                 </div>
                                             </div>
@@ -727,7 +711,7 @@
                                                 <div class="col-6">
                                                     {{ number_format($data->casing->harga,0,".",".") }}
                                                     @php
-                                                        $totalharga = $data->casing->harga + $totalharga;
+                                                    $totalharga = $data->casing->harga + $totalharga;
                                                     @endphp
                                                 </div>
                                             </div>

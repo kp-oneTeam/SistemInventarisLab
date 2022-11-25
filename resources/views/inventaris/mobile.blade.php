@@ -3,6 +3,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
+        <a href="{{ url('inventaris/non-komputer') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i class="fas fa-caret-left"></i></a>
         <h1>Detail Data Inventaris</h1>
     </div>
     <div class="row">
@@ -12,7 +13,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center">
-                            {!! QrCode::size(200)->generate(url('detail/inventaris/').$data->kodeInventaris); !!}
+                            {!! QrCode::size(200)->generate(url(env('NGROK_SERVER').'detail/inventaris/').$data->kodeInventaris); !!}
                         </div>
                         </div>
                         <div class="col-12">
@@ -42,6 +43,13 @@
                                     <div class="col-5">Lokasi</div>
                                     <div class="col-1">:</div>
                                     <div class="col-5">{{ $data->ruangan->namaRuangan }}</div>
+                                </div>
+                            </p>
+                            <p>
+                                <div class="row">
+                                    <div class="col-5">Merk</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-5">{{ $data->merk }}</div>
                                 </div>
                             </p>
                             <p>

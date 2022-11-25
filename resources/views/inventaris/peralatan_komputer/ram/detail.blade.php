@@ -3,126 +3,124 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4"><i
-                class="fas fa-arrow-left"></i></a>
-        <h1>Detail Inventaris RAM (Random Access Memory)</h1>
+        <a href="{{ url('inventaris/peralatan-komputer') }}" class="btn btn-warning mr-4 btn-icon icon-left"><i
+                class="fas fa-caret-left"></i></a>
+        <h1>Detail RAM</h1>
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-md-12  col-sm-12">
-                            <form action="{{ url('tambah/inventaris_peralatan_komputer/ram') }}" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="">Kode Inventaris</label>
-                                    <input disabled type="text" value="{{ $data->kodeInventaris }}" name="ki"
-                                        class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Nama / Merk Memory</label>
-                                    <input disabled type="text" value="{{ $data->namaMemory }}" name="nama_memory"
-                                        class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Jenis Memory</label><small>(DDR3/DDR4/DDR5)</small>
-                                    <input disabled type="text" value="{{ $data->jenisMemory }}" name="jenis_memory"
-                                        class="form-control">
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Tipe Memory</label>
-                                            <div class="input-group">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon2">PC</span>
-                                                </div>
-                                                <input disabled type="text" value="{{ $data->tipeMemory }}"
-                                                    name="tipe_memory" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Kapasitas Memory</label>
-                                            <div class="input-group">
-                                                <input disabled type="text" value="{{ $data->kapasitasMemory }}"
-                                                    name="kapasitas_memory" class="form-control">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon2">GB</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">Kecepatan / Frekuensi Memory</label>
-                                        <div class="input-group">
-                                            <input disabled type="text" value="{{ $data->frekuensiMemory }}"
-                                                name="frekuensi_memory" class="form-control">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">Hz</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Lokasi</label>
-                                    <select disabled name="lokasi" class="form-control select2" required>
-                                        <option value="">{{$data->ruangan->namaRuangan}}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Vendor</label>
-                                    <select disabled name="vendor" class="form-control select2" required>
-                                        <option value="">{{ $data->vendor->namaVendor }}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Harga</label>
-                                    <input disabled value="{{ $data->harga }}" name="harga" id="rupiah" type="text"
-                                        class="form-control rupiah" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Tanggal Pembelian</label>
-                                    <input disabled value="{{ $data->tglPembelian }}" type="date" name="tanggal"
-                                        class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Kondisi</label>
-                                    <div class="selectgroup w-100">
-                                        @if ($data->kondisi == "Baik")
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Baik"
-                                                class="selectgroup-input" checked required>
-                                            <span class="selectgroup-button">Baik</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Rusak"
-                                                class="selectgroup-input" required>
-                                            <span class="selectgroup-button">Rusak</span>
-                                        </label>
-                                        @else
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Baik"
-                                                class="selectgroup-input" required>
-                                            <span class="selectgroup-button">Baik</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input disabled type="radio" name="kondisi" value="Rusak"
-                                                class="selectgroup-input" checked required>
-                                            <span class="selectgroup-button">Rusak</span>
-                                        </label>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Keterangan</label>
-                                    <textarea disabled name="keterangan_mb"
-                                        class="form-control">{{ $data->keterangan }}</textarea>
-                                </div>
-                            </form>
+                        <div class="col-12">
+                            <div class="text-center">
+                                {!!
+                                QrCode::size(200)->generate(url(env('NGROK_SERVER').'mobile/inventaris/peralatan_komputer/RAM/'.$data->id));
+                                !!}
+                            </div>
                         </div>
+                        <div class="col-12">
+                            <div class="card-body">
+                                <div class="row mt-2">
+                                    <div class="col-3">
+                                        Kode Inventaris
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->kodeInventaris }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3">
+                                        Nama / Merk Memory
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->namaMemory }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3">
+                                        Jenis Memory
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->jenisMemory }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3">
+                                        Tipe Memory
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        PC{{ $data->tipeMemory }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3">
+                                        Kapasitas
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->kapasitasMemory }}GB
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3">
+                                        Frekuensi
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->frekuensiMemory }}Hz
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3">Lokasi</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-5">{{ $data->ruangan->namaRuangan }}</div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3">
+                                        Vendor
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ $data->vendor->namaVendor }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3">
+                                        Harga
+                                    </div>
+                                    <div class="col-1">
+                                        :
+                                    </div>
+                                    <div class="col-5">
+                                        {{ number_format($data->harga,0,".",".") }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <a href="{{ url('edit/inventaris-peralatan-komputer/ram/'.$data->id) }}"
+                                    class="btn btn-primary col-12">Ubah Data</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

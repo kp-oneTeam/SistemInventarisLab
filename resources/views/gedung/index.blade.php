@@ -88,6 +88,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Gedung</th>
+                                            <th>Jumlah Ruangan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -99,6 +100,7 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->namaGedung }}</td>
+                                            <td>{{ $item->ruangan($item->id)->count() }}</td>
                                             <td>
                                                 <form method="POST" action="{{ url('hapus/gedung/'.$item->id) }}">
                                                 @csrf
@@ -106,7 +108,9 @@
                                                 <button type="button" class="btn btn-sm btn-icon icon-left btn-primary btn_editgedung"  data-id="{{ $item->id }}" data-toggle="modal" data-target="#updateModal">
                                                     <i class="far fa-edit"></i> Edit
                                                 </button>
+                                                @if ($item->ruangan($item->id)->count() < 1)
                                                 <button type="submit" class="btn btn-icon btn-sm icon-left btn-danger show_confirm" data-toggle="tooltip" title='Hapus'><i class="fas fa-trash"></i>Hapus</button>
+                                                @endif
                                                 </form>
                                             </td>
                                         </tr>

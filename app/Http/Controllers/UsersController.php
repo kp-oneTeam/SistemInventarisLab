@@ -17,6 +17,7 @@ class UsersController extends Controller
     public function index()
     {
         //
+        $title = "Data Users";
         $data = User::get();
         return view('users.index',compact('data'));
     }
@@ -29,6 +30,7 @@ class UsersController extends Controller
     public function create()
     {
         //
+        $title = "Tambah Users";
         $role = Role::get();
         return view('users.create', compact('role'));
     }
@@ -56,14 +58,18 @@ class UsersController extends Controller
                 'role_id.required' => 'Silahkan pilih role',
             ]
         );
+        try {
+            $user = User::create([
+                'nama' => $request->nama,
+                'username' => $request->username,
+                'password' => bcrypt($request->password)
+            ]);
+            $user->assignRole($request->role_id);
+            return redirect('users')->with('message', 'Data Berhasil Disimpan!');
+        } catch (\Throwable $th) {
+            return redirect('users')->with('failed', 'Data Gagal Disimpan!');
+        }
 
-        $user = User::create([
-            'nama' => $request->nama,
-            'username' => $request->username,
-            'password' => bcrypt($request->password)
-        ]);
-        $user->assignRole($request->role_id);
-        return redirect('users')->with('message', 'Data Add Successfully');
     }
 
     /**
@@ -85,6 +91,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        $title ="Edit Users";
         $user = User::findOrFail($id);
         $userRole = $user->roles->first();
         $role = Role::get();
@@ -116,19 +123,16 @@ class UsersController extends Controller
             ]
 
         );
-        $user = User::find($id);
-
-        $saved = $user->update([
-            'nama' => $request->nama,
-            'username' => $request->username,
-            'password' => bcrypt($request->password)
-        ]);
-        if ($saved) {
-            DB::table('model_has_roles')->where('model_id', $id)->delete();
-            $user->assignRole($request->role_id);
-            return redirect('users')->with('message', 'Data Update Successfully');
-        } else {
-            return redirect('users')->with('message', 'Data Update Successfully');
+        try {
+            $user = User::find($id);
+            $saved = $user->update([
+                'nama' => $request->nama,
+                'username' => $request->username,
+                'password' => bcrypt($request->password)
+            ]);
+            return redirect('users')->with('message', 'Data Berhasil Diubah!');
+        } catch (\Throwable $th) {
+            return redirect('users')->with('failed', 'Data Gagal Diubah!');
         }
     }
 
@@ -140,8 +144,13 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect('users')->with('message', 'Data Delete Successfully');
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect('users')->with('message', 'Data Berhasil Dihapus!');
+        } catch (\Throwable $th) {
+            return redirect('users')->with('failed', 'Data Gagal Dihapus!');
+        }
+
     }
 }

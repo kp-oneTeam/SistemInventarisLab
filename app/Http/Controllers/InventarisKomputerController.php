@@ -143,15 +143,15 @@ class InventarisKomputerController extends Controller
      */
     public function detail($id)
     {
-        //
+        $title = "Detail Invetaris Komputer";
         $data = InventarisKomputer::findOrFail($id);
-        return view('inventaris.komputer.detail',compact('data'));
+        return view('inventaris.komputer.detail',compact('data','title'));
     }
     public function mobile($id)
     {
-        //
+        $title = "Detail Invetaris Komputer";
         $data = InventarisKomputer::findOrFail($id);
-        return view('inventaris.komputer.mobile', compact('data'));
+        return view('inventaris.komputer.mobile', compact('data','title'));
     }
 
     /**

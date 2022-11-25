@@ -126,6 +126,7 @@
                                     <th>Kode Ruangan</th>
                                     <th>Nama Ruangan</th>
                                     <th>Gedung</th>
+                                    <th>Jumlah Inventaris</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -139,6 +140,7 @@
                                     <td>{{ $item->kodeRuangan }}</td>
                                     <td>{{ $item->namaRuangan }}</td>
                                     <td>{{ $item->gedung->namaGedung }} </td>
+                                    <td>{{ $item->inventaris($item->id) }}</td>
                                     <td>
                                         <form method="POST" action="{{ url('hapus/ruangan/'.$item->id) }}">
                                             @csrf
@@ -152,10 +154,12 @@
                                                 data-toggle="modal" data-target="#updateModal" data-id="{{ $item->id }}">
                                                 <i class="far fa-edit"></i> Edit
                                             </button>
-                                            <button type="submit"
+                                            @if ($item->inventaris($item->id) < 1)
+                                                <button type="submit"
                                                 class="btn btn-icon btn-sm icon-left btn-danger show_confirm"
                                                 data-toggle="tooltip" title='Hapus'><i
                                                     class="fas fa-trash"></i>Hapus</button>
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>

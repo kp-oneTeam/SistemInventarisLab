@@ -104,10 +104,12 @@
                             {{ number_format($data->harga,0,".",".") }}
                         </div>
                     </div>
+                    @role('laboran')
                     <div class="col-12 mt-4">
                         <a href="{{ url('edit/inventaris-peralatan-komputer/psu/'.$data->id) }}"
                             class="btn btn-primary col-12">Ubah Data</a>
                     </div>
+                    @endrole
                 </div>
             </div>
         </div>

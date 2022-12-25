@@ -42,7 +42,7 @@
                                 <div class="row">
                                     <div class="col-3">Kondisi</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-5">{{ $data->keterangan }}</div>
+                                    <div class="col-5">{{ $data->kondisi }}</div>
                                 </div>
                             </p>
                             <p>
@@ -159,9 +159,11 @@
                                 </div>
                             </p>
                         </div>
+                        @role('laboran')
                         <div class="col-12">
                             <a href="{{ url('edit/inventaris/'.$data->kodeInventaris) }}" class="btn btn-primary col-12">Ubah Data</a>
                         </div>
+                        @endrole
                     </div>
 
                 </div>

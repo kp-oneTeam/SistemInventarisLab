@@ -201,7 +201,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Inventaris Yang Normal</h4>
+                            <h4>Inventaris Baik</h4>
                         </div>
                         <div class="card-body">
                             {{ $inv_baik ?? "0" }}

@@ -22,6 +22,7 @@ class PeminjamanController extends Controller
             'namaPeminjam' => $request->nama_peminjam,
             'tujuanPeminjaman' => $request->tujuan_peminjaman,
             'tglPeminjaman' => $request->tanggal_pinjam,
+            'tglKembali' => $request->tanggal_pengembalian,
             'status' => 'Sedang dipinjam'
         ]);
 
@@ -60,7 +61,6 @@ class PeminjamanController extends Controller
     public function pengembalian($id,request $request){
         try {
             Peminjaman::findOrFail($id)->update([
-                'tglKembali' => date('Y-m-d'),
                 'status' => "Sudah dikembalikan",
             ]);
             $data = DetailPeminjaman::where('idPeminjaman',$id)->get();

@@ -12,7 +12,13 @@ class DetailPeminjaman extends Model
     protected $guarded = [];
     public function inventaris($id)
     {
-        $data = Inventaris::findOrFail($id);
-        return $data;
+        try {
+            $data = Inventaris::findOrFail($id);
+            return $data;
+            //code...
+        } catch (\Throwable $th) {
+            return 0;
+            //throw $th;
+        }
     }
 }

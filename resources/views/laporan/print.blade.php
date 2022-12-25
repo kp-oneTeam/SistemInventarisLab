@@ -446,6 +446,18 @@ function format_hari_tanggal($waktu)
             @endif
         </tbody>
     </table>
+    <div style="display: flex;justify-content: end;margin-top: 50px;font-size: 25px">
+        Cimahi,{{ $today }}
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        {{ Auth::user()->nama }}
+    </div>
 </body>
 
 </html>

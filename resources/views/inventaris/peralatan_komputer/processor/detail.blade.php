@@ -138,10 +138,12 @@
                                 </div>
 
                             </div>
+                            @role('laboran')
                             <div class="col-12">
                                 <a href="{{ url('edit/inventaris-peralatan-komputer/processor/'.$data->id) }}"
                                     class="btn btn-primary col-12">Ubah Data</a>
                             </div>
+                            @endrole
                         </div>
 
                     </div>

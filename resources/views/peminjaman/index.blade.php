@@ -48,7 +48,15 @@
                                             <td>
                                                 {{-- <ul> --}}
                                                 @foreach ($item->detail_peminjaman($item->id) as $pinjaman)
-                                                    <li>{{ $pinjaman->inventaris($pinjaman->idInventaris)->kodeInventaris }} - {{ $pinjaman->inventaris($pinjaman->idInventaris)->barang->namaBarang  }}  - {{ $pinjaman->inventaris($pinjaman->idInventaris)->spesifikasi }}  </li>
+                                                    <li>
+                                                        @if ($pinjaman->inventaris($pinjaman->idInventaris) == "0")
+                                                        Inventaris Dihapus
+                                                        @else
+                                                        {{ $pinjaman->inventaris($pinjaman->idInventaris)->kodeInventaris }} -
+                                                        {{ $pinjaman->inventaris($pinjaman->idInventaris)->barang->namaBarang  }}  -
+                                                        {{ $pinjaman->inventaris($pinjaman->idInventaris)->spesifikasi }}
+                                                        @endif
+                                                    </li>
                                                 @endforeach
                                                 {{-- </ul> --}}
                                             </td>

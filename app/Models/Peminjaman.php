@@ -11,6 +11,11 @@ class Peminjaman extends Model
     protected $table = 'peminjaman';
     protected $guarded = [];
     public function detail_peminjaman($id){
-       return DetailPeminjaman::where('idPeminjaman',$id)->get();
+       try {
+            return DetailPeminjaman::where('idPeminjaman', $id)->get();
+       } catch (\Throwable $th) {
+        //throw $th;
+        return 0;
+       }
     }
 }

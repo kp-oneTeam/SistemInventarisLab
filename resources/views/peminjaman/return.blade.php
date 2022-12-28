@@ -16,7 +16,7 @@
                     <form action="{{ url('proses/pengembalian/'.$data->id) }}" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Kode Peminjaman</label>
                                     <input type="text" name="kode_peminjamamn" readonly value="{{ $data->kodePeminjaman }}" class="form-control">
@@ -26,6 +26,12 @@
                                 <div class="form-group">
                                     <label>Tanggal Piminjaman</label>
                                     <input type="date" name="tanggal_peminjaman" readonly value="{{ $data->tglPeminjaman }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Tanggal Kembali</label>
+                                    <input type="date" name="kembali" readonly value="{{ $data->tglKembali }}" class="form-control">
                                 </div>
                             </div>
                         </div>

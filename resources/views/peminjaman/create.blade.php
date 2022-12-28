@@ -108,9 +108,19 @@
                             <label >Tujuan Peminjaman</label>
                             <textarea required name="tujuan_peminjaman" id="" class="form-control"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label>Tanggal Peminjaman</label>
-                            <input required type="date" name="tanggal_pinjam" class="form-control">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tanggal Peminjaman</label>
+                                    <input required type="date" name="tanggal_pinjam" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tanggal Pengembalian</label>
+                                    <input required type="date" name="tanggal_pengembalian" class="form-control">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-warning btn-icon icon-left btn-warning float-right m-2"><i class="fas fa-save"></i>Simpan</button>

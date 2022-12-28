@@ -45,7 +45,7 @@
                                         <div class="form-group">
                                             <label for="">Jenis Laporan</label>
                                             <select required  name="jenis_laporan" id="" class="form-control">
-                                                <option value="Sedang dipinjam">Inventaris Yang Sedang Dipinjam</option>
+                                                <option value="Sedang dipinjam">Laporan Peminjaman</option>
                                                 <option value="Rusak">Inventaris Yang Rusak</option>
                                                 <option value="Baik">Inventaris Yang Normal</option>
                                                 <option value="all">Semua Inventaris</option>
